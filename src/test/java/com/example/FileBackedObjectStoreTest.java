@@ -1,8 +1,11 @@
 package com.example;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.Test;
 
@@ -18,7 +21,7 @@ public class FileBackedObjectStoreTest {
 	}
 
 	@Test
-	public void testBasicSerialization() throws IOException, IObjectStore.SerializationException {
+	public void testBasicSerialization() throws IOException, SerializationException {
 		File file = createNewFile();
 		IObjectStore objectStore = new FileBackedObjectStore(file);
 
@@ -52,6 +55,29 @@ public class FileBackedObjectStoreTest {
 		assertEquals(hello, back1);
 		Object back2 = objectStore2.get(key2);
 		assertEquals(num, back2);
+	}
+	
+	@Test
+	public void testStoreCollection() throws IOException, SerializationException {
+		File file = createNewFile();
+		IObjectStore objectStore = new FileBackedObjectStore(file);
+
+		String key = "names";
+		HashSet<String> names = new HashSet<String>();
+		names.add("Jack");
+		names.add("Mike");
+		objectStore.put(key, names);
+		objectStore.flush();
+
+		IObjectStore objectStore2 = new FileBackedObjectStore(file);
+		objectStore2.load();
+		Object back1 = objectStore2.get(key);
+		assertEquals(names, back1);
+		@SuppressWarnings("unchecked")
+		Set<String> set = (Set<String>)back1;
+		assertEquals(names.size(), set.size());
+		assertTrue(set.contains("Jack"));
+		assertTrue(set.contains("Mike"));
 	}
 
 }
