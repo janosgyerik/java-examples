@@ -3,6 +3,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
@@ -56,7 +58,7 @@ public class FileBackedObjectStoreTest {
 		Object back2 = objectStore2.get(key2);
 		assertEquals(num, back2);
 	}
-	
+
 	@Test
 	public void testStoreCollection() throws IOException, SerializationException {
 		File file = createNewFile();
@@ -80,4 +82,19 @@ public class FileBackedObjectStoreTest {
 		assertTrue(set.contains("Mike"));
 	}
 
+	@Test
+	public void testInitUsingStream() throws IOException, SerializationException {
+		File file = createNewFile();
+		IObjectStore objectStore = new FileBackedObjectStore(new FileOutputStream(file));
+
+		String key = "greeting";
+		String hello = "hello";
+		objectStore.put(key, hello);
+		objectStore.flush();
+
+		IObjectStore objectStore2 = new FileBackedObjectStore(new FileInputStream(file));
+		objectStore2.load();
+		Object back1 = objectStore2.get(key);
+		assertEquals(hello, back1);
+	}
 }
