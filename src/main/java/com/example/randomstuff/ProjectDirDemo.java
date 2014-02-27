@@ -1,4 +1,4 @@
-package com.example;
+package com.example.randomstuff;
 import java.io.File;
 
 

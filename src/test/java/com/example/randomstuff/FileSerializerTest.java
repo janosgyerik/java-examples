@@ -1,12 +1,14 @@
-package com.example;
+package com.example.randomstuff;
 import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.IOException;
 
+import com.example.randomstuff.FileSerializer;
+import com.example.randomstuff.ISerializer;
 import org.junit.Test;
 
-import com.example.ISerializer.SerializationException;
+import com.example.randomstuff.ISerializer.SerializationException;
 
 
 public class FileSerializerTest {

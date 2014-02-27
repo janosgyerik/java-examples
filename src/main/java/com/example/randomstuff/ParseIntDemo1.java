@@ -1,4 +1,4 @@
-package com.example;
+package com.example.randomstuff;
 
 public class ParseIntDemo1 {
 

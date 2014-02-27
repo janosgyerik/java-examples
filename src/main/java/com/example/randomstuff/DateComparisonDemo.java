@@ -1,4 +1,4 @@
-package com.example;
+package com.example.randomstuff;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;

@@ -1,4 +1,4 @@
-package com.example;
+package com.example.randomstuff;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
