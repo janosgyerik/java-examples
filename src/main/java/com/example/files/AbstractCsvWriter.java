@@ -45,8 +45,8 @@ public abstract class AbstractCsvWriter<T> implements ICsvWriter<T> {
     }
 
     private void writeHeader(BufferedWriter writer) throws IOException {
-        List<Object> headerColumns = getHeaderColumns();
-        if (!headerColumns.isEmpty()) {
+        Object[] headerColumns = getHeaderColumns();
+        if (headerColumns.length > 0) {
             writeLine(writer, toCsv(headerColumns));
         }
     }
@@ -61,19 +61,18 @@ public abstract class AbstractCsvWriter<T> implements ICsvWriter<T> {
         }
     }
 
-    private String toCsv(List<Object> columns) {
+    private String toCsv(Object[] columns) {
         StringBuilder builder = new StringBuilder();
-        Iterator<Object> iter = columns.iterator();
-        builder.append(iter.next());
-        while (iter.hasNext()) {
-            builder.append(separator).append(iter.next());
+        builder.append(columns[0]);
+        for (int i = 1; i < columns.length; ++i) {
+            builder.append(separator).append(columns[i]);
         }
         return builder.toString();
     }
 
-    protected List<Object> getHeaderColumns() {
-        return Collections.emptyList();
+    protected Object[] getHeaderColumns() {
+        return new Object[]{};
     }
 
-    protected abstract List<Object> getColumns(T item);
+    protected abstract Object[] getColumns(T item);
 }
