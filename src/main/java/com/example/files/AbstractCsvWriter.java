@@ -15,7 +15,7 @@ public abstract class AbstractCsvWriter<T> implements ICsvWriter<T> {
 
     private final String separator;
 
-    AbstractCsvWriter() {
+    public AbstractCsvWriter() {
         this(DEFAULT_SEPARATOR);
     }
 
