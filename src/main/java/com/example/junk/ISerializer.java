@@ -1,4 +1,4 @@
-package com.example.randomstuff;
+package com.example.junk;
 
 import java.io.Serializable;
 

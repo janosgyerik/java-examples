@@ -1,4 +1,4 @@
-package com.example.randomstuff;
+package com.example.junk;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -9,11 +9,9 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.example.randomstuff.FileBackedObjectStore;
-import com.example.randomstuff.IObjectStore;
 import org.junit.Test;
 
-import com.example.randomstuff.IObjectStore.SerializationException;
+import com.example.junk.IObjectStore.SerializationException;
 
 
 public class FileBackedObjectStoreTest {
