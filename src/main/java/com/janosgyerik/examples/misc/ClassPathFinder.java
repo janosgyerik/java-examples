@@ -3,7 +3,7 @@ package com.janosgyerik.examples.misc;
 
 import java.net.URL;
 
-class ClassPathFinder {
+public class ClassPathFinder {
 
     public URL getResourceUrl(String resourceName) {
         return getClass().getClassLoader().getResource(resourceName);
