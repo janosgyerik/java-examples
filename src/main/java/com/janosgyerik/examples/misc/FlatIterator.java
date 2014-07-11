@@ -4,10 +4,10 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Stack;
 
-public class FlatIterator implements Iterator<Object> {
+public class FlatIterator<E> implements Iterator<E> {
 
     private final Stack<Iterator<?>> stack = new Stack<>();
-    private Object nextItem;
+    private E nextItem;
 
     public FlatIterator(Iterable<?> iterable) {
         stack.push(iterable.iterator());
@@ -22,7 +22,8 @@ public class FlatIterator implements Iterator<Object> {
                 if (item instanceof Iterable) {
                     stack.push(((Iterable<?>) item).iterator());
                 } else {
-                    nextItem = item;
+                    //noinspection unchecked
+                    nextItem = (E) item;
                     break;
                 }
             } else {
@@ -35,7 +36,7 @@ public class FlatIterator implements Iterator<Object> {
         return !stack.isEmpty();
     }
 
-    public Object next() {
+    public E next() {
         if (stack.isEmpty()) {
             throw new NoSuchElementException();
         }

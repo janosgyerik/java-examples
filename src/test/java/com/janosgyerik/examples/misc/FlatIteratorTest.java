@@ -13,13 +13,13 @@ public class FlatIteratorTest {
 
     @Test
     public void testEmpty() {
-        FlatIterator iter = new FlatIterator(Arrays.asList());
+        FlatIterator<Object> iter = new FlatIterator<>(Arrays.asList());
         assertFalse(iter.hasNext());
     }
 
     @Test
     public void testSingletonList() {
-        FlatIterator iter = new FlatIterator(Arrays.asList(3));
+        FlatIterator<Integer> iter = new FlatIterator<>(Arrays.asList(3));
         assertTrue(iter.hasNext());
         iter.next();
         assertFalse(iter.hasNext());
@@ -27,14 +27,14 @@ public class FlatIteratorTest {
 
     @Test(expected = NoSuchElementException.class)
     public void testAccessBeyond() {
-        new FlatIterator(Arrays.asList()).next();
+        new FlatIterator<>(Arrays.asList()).next();
     }
 
     @Test
     public void testAdvanceWithoutHasNext() {
         Integer num = 3;
         List<Integer> list = Arrays.asList(num);
-        FlatIterator iter = new FlatIterator(list);
+        FlatIterator<Integer> iter = new FlatIterator<>(list);
         assertEquals(num, iter.next());
         assertFalse(iter.hasNext());
     }
@@ -43,7 +43,7 @@ public class FlatIteratorTest {
     public void testNullElements() {
         Integer num = 3;
         List<Integer> listWithNull = Arrays.asList(num, null);
-        FlatIterator iter = new FlatIterator(listWithNull);
+        FlatIterator<Integer> iter = new FlatIterator<>(listWithNull);
         assertEquals(num, iter.next());
         assertNull(iter.next());
         assertFalse(iter.hasNext());
@@ -52,7 +52,7 @@ public class FlatIteratorTest {
     @Test
     public void testIteratorCount() {
         List<Integer> list = Arrays.asList(3, null, 4, 5);
-        FlatIterator iter = new FlatIterator(list);
+        FlatIterator<Integer> iter = new FlatIterator<>(list);
         int count = 0;
         while (iter.hasNext()) {
             ++count;
@@ -67,7 +67,7 @@ public class FlatIteratorTest {
         mixed.add(3);
         mixed.add("hello");
         mixed.add(null);
-        FlatIterator iter = new FlatIterator(mixed);
+        FlatIterator<Object> iter = new FlatIterator<>(mixed);
         iter.next();
         iter.next();
         iter.next();
@@ -87,7 +87,7 @@ public class FlatIteratorTest {
                 Arrays.asList(),
                 Arrays.asList(13, 14)
         );
-        FlatIterator iter = new FlatIterator(nested);
+        FlatIterator<Object> iter = new FlatIterator<>(nested);
         for (int i = 1; i <= 14; ++i) {
             assertTrue(iter.hasNext());
             assertEquals(i, iter.next());
