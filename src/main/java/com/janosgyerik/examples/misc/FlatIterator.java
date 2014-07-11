@@ -5,14 +5,14 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Stack;
 
-public class FlatIterator<E> implements Iterator<E> {
-    private final Stack<Iterator<E>> stack = new Stack<>();
-    private Iterator<E> current;
-    private E nextItem = null;
+public class FlatIterator implements Iterator<Object> {
+    private final Stack<Iterator<?>> stack = new Stack<>();
+    private Iterator<?> current;
+    private Object nextItem = null;
     private boolean hasNextItem = false;
     private boolean advance = true;
 
-    public FlatIterator(List<E> list) {
+    public FlatIterator(List<?> list) {
         current = list.iterator();
     }
 
@@ -22,10 +22,10 @@ public class FlatIterator<E> implements Iterator<E> {
             advance = false;
             while (true) {
                 if (current.hasNext()) {
-                    E item = current.next();
+                    Object item = current.next();
                     if (item instanceof Iterable) {
                         stack.push(current);
-                        current = ((Iterable<E>) item).iterator();
+                        current = ((Iterable<?>) item).iterator();
                     } else {
                         hasNextItem = true;
                         nextItem = item;
@@ -44,7 +44,7 @@ public class FlatIterator<E> implements Iterator<E> {
     }
 
     @Override
-    public E next() {
+    public Object next() {
         if (hasNext() && hasNextItem) {
             advance = true;
             return nextItem;
