@@ -1,54 +1,48 @@
 package com.janosgyerik.examples.misc;
 
 import java.util.Iterator;
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Stack;
 
 public class FlatIterator implements Iterator<Object> {
+
     private final Stack<Iterator<?>> stack = new Stack<>();
-    private Iterator<?> current;
-    private Object nextItem = null;
-    private boolean hasNextItem = false;
-    private boolean advance = true;
+    private Object nextItem;
 
-    public FlatIterator(List<?> list) {
-        current = list.iterator();
+    public FlatIterator(Iterable<?> iterable) {
+        stack.push(iterable.iterator());
+        moveToNext();
     }
 
-    @Override
-    public boolean hasNext() {
-        if (advance) {
-            advance = false;
-            while (true) {
-                if (current.hasNext()) {
-                    Object item = current.next();
-                    if (item instanceof Iterable) {
-                        stack.push(current);
-                        current = ((Iterable<?>) item).iterator();
-                    } else {
-                        hasNextItem = true;
-                        nextItem = item;
-                        break;
-                    }
+    private void moveToNext() {
+        do {
+            Iterator<?> iter = stack.peek();
+            if (iter.hasNext()) {
+                Object item = iter.next();
+                if (item instanceof Iterable) {
+                    stack.push(((Iterable<?>) item).iterator());
                 } else {
-                    if (stack.empty()) {
-                        hasNextItem = false;
-                        break;
-                    }
-                    current = stack.pop();
+                    nextItem = item;
+                    break;
                 }
+            } else {
+                stack.pop();
             }
-        }
-        return hasNextItem;
+        } while (!stack.isEmpty());
     }
 
-    @Override
+    public boolean hasNext() {
+        return !stack.isEmpty();
+    }
+
     public Object next() {
-        if (hasNext() && hasNextItem) {
-            advance = true;
-            return nextItem;
+        if (stack.isEmpty()) {
+            throw new NoSuchElementException();
         }
-        throw new NoSuchElementException();
+        try {
+            return nextItem;
+        } finally {
+            moveToNext();
+        }
     }
 }
