@@ -3,7 +3,7 @@ package com.janosgyerik.examples.files;
 import java.io.*;
 import java.util.Collection;
 
-public abstract class AbstractCsvWriter<T> implements ICsvWriter<T> {
+public abstract class AbstractCsvWriter<T> implements CsvWriter<T> {
 
     private static final String DEFAULT_NEWLINE = System.getProperty("line.separator");
     private static final String DEFAULT_SEPARATOR = ",";
