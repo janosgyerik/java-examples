@@ -6,7 +6,7 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import com.janosgyerik.examples.junk.ISerializer.SerializationException;
+import com.janosgyerik.examples.junk.Serializer.SerializationException;
 
 
 public class FileSerializerTest {
@@ -19,7 +19,7 @@ public class FileSerializerTest {
 	@Test
 	public void testBasicSerialization() throws SerializationException, IOException {
 		File file = createNewFile();
-		ISerializer serializer = new FileSerializer(file);
+		Serializer serializer = new FileSerializer(file);
 		
 		String hello = "hello";
 		serializer.save(hello);

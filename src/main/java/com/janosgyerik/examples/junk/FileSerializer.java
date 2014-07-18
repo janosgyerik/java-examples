@@ -14,7 +14,7 @@ import java.io.Serializable;
  * @author janos
  *
  */
-public class FileSerializer implements ISerializer {
+public class FileSerializer implements Serializer {
 	
 	private final File file;
 

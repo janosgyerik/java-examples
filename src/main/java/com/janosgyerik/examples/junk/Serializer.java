@@ -2,7 +2,7 @@ package com.janosgyerik.examples.junk;
 
 import java.io.Serializable;
 
-public interface ISerializer {
+public interface Serializer {
 	
 	void save(Serializable object) throws SerializationException;
 	
