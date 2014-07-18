@@ -17,32 +17,30 @@ public class SimpleArchiver {
         return new File(targetDir, datepart + "_" + source.getName());
     }
 
-    private boolean prepareTargetDir() {
+    private void prepareTargetDir() throws IOException {
         if (!targetDir.isDirectory()) {
             if (!targetDir.mkdirs()) {
-                return false;
+                throw new IOException("Could not create target directory: " + targetDir);
             }
         }
-        return true;
     }
 
-    public boolean copyWithDate(File source) throws IOException {
-        if (prepareTargetDir()) {
-            File target = getTargetWithDate(source);
-            return copy(source, target);
+    public void copyWithDate(File source) throws IOException {
+        prepareTargetDir();
+        File target = getTargetWithDate(source);
+        copy(source, target);
+    }
+
+    public void moveWithDate(File source) throws IOException {
+        prepareTargetDir();
+        File target = getTargetWithDate(source);
+        copy(source, target);
+        if (!source.delete()) {
+            throw new IOException("Could not delete source: " + source);
         }
-        return false;
     }
 
-    public boolean moveWithDate(File source) throws IOException {
-        if (prepareTargetDir()) {
-            File target = getTargetWithDate(source);
-            return copy(source, target) && source.delete();
-        }
-        return false;
-    }
-
-    private boolean copy(File source, File target) throws IOException {
+    private void copy(File source, File target) throws IOException {
         InputStream input = null;
         OutputStream output = null;
         try {
@@ -61,6 +59,5 @@ public class SimpleArchiver {
                 output.close();
             }
         }
-        return true;
     }
 }
