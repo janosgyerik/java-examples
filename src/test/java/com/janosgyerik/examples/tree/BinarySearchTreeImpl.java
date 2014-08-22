@@ -43,6 +43,33 @@ public class BinarySearchTreeImpl<T extends Comparable<T>> implements BinarySear
 	}
 
 	@Override
+	public boolean contains(T item) {
+		return false;
+	}
+
+	@Override
+	public void remove(T item) {
+
+	}
+
+	@Override
+	public int size() {
+		return 0;
+	}
+
+	@Override
+	public int height() {
+		return height(root);
+	}
+
+	private int height(BinaryTreeNode<T> node) {
+		if (node == null) {
+			return 0;
+		}
+		return 1 + Math.max(height(node.getLeft()), height(node.getRight()));
+	}
+
+	@Override
 	public List<T> toList() {
 		if (root == null) {
 			return Collections.emptyList();
