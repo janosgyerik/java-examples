@@ -9,7 +9,7 @@ import java.util.Random;
 
 import static org.junit.Assert.assertEquals;
 
-public class BinaryTreeImplTest {
+public class BinarySearchTreeImplTest {
 	@Test
 	public void testOrdering() {
 		assertEquals(Arrays.asList(5, 10, 15), toTree(15, 5, 10).toList());
@@ -47,12 +47,12 @@ public class BinaryTreeImplTest {
 		return toTree(nums).toList();
 	}
 
-	private BinaryTreeImpl<Integer> toTree(Integer... nums) {
+	private BinarySearchTreeImpl<Integer> toTree(Integer... nums) {
 		return toTree(Arrays.asList(nums));
 	}
 
-	private BinaryTreeImpl<Integer> toTree(Iterable<Integer> nums) {
-		BinaryTreeImpl<Integer> tree = new BinaryTreeImpl<>();
+	private BinarySearchTreeImpl<Integer> toTree(Iterable<Integer> nums) {
+		BinarySearchTreeImpl<Integer> tree = new BinarySearchTreeImpl<>();
 		tree.add(nums);
 		return tree;
 	}

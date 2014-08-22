@@ -2,7 +2,7 @@ package com.janosgyerik.examples.tree;
 
 import java.util.*;
 
-public class BinaryTreeImpl<T extends Comparable<T>> implements BinaryTree<T> {
+public class BinarySearchTreeImpl<T extends Comparable<T>> implements BinarySearchTree<T> {
 
 	private BinaryTreeNode<T> root = null;
 
