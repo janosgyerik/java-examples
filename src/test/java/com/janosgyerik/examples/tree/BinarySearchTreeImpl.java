@@ -71,21 +71,17 @@ public class BinarySearchTreeImpl<T extends Comparable<T>> implements BinarySear
 
 	@Override
 	public List<T> toList() {
-		if (root == null) {
-			return Collections.emptyList();
-		}
 		return toList(root);
 	}
 
 	private List<T> toList(BinaryTreeNode<T> node) {
+		if (node == null) {
+			return Collections.emptyList();
+		}
 		List<T> list = new ArrayList<>();
-		if (node.getLeft() != null) {
-			list.addAll(toList(node.getLeft()));
-		}
+		list.addAll(toList(node.getLeft()));
 		list.add(node.getData());
-		if (node.getRight() != null) {
-			list.addAll(toList(node.getRight()));
-		}
+		list.addAll(toList(node.getRight()));
 		return list;
 	}
 
