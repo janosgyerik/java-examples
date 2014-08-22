@@ -9,7 +9,7 @@ public class BinaryTreeImpl<T extends Comparable<T>> implements BinaryTree<T> {
 	@Override
 	public void add(T item) {
 		if (root == null) {
-			root = new BinaryTreeNode<T>(item);
+			root = new BinaryTreeNode<>(item);
 		} else {
 			add(root, item);
 		}
@@ -22,13 +22,13 @@ public class BinaryTreeImpl<T extends Comparable<T>> implements BinaryTree<T> {
 		}
 		if (cmp < 0) {
 			if (node.getLeft() == null) {
-				node.setLeft(new BinaryTreeNode<T>(data));
+				node.setLeft(new BinaryTreeNode<>(data));
 			} else {
 				add(node.getLeft(), data);
 			}
 		} else {
 			if (node.getRight() == null) {
-				node.setRight(new BinaryTreeNode<T>(data));
+				node.setRight(new BinaryTreeNode<>(data));
 			} else {
 				add(node.getRight(), data);
 			}
