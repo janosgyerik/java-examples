@@ -54,7 +54,14 @@ public class BinarySearchTreeImpl<T extends Comparable<T>> implements BinarySear
 
 	@Override
 	public int size() {
-		return 0;
+		return size(root);
+	}
+
+	private int size(BinaryTreeNode<T> node) {
+		if (node == null) {
+			return 0;
+		}
+		return 1 + size(node.getLeft()) + size(node.getRight());
 	}
 
 	@Override

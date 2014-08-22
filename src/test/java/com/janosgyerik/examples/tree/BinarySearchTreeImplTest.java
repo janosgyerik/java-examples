@@ -52,6 +52,19 @@ public class BinarySearchTreeImplTest {
 	}
 
 	@Test
+	public void testSize() {
+		assertEquals(1, toTree(3).size());
+		assertEquals(1, toTree(3, 3, 3).size());
+		assertEquals(2, toTree(3, 4).size());
+		assertEquals(3, toTree(3, 4, 5).size());
+		assertEquals(4, toTree(3, 4, 5, 6).size());
+		assertEquals(5, toTree(3, 4, 5, 6, 7).size());
+		assertEquals(5, toTree(5, 3, 4, 6, 7).size());
+		assertEquals(7, toTree(1, 2, 3, 4, 5, 6, 7).size());
+		assertEquals(7, toTree(4, 2, 1, 3, 6, 5, 7).size());
+	}
+
+	@Test
 	public void testToString() {
 		assertEquals("[[null],3,[[null],4,[[null],5,[[null],6,[[null],7,[null]]]]]]", toTree(3, 4, 5, 6, 7).toString());
 		assertEquals("[[[[null],1,[null]],2,[[null],3,[null]]],4,[[[null],5,[null]],6,[[null],7,[null]]]]", toTree(4, 2, 1, 3, 6, 5, 7).toString());
