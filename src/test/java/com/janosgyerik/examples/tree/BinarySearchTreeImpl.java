@@ -93,4 +93,22 @@ public class BinarySearchTreeImpl<T extends Comparable<T>> implements BinarySear
 	public void rebalance() {
 
 	}
+
+	@Override
+	public String toString() {
+		return toString(root);
+	}
+
+	private String toString(BinaryTreeNode<T> node) {
+		StringBuilder builder = new StringBuilder("[");
+		if (node == null) {
+			builder.append((String)null).append("]");
+			return builder.toString();
+		}
+		builder.append(toString(node.getLeft()));
+		builder.append(",").append(node.getData()).append(",");
+		builder.append(toString(node.getRight()));
+		builder.append("]");
+		return builder.toString();
+	}
 }

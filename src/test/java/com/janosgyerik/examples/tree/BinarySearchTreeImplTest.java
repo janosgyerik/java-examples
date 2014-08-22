@@ -47,7 +47,14 @@ public class BinarySearchTreeImplTest {
 		assertEquals(4, toTree(3, 4, 5, 6).height());
 		assertEquals(5, toTree(3, 4, 5, 6, 7).height());
 		assertEquals(3, toTree(5, 3, 4, 6, 7).height());
+		assertEquals(7, toTree(1, 2, 3, 4, 5, 6, 7).height());
 		assertEquals(3, toTree(4, 2, 1, 3, 6, 5, 7).height());
+	}
+
+	@Test
+	public void testToString() {
+		assertEquals("[[null],3,[[null],4,[[null],5,[[null],6,[[null],7,[null]]]]]]", toTree(3, 4, 5, 6, 7).toString());
+		assertEquals("[[[[null],1,[null]],2,[[null],3,[null]]],4,[[[null],5,[null]],6,[[null],7,[null]]]]", toTree(4, 2, 1, 3, 6, 5, 7).toString());
 	}
 
 	private List<Integer> toTreeToList(Integer... nums) {
