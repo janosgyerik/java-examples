@@ -57,6 +57,18 @@ public class BinarySearchTreeImplTest {
 	}
 
 	@Test
+	public void testRemoving321() {
+		BinarySearchTreeImpl<Integer> tree = toTree(4, 3, 1, 5, 6, 2, 3, 7);
+		assertEquals(Arrays.asList(1, 2, 3, 4, 5, 6, 7), tree.toList());
+		assertTrue(tree.remove(3));
+		assertEquals(Arrays.asList(1, 2, 4, 5, 6, 7), tree.toList());
+		assertTrue(tree.remove(2));
+		assertEquals(Arrays.asList(1, 4, 5, 6, 7), tree.toList());
+		assertTrue(tree.remove(1));
+		assertEquals(Arrays.asList(4, 5, 6, 7), tree.toList());
+	}
+
+	@Test
 	public void testRemovingAll() {
 		BinarySearchTreeImpl<Integer> tree = toTree(4, 3, 1, 5, 6, 2, 3, 7);
 		assertEquals(Arrays.asList(1, 2, 3, 4, 5, 6, 7), tree.toList());
