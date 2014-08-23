@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Random;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class BinarySearchTreeImplTest {
 	@Test
@@ -37,6 +39,16 @@ public class BinarySearchTreeImplTest {
 		assertEquals(Arrays.asList(3, 4), toTree(3, 4, 4).toList());
 		assertEquals(Arrays.asList(3, 4), toTree(4, 3, 4, 4).toList());
 		assertEquals(Arrays.asList(3, 4), toTree(4, 4, 3, 4, 4).toList());
+	}
+
+	@Test
+	public void testContains() {
+		assertTrue(toTree(3).contains(3));
+		assertTrue(toTree(3, 4, 5).contains(4));
+		assertTrue(toTree(3, 4, 5).contains(5));
+		assertTrue(toTree(3, 4, 5).contains(3));
+		assertFalse(toTree(3, 4, 5).contains(6));
+		assertFalse(toTree(3, 4, 5).contains(null));
 	}
 
 	@Test

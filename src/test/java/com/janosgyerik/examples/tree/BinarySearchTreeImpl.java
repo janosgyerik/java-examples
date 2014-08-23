@@ -44,7 +44,17 @@ public class BinarySearchTreeImpl<T extends Comparable<T>> implements BinarySear
 
 	@Override
 	public boolean contains(T item) {
-		return false;
+		return contains(root, item);
+	}
+
+	public boolean contains(BinaryTreeNode<T> node, T item) {
+		if (node == null) {
+			return false;
+		}
+		if (node.getData().equals(item)) {
+			return true;
+		}
+		return contains(node.getLeft(), item) || contains(node.getRight(), item);
 	}
 
 	@Override
@@ -105,7 +115,7 @@ public class BinarySearchTreeImpl<T extends Comparable<T>> implements BinarySear
 	private String toString(BinaryTreeNode<T> node) {
 		StringBuilder builder = new StringBuilder("[");
 		if (node == null) {
-			builder.append((String)null).append("]");
+			builder.append((String) null).append("]");
 			return builder.toString();
 		}
 		builder.append(toString(node.getLeft()));
