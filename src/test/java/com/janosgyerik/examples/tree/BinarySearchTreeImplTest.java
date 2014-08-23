@@ -142,4 +142,23 @@ public class BinarySearchTreeImplTest {
 		}
 		// No StackOverflowError, thanks to tail recursive implementation
 	}
+
+	@Test(expected = StackOverflowError.class)
+	public void testListingIsNotTailRecursive() {
+		BinarySearchTreeImpl<Integer> tree = new BinarySearchTreeImpl<>();
+		for (int i = 0; i < 10000; ++i) {
+			tree.add(i);
+		}
+		assertEquals(11, tree.toList().size());
+	}
+
+	@Test
+	public void testSizeIsNotTailRecursive() {
+		int N = 10000;
+		BinarySearchTreeImpl<Integer> tree = new BinarySearchTreeImpl<>();
+		for (int i = 0; i < N; ++i) {
+			tree.add(i);
+		}
+		assertEquals(N, tree.size());
+	}
 }
