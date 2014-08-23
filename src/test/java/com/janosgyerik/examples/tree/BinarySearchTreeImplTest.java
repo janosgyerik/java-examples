@@ -128,8 +128,8 @@ public class BinarySearchTreeImplTest {
 
 	@Test
 	public void testToString() {
-		assertEquals("[[null],3,[[null],4,[[null],5,[[null],6,[[null],7,[null]]]]]]", toTree(3, 4, 5, 6, 7).toString());
-		assertEquals("[[[[null],1,[null]],2,[[null],3,[null]]],4,[[[null],5,[null]],6,[[null],7,[null]]]]", toTree(4, 2, 1, 3, 6, 5, 7).toString());
+		assertEquals("[null,3,[null,4,[null,5,[null,6,[null,7,null]]]]]", toTree(3, 4, 5, 6, 7).toString());
+		assertEquals("[[[null,1,null],2,[null,3,null]],4,[[null,5,null],6,[null,7,null]]]", toTree(4, 2, 1, 3, 6, 5, 7).toString());
 	}
 
 	private List<Integer> toTreeToList(Iterable<Integer> nums) {

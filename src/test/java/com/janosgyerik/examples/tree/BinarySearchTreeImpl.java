@@ -175,15 +175,11 @@ public class BinarySearchTreeImpl<T extends Comparable<T>> implements BinarySear
 	}
 
 	private String toString(BinaryTreeNode<T> node) {
-		StringBuilder builder = new StringBuilder("[");
 		if (node == null) {
-			builder.append((String) null).append("]");
-			return builder.toString();
+			return null;
 		}
-		builder.append(toString(node.getLeft()));
-		builder.append(",").append(node.getData()).append(",");
-		builder.append(toString(node.getRight()));
-		builder.append("]");
-		return builder.toString();
+		return "[" + toString(node.getLeft())
+				+ "," + node.getData()
+				+ "," + toString(node.getRight()) + "]";
 	}
 }
