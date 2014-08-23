@@ -37,12 +37,22 @@ public class BinarySearchTreeImpl<T extends Comparable<T>> implements BinarySear
 
 	@Override
 	public void add(Iterable<T> items) {
-		add(root, items);
+		if (root == null) {
+			Iterator<T> iter = items.iterator();
+			if (iter.hasNext()) {
+				root = new BinaryTreeNode<>(iter.next());
+			}
+			while (iter.hasNext()) {
+				add(iter.next());
+			}
+		} else {
+			add(root, items);
+		}
 	}
 
-	public void add(BinaryTreeNode<T> node, Iterable<T> items) {
+	private void add(BinaryTreeNode<T> node, Iterable<T> items) {
 		for (T item : items) {
-			add(item);
+			add(node, item);
 		}
 	}
 
