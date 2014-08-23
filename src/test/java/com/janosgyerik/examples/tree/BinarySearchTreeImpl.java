@@ -166,7 +166,7 @@ public class BinarySearchTreeImpl<T extends Comparable<T>> implements BinarySear
 
 	@Override
 	public void rebalance() {
-
+		throw new UnsupportedOperationException("not implemented yet");
 	}
 
 	@Override
