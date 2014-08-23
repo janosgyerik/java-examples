@@ -37,6 +37,10 @@ public class BinarySearchTreeImpl<T extends Comparable<T>> implements BinarySear
 
 	@Override
 	public void add(Iterable<T> items) {
+		add(root, items);
+	}
+
+	public void add(BinaryTreeNode<T> node, Iterable<T> items) {
 		for (T item : items) {
 			add(item);
 		}
@@ -57,8 +61,57 @@ public class BinarySearchTreeImpl<T extends Comparable<T>> implements BinarySear
 	}
 
 	@Override
-	public void remove(T item) {
+	public boolean remove(T data) {
+		if (root == null) {
+			return false;
+		}
+		if (data.equals(root.getData())) {
+			if (root.getLeft() == null && root.getRight() == null) {
+				root = null;
+			} else if (root.getLeft() == null) {
+				root = root.getRight();
+			} else if (root.getRight() == null) {
+				root = root.getLeft();
+			} else {
+				if (size(root.getLeft()) < size(root.getRight())) {
+					BinaryTreeNode<T> old = root.getLeft();
+					root = root.getRight();
+					add(toList(old));
+				} else {
+					BinaryTreeNode<T> old = root.getRight();
+					root = root.getLeft();
+					add(toList(old));
+				}
+			}
+			return true;
+		}
+		return remove(root, data);
+	}
 
+	public boolean remove(BinaryTreeNode<T> node, T data) {
+		if (data.compareTo(node.getData()) < 0) {
+			if (node.getLeft() == null) {
+				return false;
+			} else if (node.getLeft().getData().equals(data)) {
+				BinaryTreeNode<T> left = node.getLeft();
+				node.setLeft(null);
+				add(node, toList(left.getLeft()));
+				add(node, toList(left.getRight()));
+				return true;
+			}
+			return remove(node.getLeft(), data);
+		} else {
+			if (node.getRight() == null) {
+				return false;
+			} else if (node.getRight().getData().equals(data)) {
+				BinaryTreeNode<T> right = node.getRight();
+				node.setRight(null);
+				add(node, toList(right.getLeft()));
+				add(node, toList(right.getRight()));
+				return true;
+			}
+			return remove(node.getRight(), data);
+		}
 	}
 
 	@Override

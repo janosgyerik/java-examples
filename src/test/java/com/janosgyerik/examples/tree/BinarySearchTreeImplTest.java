@@ -29,6 +29,44 @@ public class BinarySearchTreeImplTest {
 	}
 
 	@Test
+	public void testRemovingNothing() {
+		BinarySearchTreeImpl<Integer> tree = toTree(4, 3, 1, 5, 6, 2, 3, 7);
+		assertEquals(Arrays.asList(1, 2, 3, 4, 5, 6, 7), tree.toList());
+		assertFalse(tree.remove(9));
+		assertEquals(Arrays.asList(1, 2, 3, 4, 5, 6, 7), tree.toList());
+	}
+
+	@Test
+	public void testRemovingRoot() {
+		BinarySearchTreeImpl<Integer> tree = toTree(1, 2, 3, 4);
+		assertEquals(Arrays.asList(1, 2, 3, 4), tree.toList());
+		assertTrue(tree.remove(1));
+		assertEquals(Arrays.asList(2, 3, 4), tree.toList());
+	}
+
+	@Test
+	public void testRemoving123() {
+		BinarySearchTreeImpl<Integer> tree = toTree(4, 3, 1, 5, 6, 2, 3, 7);
+		assertEquals(Arrays.asList(1, 2, 3, 4, 5, 6, 7), tree.toList());
+		assertTrue(tree.remove(1));
+		assertEquals(Arrays.asList(2, 3, 4, 5, 6, 7), tree.toList());
+		assertTrue(tree.remove(2));
+		assertEquals(Arrays.asList(3, 4, 5, 6, 7), tree.toList());
+		assertTrue(tree.remove(3));
+		assertEquals(Arrays.asList(4, 5, 6, 7), tree.toList());
+	}
+
+	@Test
+	public void testRemovingAll() {
+		BinarySearchTreeImpl<Integer> tree = toTree(4, 3, 1, 5, 6, 2, 3, 7);
+		assertEquals(Arrays.asList(1, 2, 3, 4, 5, 6, 7), tree.toList());
+		for (Integer item : tree.toList()) {
+			assertTrue(tree.remove(item));
+		}
+		assertEquals(0, tree.toList().size());
+	}
+
+	@Test
 	public void testEmpty() {
 		assertEquals(Arrays.<Integer>asList(), toTree().toList());
 	}

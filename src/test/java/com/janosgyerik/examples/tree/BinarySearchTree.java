@@ -10,7 +10,7 @@ public interface BinarySearchTree<T extends Comparable<T>> {
 
 	boolean contains(T item);
 
-	void remove(T item);
+	boolean remove(T item);
 
 	int size();
 
