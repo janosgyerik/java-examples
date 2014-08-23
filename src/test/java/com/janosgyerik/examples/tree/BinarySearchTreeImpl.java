@@ -41,9 +41,9 @@ public class BinarySearchTreeImpl<T extends Comparable<T>> implements BinarySear
 			Iterator<T> iter = items.iterator();
 			if (iter.hasNext()) {
 				root = new BinaryTreeNode<>(iter.next());
-			}
-			while (iter.hasNext()) {
-				add(iter.next());
+				while (iter.hasNext()) {
+					add(iter.next());
+				}
 			}
 		} else {
 			add(root, items);
