@@ -15,7 +15,7 @@ public class BinarySearchTreeImpl<T extends Comparable<T>> implements BinarySear
 		}
 	}
 
-	public void add(BinaryTreeNode<T> node, T data) {
+	private void add(BinaryTreeNode<T> node, T data) {
 		int cmp = data.compareTo(node.getData());
 		if (cmp == 0) {
 			return;
@@ -61,7 +61,7 @@ public class BinarySearchTreeImpl<T extends Comparable<T>> implements BinarySear
 		return contains(root, item);
 	}
 
-	public boolean contains(BinaryTreeNode<T> node, T item) {
+	private boolean contains(BinaryTreeNode<T> node, T item) {
 		if (node == null) {
 			return false;
 		} else if (node.getData().equals(item)) {
@@ -98,7 +98,7 @@ public class BinarySearchTreeImpl<T extends Comparable<T>> implements BinarySear
 		return remove(root, data);
 	}
 
-	public boolean remove(BinaryTreeNode<T> node, T data) {
+	private boolean remove(BinaryTreeNode<T> node, T data) {
 		if (data.compareTo(node.getData()) < 0) {
 			if (node.getLeft() == null) {
 				return false;
