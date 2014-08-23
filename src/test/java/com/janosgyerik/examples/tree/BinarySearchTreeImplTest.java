@@ -82,10 +82,6 @@ public class BinarySearchTreeImplTest {
 		assertEquals("[[[[null],1,[null]],2,[[null],3,[null]]],4,[[[null],5,[null]],6,[[null],7,[null]]]]", toTree(4, 2, 1, 3, 6, 5, 7).toString());
 	}
 
-	private List<Integer> toTreeToList(Integer... nums) {
-		return toTreeToList(Arrays.asList(nums));
-	}
-
 	private List<Integer> toTreeToList(Iterable<Integer> nums) {
 		return toTree(nums).toList();
 	}

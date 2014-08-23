@@ -15,15 +15,15 @@ public class BinarySearchTreeUtilTest {
 	@Test
 	public void testTrueBST() {
 		BinaryTreeNode<Integer> node = new BinaryTreeNode<>(3);
-		node.setLeft(new BinaryTreeNode<Integer>(1));
-		node.setRight(new BinaryTreeNode<Integer>(5));
+		node.setLeft(new BinaryTreeNode<>(1));
+		node.setRight(new BinaryTreeNode<>(5));
 		assertTrue(BinarySearchTreeUtil.isBinarySearchTree(node));
 	}
 
 	@Test
 	public void testNonBST() {
 		BinaryTreeNode<Integer> node = new BinaryTreeNode<>(3);
-		node.setLeft(new BinaryTreeNode<Integer>(5));
+		node.setLeft(new BinaryTreeNode<>(5));
 		assertFalse(BinarySearchTreeUtil.isBinarySearchTree(node));
 	}
 }

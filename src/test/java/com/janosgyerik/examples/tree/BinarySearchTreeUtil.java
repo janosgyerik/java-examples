@@ -9,9 +9,7 @@ public class BinarySearchTreeUtil {
 	static <T extends Comparable<T>> boolean isBinarySearchTree(BinaryTreeNode<T> node, T maxData, T minData) {
 		if (node == null) {
 			return true;
-		}
-
-		if (node.getData().compareTo(maxData) >= 0
+		} else if (node.getData().compareTo(maxData) >= 0
 				|| node.getData().compareTo(minData) <= 0) {
 			return false;
 		}

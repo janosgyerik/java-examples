@@ -50,8 +50,7 @@ public class BinarySearchTreeImpl<T extends Comparable<T>> implements BinarySear
 	public boolean contains(BinaryTreeNode<T> node, T item) {
 		if (node == null) {
 			return false;
-		}
-		if (node.getData().equals(item)) {
+		} else if (node.getData().equals(item)) {
 			return true;
 		}
 		return contains(node.getLeft(), item) || contains(node.getRight(), item);
