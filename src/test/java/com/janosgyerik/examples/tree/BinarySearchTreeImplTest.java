@@ -95,4 +95,13 @@ public class BinarySearchTreeImplTest {
 		tree.add(nums);
 		return tree;
 	}
+
+	@Test
+	public void testAddingIsTailRecursive() {
+		BinarySearchTreeImpl<Integer> tree = new BinarySearchTreeImpl<>();
+		for (int i = 0; i < 10000; ++i) {
+			tree.add(i);
+		}
+		// No StackOverflowError, thanks to tail recursive implementation
+	}
 }
