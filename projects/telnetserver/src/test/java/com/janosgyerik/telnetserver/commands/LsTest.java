@@ -1,6 +1,5 @@
-package com.janosgyerik.telnetserver;
+package com.janosgyerik.telnetserver.commands;
 
-import com.janosgyerik.telnetserver.commands.LsCommand;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;

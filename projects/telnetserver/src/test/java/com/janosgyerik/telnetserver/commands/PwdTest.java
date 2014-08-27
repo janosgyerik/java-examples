@@ -1,4 +1,4 @@
-package com.janosgyerik.telnetserver;
+package com.janosgyerik.telnetserver.commands;
 
 import org.junit.Test;
 
