@@ -1,5 +1,6 @@
 package com.janosgyerik.telnetserver.commands;
 
+import com.janosgyerik.telnetserver.util.FileUtils;
 import org.junit.Test;
 
 import java.io.File;
@@ -37,13 +38,13 @@ public class MkdirCommandTest extends BaseCommandTest {
 	@Test
 	public void testCannotCreateIfFileExists() throws IOException {
 		String filename = "file1.txt";
-		createTestFiles(WORKDIR, filename);
+		FileUtils.createTestFiles(WORKDIR, filename);
 
 		mkdir(filename);
 		assertFalse(new File(WORKDIR, filename).isDirectory());
 
 		String dirname = "dir1";
-		createTestDirs(WORKDIR, dirname);
+		FileUtils.createTestDirs(WORKDIR, dirname);
 
 		mkdir(dirname);
 		assertTrue(new File(WORKDIR, dirname).isDirectory());

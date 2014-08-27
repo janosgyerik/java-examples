@@ -1,5 +1,6 @@
 package com.janosgyerik.telnetserver.commands;
 
+import com.janosgyerik.telnetserver.util.FileUtils;
 import org.junit.Test;
 
 import java.io.File;
@@ -37,18 +38,18 @@ public class LsCommandTest extends BaseCommandTest {
 	@Test
 	public void testDirWithFiles() throws IOException {
 		String[] filenames = new String[]{"file1.txt", "file2.txt"};
-		createTestFiles(WORKDIR, filenames);
+		FileUtils.createTestFiles(WORKDIR, filenames);
 		assertEquals(Arrays.asList(filenames), ls());
 	}
 
 	@Test
 	public void testDirWithFilesAndDirs() throws IOException {
 		String[] filenames = new String[]{"file1.txt", "file2.txt"};
-		createTestFiles(WORKDIR, filenames);
+		FileUtils.createTestFiles(WORKDIR, filenames);
 		assertEquals(Arrays.asList(filenames), ls());
 
 		String[] dirnames = new String[]{"dir1", "dir2"};
-		createTestDirs(WORKDIR, dirnames);
+		FileUtils.createTestDirs(WORKDIR, dirnames);
 		assertNotEquals(Arrays.asList(filenames), ls());
 
 		List<String> names = new ArrayList<String>();
@@ -57,35 +58,35 @@ public class LsCommandTest extends BaseCommandTest {
 		assertEquals(names, ls());
 
 		String[] filenames2 = new String[]{"file3.txt", "file4.txt"};
-		createTestFiles(new File(WORKDIR, dirnames[0]), filenames2);
+		FileUtils.createTestFiles(new File(WORKDIR, dirnames[0]), filenames2);
 		assertEquals(Arrays.asList(filenames2), ls(new File(WORKDIR, dirnames[0])));
 	}
 
 	@Test
 	public void testWithFileRelpath() throws IOException {
 		String[] filenames = new String[]{"file1.txt", "file2.txt"};
-		createTestFiles(WORKDIR, filenames);
+		FileUtils.createTestFiles(WORKDIR, filenames);
 		assertEquals(Arrays.asList(filenames[0]), ls(new File(filenames[0])));
 	}
 
 	@Test
 	public void testWithFileAbsolutePath() throws IOException {
 		String[] filenames = new String[]{"file1.txt", "file2.txt"};
-		createTestFiles(WORKDIR, filenames);
+		FileUtils.createTestFiles(WORKDIR, filenames);
 		assertEquals(Arrays.asList(new File(WORKDIR, filenames[0]).toString()), ls(new File(WORKDIR, filenames[0])));
 	}
 
 	@Test
 	public void testWithNoArgs() throws IOException {
 		String[] filenames = new String[]{"file1.txt", "file2.txt"};
-		createTestFiles(WORKDIR, filenames);
+		FileUtils.createTestFiles(WORKDIR, filenames);
 		assertEquals(Arrays.asList(filenames), ls());
 	}
 
 	@Test
 	public void testWithManyArgs() throws IOException {
 		String[] filenames = new String[]{"file1.txt"};
-		createTestFiles(WORKDIR, filenames);
+		FileUtils.createTestFiles(WORKDIR, filenames);
 		String[] args = new String[]{filenames[0], filenames[0]};
 		assertEquals(Arrays.asList(args), ls(args));
 	}
