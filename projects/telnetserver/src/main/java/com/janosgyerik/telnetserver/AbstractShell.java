@@ -1,5 +1,7 @@
 package com.janosgyerik.telnetserver;
 
+import com.janosgyerik.telnetserver.commands.Command;
+
 import java.io.InputStream;
 import java.io.OutputStream;
 
