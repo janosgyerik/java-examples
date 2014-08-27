@@ -4,5 +4,5 @@ public interface Shell {
 
 	void cd(String path);
 
-	void runCommand(String cmdname, String[] args);
+	void runCommand(String cmdname, String... args);
 }
