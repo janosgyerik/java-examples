@@ -12,17 +12,17 @@ public class LsCommand extends BaseCommand {
 
 	public List<String> execute(String... args) {
 		if (args.length == 0) {
-			return execute(workdir.toString());
+			return ls(workdir.toString());
 		} else {
 			List<String> results = new ArrayList<String>();
 			for (String arg : args) {
-				results.addAll(execute(arg));
+				results.addAll(ls(arg));
 			}
 			return results;
 		}
 	}
 
-	private List<String> execute(String path) {
+	private List<String> ls(String path) {
 		File file = path.startsWith("/") ? new File(path) : new File(workdir, path);
 		if (file.isFile()) {
 			return Arrays.asList(path);
