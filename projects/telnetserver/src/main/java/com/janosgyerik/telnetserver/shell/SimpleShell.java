@@ -1,8 +1,18 @@
 package com.janosgyerik.telnetserver.shell;
 
+import com.janosgyerik.telnetserver.commands.Command;
+import com.janosgyerik.telnetserver.commands.LsCommand;
+import com.janosgyerik.telnetserver.commands.MkdirCommand;
+import com.janosgyerik.telnetserver.commands.PwdCommand;
+
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SimpleShell implements Shell {
 	/*
@@ -24,6 +34,17 @@ bash: adadasd: command not found
 
 	private File cwd;
 
+	private static final Map<String, Class<? extends Command>> commands;
+
+	static {
+		commands = new HashMap<String, Class<? extends Command>>();
+		// TODO discover implementations of Command using reflection
+		//		instead of adding manually one by one
+		commands.put("ls", LsCommand.class);
+		commands.put("pwd", PwdCommand.class);
+		commands.put("mkdir", MkdirCommand.class);
+	}
+
 	public SimpleShell(String rootPath, InputStream stdin, OutputStream stdout) {
 		this.rootPath = rootPath;
 		this.stdin = stdin;
@@ -41,7 +62,46 @@ bash: adadasd: command not found
 	}
 
 	@Override
-	public void runCommand(String cmdname, String[] args) {
+	public void runCommand(String cmdname, String... args) {
+		Class<? extends Command> klass = commands.get(cmdname);
+		if (klass == null) {
+			writeOut(String.format("%s: %s: command not found\n", SimpleShell.class.getSimpleName(), cmdname));
+		} else {
+			Command command = createCommand(klass);
+			for (String line : command.execute(args)) {
+				writeLineOut(line);
+			}
+		}
+	}
 
+	private Command createCommand(Class<? extends Command> klass) {
+		try {
+			Constructor<? extends Command> ctor = klass.getConstructor(File.class);
+			return ctor.newInstance(cwd);
+		} catch (NoSuchMethodException e) {
+			// TODO better way to handle?
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		// TODO should throw something
+		return null;
+	}
+
+	private void writeOut(String line) {
+		try {
+			stdout.write(line.getBytes());
+		} catch (IOException e) {
+			// TODO better way to handle?
+			e.printStackTrace();
+		}
+	}
+
+	private void writeLineOut(String line) {
+		writeOut(line + "\n");
 	}
 }
