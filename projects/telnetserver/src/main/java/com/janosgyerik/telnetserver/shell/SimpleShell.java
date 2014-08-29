@@ -55,7 +55,7 @@ bash: adadasd: command not found
 
 	@Override
 	public void cd(String path) {
-		File dir = new File(path);
+		File dir = path.startsWith("/") ? new File(path) : new File(cwd, path);
 		if (dir.isDirectory()) {
 			cwd = dir;
 		}

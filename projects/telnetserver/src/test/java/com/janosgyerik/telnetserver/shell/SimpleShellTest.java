@@ -8,8 +8,10 @@ import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.*;
 
 public class SimpleShellTest {
 	static final File WORKDIR = new File(System.getProperties().getProperty("java.io.tmpdir"), SimpleShellTest.class.getSimpleName());
@@ -24,29 +26,88 @@ public class SimpleShellTest {
 		FileUtils.wipeDirRecursively(WORKDIR);
 	}
 
+	private Shell createShell(OutputStream stdout) {
+		return new SimpleShell(WORKDIR.getAbsolutePath(), null, stdout);
+	}
+
+	private ByteArrayOutputStream createMockStdout() {
+		return mock(ByteArrayOutputStream.class);
+	}
+
+	private void verifyLineWritten(ByteArrayOutputStream stream, String line) throws IOException {
+		verifyLineWritten(stream, line, 1);
+	}
+
+	private void verifyLineWritten(ByteArrayOutputStream stream, String line, int count) throws IOException {
+		verify(stream, times(count)).write((line + "\n").getBytes());
+	}
+
+	private void verifyAbsolutePathWritten(ByteArrayOutputStream stream, File file) throws IOException {
+		verifyAbsolutePathWritten(stream, file, 1);
+	}
+
+	private void verifyAbsolutePathWritten(ByteArrayOutputStream stream, File file, int count) throws IOException {
+		verifyLineWritten(stream, file.getAbsolutePath(), count);
+	}
+
 	@Test
 	public void testInitialDir() throws IOException {
-		ByteArrayOutputStream stdout = new ByteArrayOutputStream();
-		Shell shell = new SimpleShell(WORKDIR.getAbsolutePath(), null, stdout);
+		ByteArrayOutputStream stdout = createMockStdout();
+		Shell shell = createShell(stdout);
 		shell.runCommand("pwd");
-		assertEquals(WORKDIR.getAbsolutePath() + "\n", new String(stdout.toByteArray()));
-		// TODO verify the line written
+		verifyAbsolutePathWritten(stdout, WORKDIR);
+		verifyNoMoreInteractions(stdout);
 	}
 
-//	@Test
-	public void testChangingDirWithRelpath() {
-		Shell shell = new SimpleShell(WORKDIR.getAbsolutePath(), null, null);
+	@Test
+	public void testCannotCdToNonexistent() throws IOException {
+		ByteArrayOutputStream stdout = createMockStdout();
+		Shell shell = createShell(stdout);
+
 		shell.runCommand("pwd");
-		// TODO verify the line written
-		shell.runCommand("mkdir", "dir1");
-		shell.cd("dir1");
+		verifyAbsolutePathWritten(stdout, WORKDIR);
+
+		shell.cd("nonexistent");
 		shell.runCommand("pwd");
-		// TODO verify the line written
+		verifyAbsolutePathWritten(stdout, WORKDIR, 2);
+
+		verifyNoMoreInteractions(stdout);
 	}
 
-	// TODO create shell in some root dir
-	// TODO run some commands
-	// TODO test cd
-	// TODO confirm command output on stdout
-	// TODO restrict shell to root dir if not too ugly
+	@Test
+	public void testChangingDirWithRelpath() throws IOException {
+		ByteArrayOutputStream stdout = createMockStdout();
+		Shell shell = createShell(stdout);
+
+		shell.runCommand("pwd");
+		verifyAbsolutePathWritten(stdout, WORKDIR);
+
+		String dirname = "dir1";
+		shell.runCommand("mkdir", dirname);
+
+		shell.cd(dirname);
+		shell.runCommand("pwd");
+		verifyAbsolutePathWritten(stdout, new File(WORKDIR, "dir1"));
+
+		verifyNoMoreInteractions(stdout);
+	}
+
+	@Test
+	public void testChangingDirWithAbsolutePath() throws IOException {
+		ByteArrayOutputStream stdout = createMockStdout();
+		Shell shell = createShell(stdout);
+
+		shell.runCommand("pwd");
+		verifyAbsolutePathWritten(stdout, WORKDIR);
+
+		String dirname = "dir1";
+		shell.runCommand("mkdir", dirname);
+
+		File dir = new File(WORKDIR, dirname);
+		shell.cd(dir.getAbsolutePath());
+		shell.runCommand("pwd");
+		verifyAbsolutePathWritten(stdout, dir);
+
+		verifyNoMoreInteractions(stdout);
+	}
 }
