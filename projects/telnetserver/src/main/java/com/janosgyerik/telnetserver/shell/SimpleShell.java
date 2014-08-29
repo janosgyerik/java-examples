@@ -13,6 +13,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 public class SimpleShell implements Shell {
 	/*
@@ -53,6 +54,10 @@ bash: adadasd: command not found
 		this.cwd = new File(rootPath);
 	}
 
+	public static void main(String[] args) throws IOException {
+		new SimpleShell(new File(".").getCanonicalPath(), System.in, System.out).runInteractiveShell();
+	}
+
 	@Override
 	public void cd(String path) {
 		File dir = path.startsWith("/") ? new File(path) : new File(cwd, path);
@@ -71,6 +76,16 @@ bash: adadasd: command not found
 			for (String line : command.execute(args)) {
 				writeLineOut(line);
 			}
+		}
+	}
+
+	@Override
+	public void runInteractiveShell() {
+		Scanner scanner = new Scanner(stdin);
+		while (scanner.hasNextLine()) {
+			String cmd = scanner.next();
+			String[] args = scanner.nextLine().split(" ");
+			runCommand(cmd, args);
 		}
 	}
 
