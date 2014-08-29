@@ -29,7 +29,7 @@ bash: adadasd: command not found
 	// TODO logout with Control-D
 	// TODO motd
 
-	final String rootPath;
+	final String homePath;
 	final InputStream stdin;
 	final OutputStream stdout;
 
@@ -46,12 +46,12 @@ bash: adadasd: command not found
 		commands.put("mkdir", MkdirCommand.class);
 	}
 
-	public SimpleShell(String rootPath, InputStream stdin, OutputStream stdout) {
-		this.rootPath = rootPath;
+	public SimpleShell(String homePath, InputStream stdin, OutputStream stdout) {
+		this.homePath = homePath;
 		this.stdin = stdin;
 		this.stdout = stdout;
 
-		this.cwd = new File(rootPath);
+		this.cwd = new File(homePath);
 	}
 
 	public static void main(String[] args) throws IOException {
@@ -69,7 +69,7 @@ bash: adadasd: command not found
 	@Override
 	public void runCommand(String cmdname, String... args) {
 		if (cmdname.equals("cd")) {
-			cd(args.length > 0 ? args[0] : rootPath);
+			cd(args.length > 0 ? args[0] : homePath);
 		} else {
 			Class<? extends Command> klass = commands.get(cmdname);
 			if (klass == null) {
@@ -89,7 +89,11 @@ bash: adadasd: command not found
 		while (scanner.hasNextLine()) {
 			String cmd = scanner.next();
 			String[] args = scanner.nextLine().trim().split(" ");
-			runCommand(cmd, args);
+			if (args[0].isEmpty()) {
+				runCommand(cmd);
+			} else {
+				runCommand(cmd, args);
+			}
 		}
 	}
 
