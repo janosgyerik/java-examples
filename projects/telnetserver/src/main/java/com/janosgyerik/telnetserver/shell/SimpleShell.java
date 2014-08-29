@@ -54,6 +54,18 @@ bash: adadasd: command not found
 		this.cwd = new File(homePath);
 	}
 
+	public SimpleShell(File file, InputStream stdin, OutputStream stdout) {
+		this(getPath(file), stdin, stdout);
+	}
+
+	private static String getPath(File file) {
+		try {
+			return file.getCanonicalPath();
+		} catch (IOException e) {
+			return file.getAbsolutePath();
+		}
+	}
+
 	public static void main(String[] args) throws IOException {
 		new SimpleShell(new File(".").getCanonicalPath(), System.in, System.out).runInteractiveShell();
 	}

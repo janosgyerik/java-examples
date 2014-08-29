@@ -1,6 +1,7 @@
 - multi-threaded server
     + multiple clients at the same time
     - exit with Control-D if possible
+    - make Control-C not break the client
 
 - logging
 
