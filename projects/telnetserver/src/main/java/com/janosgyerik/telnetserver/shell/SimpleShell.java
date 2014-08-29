@@ -68,13 +68,17 @@ bash: adadasd: command not found
 
 	@Override
 	public void runCommand(String cmdname, String... args) {
-		Class<? extends Command> klass = commands.get(cmdname);
-		if (klass == null) {
-			writeOut(String.format("%s: %s: command not found\n", SimpleShell.class.getSimpleName(), cmdname));
+		if (cmdname.equals("cd")) {
+			cd(args.length > 0 ? args[0] : rootPath);
 		} else {
-			Command command = createCommand(klass);
-			for (String line : command.execute(args)) {
-				writeLineOut(line);
+			Class<? extends Command> klass = commands.get(cmdname);
+			if (klass == null) {
+				writeOut(String.format("%s: %s: command not found\n", SimpleShell.class.getSimpleName(), cmdname));
+			} else {
+				Command command = createCommand(klass);
+				for (String line : command.execute(args)) {
+					writeLineOut(line);
+				}
 			}
 		}
 	}
@@ -84,7 +88,7 @@ bash: adadasd: command not found
 		Scanner scanner = new Scanner(stdin);
 		while (scanner.hasNextLine()) {
 			String cmd = scanner.next();
-			String[] args = scanner.nextLine().split(" ");
+			String[] args = scanner.nextLine().trim().split(" ");
 			runCommand(cmd, args);
 		}
 	}
