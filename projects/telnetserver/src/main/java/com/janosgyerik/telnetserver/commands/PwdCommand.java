@@ -1,7 +1,7 @@
 package com.janosgyerik.telnetserver.commands;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -11,6 +11,10 @@ public class PwdCommand extends BaseCommand {
 	}
 
 	public List<String> execute(String... args) {
-		return Arrays.asList(workdir.getAbsolutePath());
+		try {
+			return Arrays.asList(workdir.getCanonicalPath());
+		} catch (IOException e) {
+			return Arrays.asList(workdir.getAbsolutePath());
+		}
 	}
 }

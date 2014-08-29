@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
 public class SimpleShellTest {
@@ -47,7 +47,7 @@ public class SimpleShellTest {
 	}
 
 	private void verifyAbsolutePathWritten(ByteArrayOutputStream stream, File file, int count) throws IOException {
-		verifyLineWritten(stream, file.getAbsolutePath(), count);
+		verifyLineWritten(stream, file.getCanonicalPath(), count);
 	}
 
 	@Test
@@ -107,6 +107,22 @@ public class SimpleShellTest {
 		shell.cd(dir.getAbsolutePath());
 		shell.runCommand("pwd");
 		verifyAbsolutePathWritten(stdout, dir);
+
+		verifyNoMoreInteractions(stdout);
+	}
+
+	@Test
+	public void testCdUp() throws IOException {
+		ByteArrayOutputStream stdout = createMockStdout();
+		Shell shell = createShell(stdout);
+
+		// sanity check, to be sure there's a parent to go up
+		assertTrue(WORKDIR.getAbsolutePath().matches("/.*/.*"));
+
+		String dirname = "..";
+		shell.cd(dirname);
+		shell.runCommand("pwd");
+		verifyAbsolutePathWritten(stdout, new File(WORKDIR, dirname));
 
 		verifyNoMoreInteractions(stdout);
 	}

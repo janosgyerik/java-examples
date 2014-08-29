@@ -3,6 +3,7 @@ package com.janosgyerik.telnetserver.commands;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
 
@@ -13,18 +14,24 @@ public class PwdCommandTest extends BaseCommandTest {
 	}
 
 	@Test
-	public void testInWorkdir() {
-		assertEquals(WORKDIR.toString(), pwd(WORKDIR));
+	public void testInWorkdir() throws IOException {
+		assertEquals(WORKDIR.getCanonicalPath(), pwd(WORKDIR));
 	}
 
 	@Test
-	public void testInSubdir() {
+	public void testInSubdir() throws IOException {
 		File dir = new File(WORKDIR, "dir1");
-		assertEquals(dir.toString(), pwd(dir));
+		assertEquals(dir.getCanonicalPath(), pwd(dir));
 	}
 
 	@Test
-	public void testWithArgs() {
-		assertEquals(WORKDIR.toString(), pwd(WORKDIR, "blah"));
+	public void testInParentdir() throws IOException {
+		File dir = new File(WORKDIR, "..");
+		assertEquals(dir.getCanonicalPath(), pwd(dir));
+	}
+
+	@Test
+	public void testWithArgs() throws IOException {
+		assertEquals(WORKDIR.getCanonicalPath(), pwd(WORKDIR, "unused"));
 	}
 }
