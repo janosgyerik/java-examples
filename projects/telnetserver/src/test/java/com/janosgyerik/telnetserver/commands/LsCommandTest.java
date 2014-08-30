@@ -66,7 +66,18 @@ public class LsCommandTest extends BaseCommandTest {
 	public void testWithFileRelpath() throws IOException {
 		String[] filenames = new String[]{"file1.txt", "file2.txt"};
 		FileUtils.createTestFiles(WORKDIR, filenames);
-		assertEquals(Arrays.asList(filenames[0]), ls(new File(filenames[0])));
+		assertEquals(Arrays.asList(filenames[0]), ls(filenames[0]));
+	}
+
+	@Test
+	public void testDirContentsWithRelpath() throws IOException {
+		String dirname = "dir1";
+		FileUtils.createTestDirs(WORKDIR, dirname);
+		assertEquals(Arrays.asList(dirname), ls());
+
+		String[] filenames = new String[]{"file1.txt", "file2.txt"};
+		FileUtils.createTestFiles(new File(WORKDIR, dirname), filenames);
+		assertEquals(Arrays.asList(filenames), ls(dirname));
 	}
 
 	@Test

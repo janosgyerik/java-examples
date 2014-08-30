@@ -28,7 +28,7 @@ public class LsCommand extends BaseCommand {
 		if (file.isFile()) {
 			return Arrays.asList(path);
 		} else if (file.isDirectory()) {
-			String[] names = new File(path).list();
+			String[] names = file.list();
 			return names != null ? Arrays.asList(names) : Arrays.<String>asList();
 		}
 		return Arrays.asList();
