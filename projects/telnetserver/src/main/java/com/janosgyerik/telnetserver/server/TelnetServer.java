@@ -15,7 +15,8 @@ public class TelnetServer {
 
 		while (true) {
 			Socket socket = serverSocket.accept();
-			LOGGER.info("New customer: " + socket.getInetAddress());
+			LOGGER.info(String.format("New customer: %s:%s",
+					socket.getInetAddress(), socket.getPort()));
 			ClientProxy client = new ClientProxy(socket);
 			new Thread(client).start();
 		}
