@@ -55,15 +55,7 @@ bash: adadasd: command not found
 	}
 
 	public SimpleShell(File file, InputStream stdin, OutputStream stdout) {
-		this(getPath(file), stdin, stdout);
-	}
-
-	private static String getPath(File file) {
-		try {
-			return file.getCanonicalPath();
-		} catch (IOException e) {
-			return file.getAbsolutePath();
-		}
+		this(file.getAbsolutePath(), stdin, stdout);
 	}
 
 	@Override
