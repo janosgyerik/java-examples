@@ -4,7 +4,7 @@ import java.io.File;
 
 public abstract class BaseCommand implements Command {
 
-	protected final File execdir;
+	final File execdir;
 
 	/**
 	 * Initialize command with its execution directory
