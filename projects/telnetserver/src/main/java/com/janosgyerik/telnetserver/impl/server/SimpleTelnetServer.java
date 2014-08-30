@@ -19,7 +19,7 @@ public class SimpleTelnetServer implements TelnetServer {
 
 	private volatile boolean stopRequested;
 
-	public void runForever(int port) throws IOException {
+	private void runForever(int port) throws IOException {
 		ServerSocket serverSocket = new ServerSocket(port);
 		serverSocket.setSoTimeout(SO_TIMEOUT);
 
