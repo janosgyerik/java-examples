@@ -23,7 +23,7 @@ public class SimpleShell implements Shell {
 	private static final Map<String, Class<? extends Command>> commands;
 
 	static {
-		commands = new HashMap<String, Class<? extends Command>>();
+		commands = new HashMap<>();
 		// TODO discover implementations of Command using reflection
 		//		instead of adding manually one by one
 		commands.put("ls", LsCommand.class);

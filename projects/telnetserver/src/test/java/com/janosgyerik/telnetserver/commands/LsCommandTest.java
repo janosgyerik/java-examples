@@ -52,7 +52,7 @@ public class LsCommandTest extends BaseCommandTest {
 		FileUtils.createTestDirs(WORKDIR, dirnames);
 		assertNotEquals(Arrays.asList(filenames), ls());
 
-		List<String> names = new ArrayList<String>();
+		List<String> names = new ArrayList<>();
 		names.addAll(Arrays.asList(dirnames));
 		names.addAll(Arrays.asList(filenames));
 		assertEquals(names, ls());

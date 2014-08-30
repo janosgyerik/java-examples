@@ -15,7 +15,7 @@ public class LsCommand extends BaseCommand {
 		if (args.length == 0) {
 			return ls(execdir.toString());
 		} else {
-			List<String> results = new ArrayList<String>();
+			List<String> results = new ArrayList<>();
 			for (String arg : args) {
 				results.addAll(ls(arg));
 			}
