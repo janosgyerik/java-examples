@@ -14,4 +14,8 @@ public abstract class BaseCommand implements Command {
 	public BaseCommand(File execdir) {
 		this.execdir = execdir;
 	}
+
+	protected File getRelativeOrAbsoluteFile(String path) {
+		return path.startsWith("/") ? new File(path) : new File(execdir, path);
+	}
 }

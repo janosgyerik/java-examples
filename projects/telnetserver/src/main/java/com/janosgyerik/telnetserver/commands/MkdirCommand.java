@@ -18,7 +18,7 @@ public class MkdirCommand extends BaseCommand {
 	}
 
 	private void mkdir(String path) {
-		File file = path.startsWith("/") ? new File(path) : new File(execdir, path);
+		File file = getRelativeOrAbsoluteFile(path);
 		file.mkdir();
 	}
 }

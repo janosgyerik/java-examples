@@ -24,7 +24,7 @@ public class LsCommand extends BaseCommand {
 	}
 
 	private List<String> ls(String path) {
-		File file = path.startsWith("/") ? new File(path) : new File(execdir, path);
+		File file = getRelativeOrAbsoluteFile(path);
 		if (file.isFile()) {
 			return Arrays.asList(path);
 		} else if (file.isDirectory()) {
