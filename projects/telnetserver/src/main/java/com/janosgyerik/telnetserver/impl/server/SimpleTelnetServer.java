@@ -8,6 +8,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -42,12 +43,23 @@ public class SimpleTelnetServer implements TelnetServer {
 			} catch (SocketTimeoutException e) {
 				// accept timed out, continue listening unless stop requested
 			}
+			removeStaleClients(clients);
 		}
 
 		LOGGER.info("Stop requested, shutting down ...");
 
 		for (ClientProxy client : clients) {
 			client.shutdown();
+		}
+	}
+
+	private void removeStaleClients(List<ClientProxy> clients) {
+		Iterator<ClientProxy> iterator = clients.iterator();
+		while (iterator.hasNext()) {
+			if (!iterator.next().isAlive()) {
+				LOGGER.info("Removing stale client ...");
+				iterator.remove();
+			}
 		}
 	}
 

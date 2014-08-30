@@ -55,4 +55,9 @@ public class SimpleClientProxy implements Runnable, ClientProxy {
 			LOGGER.log(Level.SEVERE, "Could not close stdout", e);
 		}
 	}
+
+	@Override
+	public boolean isAlive() {
+		return !shuttingDown;
+	}
 }
