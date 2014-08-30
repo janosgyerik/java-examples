@@ -12,9 +12,9 @@ public class PwdCommand extends BaseCommand {
 
 	public List<String> execute(String... args) {
 		try {
-			return Arrays.asList(workdir.getCanonicalPath());
+			return Arrays.asList(execdir.getCanonicalPath());
 		} catch (IOException e) {
-			return Arrays.asList(workdir.getAbsolutePath());
+			return Arrays.asList(execdir.getAbsolutePath());
 		}
 	}
 }

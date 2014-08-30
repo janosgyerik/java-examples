@@ -17,7 +17,7 @@ public class MkdirCommand extends BaseCommand {
 	}
 
 	private void mkdir(String path) {
-		File file = path.startsWith("/") ? new File(path) : new File(workdir, path);
+		File file = path.startsWith("/") ? new File(path) : new File(execdir, path);
 		file.mkdir();
 	}
 }
