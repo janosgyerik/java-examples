@@ -1,4 +1,7 @@
-package com.janosgyerik.telnetserver.commands;
+package com.janosgyerik.telnetserver.impl.commands;
+
+import com.janosgyerik.telnetserver.commands.Command;
+import com.janosgyerik.telnetserver.commands.CommandFinder;
 
 import java.util.HashMap;
 import java.util.Map;

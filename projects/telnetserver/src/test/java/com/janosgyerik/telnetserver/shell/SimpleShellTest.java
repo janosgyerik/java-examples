@@ -1,5 +1,6 @@
 package com.janosgyerik.telnetserver.shell;
 
+import com.janosgyerik.telnetserver.impl.shell.SimpleShell;
 import com.janosgyerik.telnetserver.util.FileUtils;
 import org.junit.AfterClass;
 import org.junit.Before;

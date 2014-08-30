@@ -30,7 +30,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.janosgyerik.telnetserver.run.TelnetServerRunner</mainClass>
+                            <mainClass>com.janosgyerik.telnetserver.impl.run.TelnetServerRunner</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

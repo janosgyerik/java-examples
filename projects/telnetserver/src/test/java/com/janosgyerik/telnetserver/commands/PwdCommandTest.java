@@ -1,5 +1,6 @@
 package com.janosgyerik.telnetserver.commands;
 
+import com.janosgyerik.telnetserver.impl.commands.PwdCommand;
 import org.junit.Test;
 
 import java.io.File;

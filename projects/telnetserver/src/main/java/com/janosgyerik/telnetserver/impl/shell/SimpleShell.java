@@ -1,6 +1,9 @@
-package com.janosgyerik.telnetserver.shell;
+package com.janosgyerik.telnetserver.impl.shell;
 
 import com.janosgyerik.telnetserver.commands.*;
+import com.janosgyerik.telnetserver.impl.commands.SimpleCommandFactory;
+import com.janosgyerik.telnetserver.impl.commands.SimpleCommandFinder;
+import com.janosgyerik.telnetserver.shell.Shell;
 
 import java.io.File;
 import java.io.IOException;

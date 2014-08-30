@@ -1,4 +1,4 @@
-package com.janosgyerik.telnetserver.commands;
+package com.janosgyerik.telnetserver.impl.commands;
 
 import java.io.File;
 import java.io.IOException;

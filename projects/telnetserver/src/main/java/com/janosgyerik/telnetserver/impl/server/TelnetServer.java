@@ -1,4 +1,4 @@
-package com.janosgyerik.telnetserver.server;
+package com.janosgyerik.telnetserver.impl.server;
 
 import java.io.IOException;
 import java.net.ServerSocket;

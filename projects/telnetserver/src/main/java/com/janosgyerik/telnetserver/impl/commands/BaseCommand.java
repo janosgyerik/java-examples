@@ -1,4 +1,6 @@
-package com.janosgyerik.telnetserver.commands;
+package com.janosgyerik.telnetserver.impl.commands;
+
+import com.janosgyerik.telnetserver.commands.Command;
 
 import java.io.File;
 

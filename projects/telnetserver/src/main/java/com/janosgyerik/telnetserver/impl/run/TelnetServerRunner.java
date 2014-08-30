@@ -1,6 +1,6 @@
-package com.janosgyerik.telnetserver.run;
+package com.janosgyerik.telnetserver.impl.run;
 
-import com.janosgyerik.telnetserver.server.TelnetServer;
+import com.janosgyerik.telnetserver.impl.server.TelnetServer;
 
 import java.io.IOException;
 

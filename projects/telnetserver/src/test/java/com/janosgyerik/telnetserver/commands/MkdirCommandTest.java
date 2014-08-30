@@ -1,5 +1,6 @@
 package com.janosgyerik.telnetserver.commands;
 
+import com.janosgyerik.telnetserver.impl.commands.MkdirCommand;
 import com.janosgyerik.telnetserver.util.FileUtils;
 import org.junit.Test;
 
