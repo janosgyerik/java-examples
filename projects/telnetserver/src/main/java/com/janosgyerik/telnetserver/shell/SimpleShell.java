@@ -6,30 +6,21 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class SimpleShell implements Shell {
-	// TODO logout with Control-D
-	// TODO motd
+
+	private static final Logger LOGGER = Logger.getLogger(SimpleShell.class.getSimpleName());
+
+	private static final String NAME = SimpleShell.class.getSimpleName();
 
 	final String homePath;
 	final InputStream stdin;
 	final OutputStream stdout;
 
 	private File cwd;
-
-	private static final Map<String, Class<? extends Command>> commands;
-
-	static {
-		commands = new HashMap<>();
-		// TODO discover implementations of Command using reflection
-		//		instead of adding manually one by one
-		commands.put("ls", LsCommand.class);
-		commands.put("pwd", PwdCommand.class);
-		commands.put("mkdir", MkdirCommand.class);
-	}
 
 	public SimpleShell(String homePath, InputStream stdin, OutputStream stdout) {
 		this.homePath = homePath;
@@ -56,18 +47,24 @@ public class SimpleShell implements Shell {
 		if (cmdname.equals("cd")) {
 			cd(args.length > 0 ? args[0] : homePath);
 		} else {
-			Class<? extends Command> klass = commands.get(cmdname);
-			if (klass == null) {
-				writeOut(String.format("%s: %s: command not found\n", SimpleShell.class.getSimpleName(), cmdname));
-			} else {
-				try {
-					Command command = new SimpleCommandFactory().createCommand(klass, cwd);
-					for (String line : command.execute(args)) {
-						writeLineOut(line);
-					}
-				} catch (CommandFactory.CommandInstantiationException e) {
-					e.printStackTrace();
-				}
+			Class<? extends Command> klass;
+			try {
+				klass = new SimpleCommandFinder().findCommandClassByShortName(cmdname);
+			} catch (CommandFinder.NoSuchCommandException e) {
+				writeLineOut(String.format("%s: %s: command not found", NAME, cmdname));
+				LOGGER.log(Level.SEVERE, e.getMessage(), e);
+				return;
+			}
+			Command command;
+			try {
+				command = new SimpleCommandFactory().createCommand(klass, cwd);
+			} catch (CommandFactory.CommandInstantiationException e) {
+				writeLineOut(String.format("%s: %s: unknown error", NAME, cmdname));
+				LOGGER.log(Level.SEVERE, e.getMessage(), e);
+				return;
+			}
+			for (String line : command.execute(args)) {
+				writeLineOut(line);
 			}
 		}
 	}
@@ -90,8 +87,7 @@ public class SimpleShell implements Shell {
 		try {
 			stdout.write(line.getBytes());
 		} catch (IOException e) {
-			// TODO better way to handle?
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, e.getMessage(), e);
 		}
 	}
 
