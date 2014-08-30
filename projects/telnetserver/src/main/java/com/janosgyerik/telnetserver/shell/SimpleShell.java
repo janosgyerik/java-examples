@@ -15,6 +15,7 @@ public class SimpleShell implements Shell {
 	private static final Logger LOGGER = Logger.getLogger(SimpleShell.class.getSimpleName());
 
 	private static final String NAME = SimpleShell.class.getSimpleName();
+	private static final String PROMPT = NAME + "> ";
 
 	private final CommandFinder commandFinder = new SimpleCommandFinder();
 	private final CommandFactory commandFactory = new SimpleCommandFactory();
@@ -74,6 +75,7 @@ public class SimpleShell implements Shell {
 
 	@Override
 	public void runInteractiveShell() {
+		writeOut(PROMPT);
 		Scanner scanner = new Scanner(stdin);
 		while (scanner.hasNextLine()) {
 			String cmd = scanner.next();
@@ -83,6 +85,7 @@ public class SimpleShell implements Shell {
 			} else {
 				runCommand(cmd, args);
 			}
+			writeOut(PROMPT);
 		}
 	}
 

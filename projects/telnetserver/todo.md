@@ -1,19 +1,25 @@
 Bare minimum
 ------------
 
-- add more examples to demonstrate working with threads correcly
-    - stop shell?
-    - stop server?
+- bug: ls incorrect
+    ls src  # ok
+    cd src
+    ls      # ok
+    ls main # NOT ok, empty output
+    ls test # NOT ok, empty output
 
-- add a prompt 'SimpleShell> ' or something
+- enter should print prompt again
 
-Nice to have
-------------
+- make commands write to stdout directly instead of returning array
+    - and make them return boolean exit code for success / failure
 
-- exit client with Control-D if possible
+- add stderr
 
 - make Control-C not break the client
 
-- add stderr
+- exit client with Control-D if possible
+
+Nice to have
+------------
 
 - make the shell chrooted
