@@ -1,22 +1,25 @@
-- multi-threaded server
-    + multiple clients at the same time
-    - exit with Control-D if possible
-    - make Control-C not break the client
+Bare minimum
+------------
 
-- logging
+- add javadoc for all interfaces
 
-- add stderr
-
-- write readme
-    + how to build
-    + how to run
-
-- add javadoc for interfaces
+- add more examples to demonstrate working with threads correcly
+    - stop shell?
+    - stop server?
 
 - add a prompt 'SimpleShell> ' or something
 
+- discover available commands using reflection
+
 - git grep TODO
 
-+ ls doesn't work with no args
+Nice to have
+------------
 
-+ cd without args doesn't go home
+- exit client with Control-D if possible
+
+- make Control-C not break the client
+
+- add stderr
+
+- make the shell chrooted
