@@ -1,17 +1,13 @@
 Bare minimum
 ------------
 
-- add javadoc for all interfaces
+- NPE when running unknown command
 
 - add more examples to demonstrate working with threads correcly
     - stop shell?
     - stop server?
 
 - add a prompt 'SimpleShell> ' or something
-
-- discover available commands using reflection
-
-- git grep TODO
 
 Nice to have
 ------------

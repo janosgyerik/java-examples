@@ -8,8 +8,6 @@ public class SimpleCommandFinder implements CommandFinder {
 
 	static {
 		commands = new HashMap<>();
-		// TODO discover implementations of Command using reflection
-		//		instead of adding manually one by one
 		commands.put("ls", LsCommand.class);
 		commands.put("pwd", PwdCommand.class);
 		commands.put("mkdir", MkdirCommand.class);
