@@ -20,6 +20,8 @@ public class SimpleClientProxy implements Runnable, ClientProxy {
 	private final InputStream stdin;
 	private final OutputStream stdout;
 
+	private volatile boolean shuttingDown;
+
 	public SimpleClientProxy(Socket socket) throws IOException {
 		stdin = socket.getInputStream();
 		stdout = socket.getOutputStream();
@@ -34,6 +36,11 @@ public class SimpleClientProxy implements Runnable, ClientProxy {
 
 	@Override
 	public void shutdown() {
+		if (shuttingDown) {
+			return;
+		}
+		shuttingDown = true;
+
 		LOGGER.info("Shutting down client ...");
 
 		try {
