@@ -16,16 +16,6 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class SimpleShell implements Shell {
-	/*
-	TODO info message
-Connected to localhost.
-Escape character is '^]'.
-^]
-telnet> ls
-?Invalid command
-$ adadasd
-bash: adadasd: command not found
-	 */
 	// TODO logout with Control-D
 	// TODO motd
 
