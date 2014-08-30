@@ -1,5 +1,6 @@
 package com.janosgyerik.telnetserver.impl.server;
 
+import com.janosgyerik.telnetserver.server.ClientProxy;
 import com.janosgyerik.telnetserver.shell.Shell;
 import com.janosgyerik.telnetserver.impl.shell.SimpleShell;
 
@@ -11,15 +12,15 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ClientProxy implements Runnable {
+public class SimpleClientProxy implements Runnable, ClientProxy {
 
-	private static final Logger LOGGER = Logger.getLogger(ClientProxy.class.getSimpleName());
+	private static final Logger LOGGER = Logger.getLogger(SimpleClientProxy.class.getSimpleName());
 
 	private final Shell shell;
 	private final InputStream stdin;
 	private final OutputStream stdout;
 
-	public ClientProxy(Socket socket) throws IOException {
+	public SimpleClientProxy(Socket socket) throws IOException {
 		stdin = socket.getInputStream();
 		stdout = socket.getOutputStream();
 		shell = new SimpleShell(new File("."), stdin, stdout);
@@ -31,12 +32,16 @@ public class ClientProxy implements Runnable {
 		shutdown();
 	}
 
-	private void shutdown() {
+	@Override
+	public void shutdown() {
+		LOGGER.info("Shutting down client ...");
+
 		try {
 			stdin.close();
 		} catch (IOException e) {
 			LOGGER.log(Level.SEVERE, "Could not close stdin", e);
 		}
+
 		try {
 			stdout.close();
 		} catch (IOException e) {

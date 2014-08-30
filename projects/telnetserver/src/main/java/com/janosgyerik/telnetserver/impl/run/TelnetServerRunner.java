@@ -1,6 +1,6 @@
 package com.janosgyerik.telnetserver.impl.run;
 
-import com.janosgyerik.telnetserver.impl.server.TelnetServer;
+import com.janosgyerik.telnetserver.impl.server.SimpleTelnetServer;
 
 import java.io.IOException;
 
@@ -10,6 +10,6 @@ public class TelnetServerRunner {
 
 	public static void main(String[] args) throws IOException {
 		int port = args.length > 0 ? Integer.parseInt(args[0]) : DEFAULT_PORT;
-		new TelnetServer().runForever(port);
+		new SimpleTelnetServer().runForever(port);
 	}
 }
