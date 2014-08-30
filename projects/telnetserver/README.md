@@ -27,3 +27,10 @@ Run the telnet server on port 1234 with:
     java -jar target/telnetserver.jar 1234
 
 Stop the server with Control-C.
+
+Adding commands
+---------------
+
+To add new commands, extend the `BaseCommand` abstract class,
+and it will be discovered automatically if the class is
+on the runtime classpath.
