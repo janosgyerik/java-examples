@@ -3,16 +3,16 @@ package com.janosgyerik.telnetserver.commands;
 public interface CommandFinder {
 
 	/**
-	 * Find a Command implementation by the commands short name
+	 * Find a Command implementation by the command's short name
 	 *
-	 * @param shortName
-	 * @return
+	 * @param shortName the short name of the command, such as "ls", "pwd"
+	 * @return the class that implements the command
 	 */
 	Class<? extends Command> findCommandClassByShortName(String shortName) throws NoSuchCommandException;
 
 	class NoSuchCommandException extends Exception {
-		public NoSuchCommandException(String message, Throwable cause) {
-			super(message, cause);
+		public NoSuchCommandException(String message) {
+			super(message);
 		}
 	}
 }

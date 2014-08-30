@@ -15,6 +15,10 @@ public class SimpleCommandFinder implements CommandFinder {
 
 	@Override
 	public Class<? extends Command> findCommandClassByShortName(String shortName) throws NoSuchCommandException {
-		return commands.get(shortName);
+		Class<? extends Command> commandClass = commands.get(shortName);
+		if (commandClass == null) {
+			throw new NoSuchCommandException("No such command: " + shortName);
+		}
+		return commandClass;
 	}
 }
