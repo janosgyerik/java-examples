@@ -60,9 +60,8 @@ public class SimpleShell implements Shell {
 			if (klass == null) {
 				writeOut(String.format("%s: %s: command not found\n", SimpleShell.class.getSimpleName(), cmdname));
 			} else {
-				Command command = null;
 				try {
-					command = new SimpleCommandFactory().createCommand(klass, cwd);
+					Command command = new SimpleCommandFactory().createCommand(klass, cwd);
 					for (String line : command.execute(args)) {
 						writeLineOut(line);
 					}
