@@ -79,6 +79,10 @@ public class SimpleShell implements Shell {
 		Scanner scanner = new Scanner(stdin);
 		while (scanner.hasNextLine()) {
 			String cmd = scanner.next();
+			// Received ^D (End Of Transmission)
+			if (cmd.charAt(0) == 4) {
+				break;
+			}
 			String[] args = scanner.nextLine().trim().split(" ");
 			if (args[0].isEmpty()) {
 				runCommand(cmd);
