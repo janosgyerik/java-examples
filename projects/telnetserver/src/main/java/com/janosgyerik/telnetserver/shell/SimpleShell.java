@@ -16,9 +16,9 @@ public class SimpleShell implements Shell {
 
 	private static final String NAME = SimpleShell.class.getSimpleName();
 
-	final String homePath;
-	final InputStream stdin;
-	final OutputStream stdout;
+	private final String homePath;
+	private final InputStream stdin;
+	private final OutputStream stdout;
 
 	private File cwd;
 
