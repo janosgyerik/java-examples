@@ -66,10 +66,6 @@ bash: adadasd: command not found
 		}
 	}
 
-	public static void main(String[] args) throws IOException {
-		new SimpleShell(new File(".").getCanonicalPath(), System.in, System.out).runInteractiveShell();
-	}
-
 	@Override
 	public void cd(String path) {
 		File dir = path.startsWith("/") ? new File(path) : new File(cwd, path);
