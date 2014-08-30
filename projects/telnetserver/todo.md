@@ -6,8 +6,6 @@ Bare minimum
 
 - add stderr
 
-- make Control-C not break the client
-
 Nice to have
 ------------
 
