@@ -16,6 +16,9 @@ public class SimpleShell implements Shell {
 
 	private static final String NAME = SimpleShell.class.getSimpleName();
 
+	private final CommandFinder commandFinder = new SimpleCommandFinder();
+	private final CommandFactory commandFactory = new SimpleCommandFactory();
+
 	private final String homePath;
 	private final InputStream stdin;
 	private final OutputStream stdout;
@@ -49,7 +52,7 @@ public class SimpleShell implements Shell {
 		} else {
 			Class<? extends Command> klass;
 			try {
-				klass = new SimpleCommandFinder().findCommandClassByShortName(cmdname);
+				klass = commandFinder.findCommandClassByShortName(cmdname);
 			} catch (CommandFinder.NoSuchCommandException e) {
 				writeLineOut(String.format("%s: %s: command not found", NAME, cmdname));
 				LOGGER.log(Level.SEVERE, e.getMessage(), e);
@@ -57,7 +60,7 @@ public class SimpleShell implements Shell {
 			}
 			Command command;
 			try {
-				command = new SimpleCommandFactory().createCommand(klass, cwd);
+				command = commandFactory.createCommand(klass, cwd);
 			} catch (CommandFactory.CommandInstantiationException e) {
 				writeLineOut(String.format("%s: %s: unknown error", NAME, cmdname));
 				LOGGER.log(Level.SEVERE, e.getMessage(), e);
