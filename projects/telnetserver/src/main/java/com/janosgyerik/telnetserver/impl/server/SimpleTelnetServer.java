@@ -10,6 +10,7 @@ import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class SimpleTelnetServer implements TelnetServer {
@@ -18,11 +19,13 @@ public class SimpleTelnetServer implements TelnetServer {
 
 	private static final int SO_TIMEOUT = 1000;
 
+	private int port;
 	private volatile boolean stopRequested;
 
 	private void runForever(int port) throws IOException {
+		this.port = port;
 		ServerSocket serverSocket = new ServerSocket(port);
-		serverSocket.setSoTimeout(SO_TIMEOUT);
+//		serverSocket.setSoTimeout(SO_TIMEOUT);
 
 		LOGGER.info("Listening on port: " + port);
 
@@ -71,6 +74,15 @@ public class SimpleTelnetServer implements TelnetServer {
 	@Override
 	public void shutdown() {
 		stopRequested = true;
+		try {
+			sendPoisonPill();
+		} catch (IOException e) {
+			LOGGER.log(Level.WARNING, e.getMessage(), e);
+		}
+	}
+
+	private void sendPoisonPill() throws IOException {
+		new Socket("localhost", port);
 	}
 }
 
