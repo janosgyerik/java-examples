@@ -95,11 +95,16 @@ public class CurveListCsvParser {
         }
     }
 
-    private static class ParseError {
+    public static class ParseError {
         private final String message;
 
         public ParseError(String value, int index, String line) {
             message = String.format("Could not parse value: '%s' (column %d in line = '%s')", value, index, line);
+        }
+
+        @Override
+        public String toString() {
+            return message;
         }
     }
 }
