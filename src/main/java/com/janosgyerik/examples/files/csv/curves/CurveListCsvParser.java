@@ -1,5 +1,8 @@
 package com.janosgyerik.examples.files.csv.curves;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -16,7 +19,18 @@ public class CurveListCsvParser {
 
     private static final Pattern RE_MONTHS = Pattern.compile("\\d+M");
 
-    // Scanner scanner = new Scanner(new FileReader(file));
+    public Result parse(File file, Date curveDate, List<String> curveCodes) {
+        try {
+            Scanner scanner = new Scanner(new FileReader(file));
+            Result result = parse(scanner, curveDate, curveCodes);
+            scanner.close();
+            return result;
+        } catch (FileNotFoundException e) {
+            return new Result();
+            e.printStackTrace();
+        }
+    }
+
     public Result parse(Scanner scanner, Date curveDate, List<String> curveCodes) {
         Result.Builder resultBuilder = Result.builder(curveDate, curveCodes);
         while (scanner.hasNextLine()) {
