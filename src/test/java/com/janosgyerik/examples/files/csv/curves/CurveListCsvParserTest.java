@@ -23,12 +23,22 @@ public class CurveListCsvParserTest {
     }
 
     @Test
-    public void testParse2Curve2() {
+    public void testParse2Curves() {
         String sample = "header;months;foo;bar;baz\n" +
                 "label;2M;1.2;2.2;3.2\n" +
                 "label;6M;1.6;2.6;3.6\n";
         CurveListCsvParser.Result result = parser.parse(new Scanner(sample), new Date(), Arrays.asList("foo", "bar"));
         assertEquals(2, result.getCurves().size());
+    }
+
+    @Test
+    public void testParse3Curves() {
+        String sample = "header;months;foo;bar;baz\n" +
+                "label;2M;1.2;2.2;3.2\n" +
+                "label;6M;1.6;2.6;3.6\n";
+        CurveListCsvParser.Result result =
+                parser.parse(new Scanner(sample), new Date(), Arrays.asList("foo", "bar", "baz"));
+        assertEquals(3, result.getCurves().size());
     }
 
     @Test

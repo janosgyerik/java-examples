@@ -3,10 +3,15 @@ package com.janosgyerik.examples.files.csv.curves;
 import java.util.*;
 import java.util.regex.Pattern;
 
+/**
+ * parser for file format:
+ *
+ * header;months;foo;bar;baz
+ * label;1M;1.1;2.1;3.1
+ * label;2M;1.2;2.2;3.2
+ * label;6M;1.6;2.6;3.6
+ */
 public class CurveListCsvParser {
-    // label;1M;1.1;2.1;3.1
-    // label;2M;1.2;2.2;3.2
-    // label;6M;1.6;2.6;3.6
     private static final int COL_MONTHS = 1;
 
     private static final Pattern RE_MONTHS = Pattern.compile("\\d+M");
