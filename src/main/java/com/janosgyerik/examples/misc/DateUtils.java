@@ -17,22 +17,21 @@ public class DateUtils {
         c1.setTime(date);
         Calendar c2 = Calendar.getInstance();
         c2.setTime(new Date());
-        int diff = 0;
-        if (c2.after(c1)) {
-            while (c2.after(c1)) {
-                c1.add(Calendar.MONTH, 1);
-                if (c2.after(c1)) {
-                    diff++;
-                }
-            }
-        } else if (c1.after(c2)) {
-            while (c1.after(c2)) {
-                c1.add(Calendar.MONTH, -1);
-                if (c1.after(c2)) {
-                    diff--;
-                }
-            }
+        int cmp = c1.compareTo(c2);
+        if (cmp == 0) {
+            return 0;
         }
-        return diff;
+        int diff = 0;
+        if (cmp > 0) {
+            Calendar tmp = c1;
+            c1 = c2;
+            c2 = tmp;
+        }
+        while (c1.before(c2)) {
+            ++diff;
+            c1.add(Calendar.MONTH, 1);
+        }
+        --diff;
+        return cmp < 0 ? diff : -diff;
     }
 }
