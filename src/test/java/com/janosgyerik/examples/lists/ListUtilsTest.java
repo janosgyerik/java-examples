@@ -3,35 +3,34 @@ package com.janosgyerik.examples.lists;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
 public class ListUtilsTest {
-	private <T> List<List<T>> partition(Iterable<T> iterable, int size) {
-		return ListUtils.partition(iterable, size);
+	private <T> List<List<T>> partition(List<T> items, int size) {
+		return ListUtils.partition(items, size);
 	}
 
 	@Test
 	public void testPartitionEmpty() {
-		assertEquals(Arrays.<List<Object>>asList(), partition(Arrays.asList(), 3));
+		assertEquals(Collections.EMPTY_LIST, partition(Arrays.asList(), 3));
 	}
 
 	@Test
 	public void testPartitionNull() {
-		assertEquals(Arrays.<List<Object>>asList(), partition(null, 3));
+		assertEquals(Collections.EMPTY_LIST, partition(null, 3));
 	}
 
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void testPartitionZeroSize() {
-		List<Integer> orig = Arrays.asList(1, 2, 3);
-		assertEquals(Arrays.asList(orig), partition(orig, 0));
+		partition(Arrays.asList(1, 2, 3), 0);
 	}
 
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void testPartitionNegativeSize() {
-		List<Integer> orig = Arrays.asList(1, 2, 3);
-		assertEquals(Arrays.asList(orig), partition(orig, -3));
+		partition(Arrays.asList(1, 2, 3), -3);
 	}
 
 	@Test

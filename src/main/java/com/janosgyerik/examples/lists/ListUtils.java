@@ -1,35 +1,21 @@
 package com.janosgyerik.examples.lists;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 public class ListUtils {
-	public static <T> List<List<T>> partition(Iterable<T> iterable, int size) {
-		if (iterable == null) {
+	public static <T> List<List<T>> partition(List<T> orig, int size) {
+		if (size < 1) {
+			throw new IllegalArgumentException("The target partition size must be 1 or greater");
+		}
+		if (orig == null) {
 			return Collections.emptyList();
 		}
-		if (size < 1) {
-			List<T> list = new ArrayList<>();
-			for (T item : iterable) {
-				list.add(item);
-			}
-			return Arrays.asList(list);
-		}
-		List<List<T>> result = new ArrayList<>();
-		List<T> segment = new ArrayList<>(size);
-		int i = 0;
-		for (T item : iterable) {
-			segment.add(item);
-			if (++i == size) {
-				result.add(segment);
-				segment = new ArrayList<>(size);
-				i = 0;
-			}
-		}
-		if (i > 0) {
-			result.add(segment);
+		int origSize = orig.size();
+		List<List<T>> result = new ArrayList<>(origSize / size + 1);
+		for (int i = 0; i < origSize; i += size) {
+			result.add(orig.subList(i, Math.min(i + size, origSize)));
 		}
 		return result;
 	}
