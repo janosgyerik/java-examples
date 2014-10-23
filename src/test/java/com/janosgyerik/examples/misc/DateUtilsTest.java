@@ -41,5 +41,10 @@ public class DateUtilsTest {
             assertElapsedMonths(months);
         }
     }
+
+    @Test
+    public void testFormat() {
+        assertEquals("2014-10-23", DateUtils.getDateFormat().format(DateUtils.create(2014, 10, 23)));
+    }
 }
 

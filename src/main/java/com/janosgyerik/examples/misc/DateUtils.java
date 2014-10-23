@@ -34,4 +34,23 @@ public class DateUtils {
         --diff;
         return cmp < 0 ? diff : -diff;
     }
+
+    private static final ThreadLocal<SimpleDateFormat> localDateFormat = new ThreadLocal<SimpleDateFormat>() {
+        @Override
+        protected SimpleDateFormat initialValue() {
+            return new SimpleDateFormat("YYYY-MM-dd");
+        }
+    };
+
+    public static SimpleDateFormat getDateFormat() {
+        return localDateFormat.get();
+    }
+
+    public static Date create(int year, int month, int day) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month - 1);
+        calendar.set(Calendar.DAY_OF_MONTH, day);
+        return calendar.getTime();
+    }
 }
