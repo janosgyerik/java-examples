@@ -21,9 +21,23 @@ public class BinarySearchTreeUtilTest {
     }
 
     @Test
-    public void testNonBST() {
+    public void testNonBST_IfWrongOrder() {
         BinaryTreeNode<Integer> node = new BinaryTreeNode<>(3);
         node.setLeft(new BinaryTreeNode<>(5));
+        assertFalse(BinarySearchTreeUtil.isBinarySearchTree(node));
+    }
+
+    @Test
+    public void testNonBST_IfLeftIsDup() {
+        BinaryTreeNode<Integer> node = new BinaryTreeNode<>(5);
+        node.setLeft(new BinaryTreeNode<>(5));
+        assertFalse(BinarySearchTreeUtil.isBinarySearchTree(node));
+    }
+
+    @Test
+    public void testNonBST_IfRightIsDup() {
+        BinaryTreeNode<Integer> node = new BinaryTreeNode<>(5);
+        node.setRight(new BinaryTreeNode<>(5));
         assertFalse(BinarySearchTreeUtil.isBinarySearchTree(node));
     }
 
