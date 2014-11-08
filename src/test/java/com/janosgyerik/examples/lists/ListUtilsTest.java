@@ -18,9 +18,9 @@ public class ListUtilsTest {
 		assertEquals(Collections.EMPTY_LIST, partition(Arrays.asList(), 3));
 	}
 
-	@Test
+	@Test(expected = NullPointerException.class)
 	public void testPartitionNull() {
-		assertEquals(Collections.EMPTY_LIST, partition(null, 3));
+		partition(null, 3);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
