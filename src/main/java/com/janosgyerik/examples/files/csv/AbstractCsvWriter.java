@@ -1,4 +1,4 @@
-package com.janosgyerik.examples.files;
+package com.janosgyerik.examples.files.csv;
 
 import java.io.*;
 import java.util.Collection;

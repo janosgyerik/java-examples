@@ -1,6 +1,6 @@
 package com.janosgyerik.examples.demo.csvwriter;
 
-import com.janosgyerik.examples.files.AbstractCsvWriter;
+import com.janosgyerik.examples.files.csv.AbstractCsvWriter;
 
 public class PersonCsvWriter extends AbstractCsvWriter<Person> {
 
