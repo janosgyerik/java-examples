@@ -8,15 +8,15 @@ import java.io.File;
 import java.io.IOException;
 
 public class BaseCommandTest {
-	static final File WORKDIR = new File(System.getProperties().getProperty("java.io.tmpdir"), LsCommandTest.class.getSimpleName());
+    static final File WORKDIR = new File(System.getProperties().getProperty("java.io.tmpdir"), LsCommandTest.class.getSimpleName());
 
-	@Before
-	public void setUp() throws IOException {
-		FileUtils.setupCleanDir(WORKDIR);
-	}
+    @Before
+    public void setUp() throws IOException {
+        FileUtils.setupCleanDir(WORKDIR);
+    }
 
-	@AfterClass
-	public static void tearDownAfterClass() throws IOException {
-		FileUtils.wipeDirRecursively(WORKDIR);
-	}
+    @AfterClass
+    public static void tearDownAfterClass() throws IOException {
+        FileUtils.wipeDirRecursively(WORKDIR);
+    }
 }

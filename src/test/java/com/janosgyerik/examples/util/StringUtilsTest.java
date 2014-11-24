@@ -22,8 +22,8 @@ public class StringUtilsTest {
                 new String[]{"bar", "baz"}));
     }
 
-    // TODO invalid input
-//    @Test
+    //TODO invalid input, should throw exception
+    //@Test
     public void testDuplicatePatterns() {
         assertEquals("barbar", StringUtils.replaceEach("foobar",
                 new String[]{"foo", "foo"},

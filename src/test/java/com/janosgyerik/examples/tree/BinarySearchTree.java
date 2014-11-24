@@ -3,19 +3,19 @@ package com.janosgyerik.examples.tree;
 import java.util.List;
 
 public interface BinarySearchTree<T extends Comparable<T>> {
-	void add(T item);
+    void add(T item);
 
-	void add(Iterable<T> items);
+    void add(Iterable<T> items);
 
-	boolean contains(T item);
+    boolean contains(T item);
 
-	boolean remove(T item);
+    boolean remove(T item);
 
-	int size();
+    int size();
 
-	int height();
+    int height();
 
-	List<T> toList();
+    List<T> toList();
 
-	void rebalance();
+    void rebalance();
 }

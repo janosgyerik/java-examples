@@ -56,12 +56,7 @@ public class ChainIteratorTest {
     public void testConcatWithManyEmpty() {
         List<Integer> list1 = Arrays.asList(1, 2, 3);
         List<Integer> list2 = Arrays.asList(4, 5);
-        ChainIterator<Integer> iter2x = new ChainIterator<>(
-                Collections.<Integer>emptyList().iterator(),
-                list1.iterator(),
-                Collections.<Integer>emptyList().iterator(),
-                Collections.<Integer>emptyList().iterator(),
-                list2.iterator());
+        ChainIterator<Integer> iter2x = new ChainIterator<>(Collections.<Integer>emptyList().iterator(), list1.iterator(), Collections.<Integer>emptyList().iterator(), Collections.<Integer>emptyList().iterator(), list2.iterator());
         for (Integer item : list1) {
             assertTrue(iter2x.hasNext());
             assertEquals(item, iter2x.next());

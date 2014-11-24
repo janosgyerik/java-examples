@@ -2,9 +2,6 @@ package com.janosgyerik.examples.junk;
 
 import org.joda.time.DateTime;
 
-import java.sql.Time;
-import java.util.Date;
-
 public class Year2038 {
     public static void main(String[] args) {
         int booking_year2 = 2038;
@@ -23,9 +20,9 @@ public class Year2038 {
         System.out.println(date.getMillis());
         System.out.println(date.plusDays(1));
         System.out.println(date.plusDays(1).getMillis());
-//        Time t = new Time(new Date().getTime());
-//        t.set(booking_day2, booking_month2 - 1, booking_year2);
-//        long date3 = t.toMillis(false);
+        //        Time t = new Time(new Date().getTime());
+        //        t.set(booking_day2, booking_month2 - 1, booking_year2);
+        //        long date3 = t.toMillis(false);
 
         booking_year2 = 2038;
         booking_month2 = 1;

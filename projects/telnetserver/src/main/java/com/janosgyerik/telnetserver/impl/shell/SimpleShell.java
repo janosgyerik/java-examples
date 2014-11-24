@@ -1,6 +1,8 @@
 package com.janosgyerik.telnetserver.impl.shell;
 
-import com.janosgyerik.telnetserver.commands.*;
+import com.janosgyerik.telnetserver.commands.Command;
+import com.janosgyerik.telnetserver.commands.CommandFactory;
+import com.janosgyerik.telnetserver.commands.CommandFinder;
 import com.janosgyerik.telnetserver.impl.commands.SimpleCommandFactory;
 import com.janosgyerik.telnetserver.impl.commands.SimpleCommandFinder;
 import com.janosgyerik.telnetserver.shell.Shell;
@@ -15,96 +17,96 @@ import java.util.logging.Logger;
 
 public class SimpleShell implements Shell {
 
-	private static final Logger LOGGER = Logger.getLogger(SimpleShell.class.getSimpleName());
+    private static final Logger LOGGER = Logger.getLogger(SimpleShell.class.getSimpleName());
 
-	private static final String NAME = SimpleShell.class.getSimpleName();
-	private static final String PROMPT = NAME + "> ";
+    private static final String NAME = SimpleShell.class.getSimpleName();
+    private static final String PROMPT = NAME + "> ";
 
-	private final CommandFinder commandFinder = new SimpleCommandFinder();
-	private final CommandFactory commandFactory = new SimpleCommandFactory();
+    private final CommandFinder commandFinder = new SimpleCommandFinder();
+    private final CommandFactory commandFactory = new SimpleCommandFactory();
 
-	private final String homePath;
-	private final InputStream stdin;
-	private final OutputStream stdout;
+    private final String homePath;
+    private final InputStream stdin;
+    private final OutputStream stdout;
 
-	private File cwd;
+    private File cwd;
 
-	public SimpleShell(String homePath, InputStream stdin, OutputStream stdout) {
-		this.homePath = homePath;
-		this.stdin = stdin;
-		this.stdout = stdout;
+    public SimpleShell(String homePath, InputStream stdin, OutputStream stdout) {
+        this.homePath = homePath;
+        this.stdin = stdin;
+        this.stdout = stdout;
 
-		this.cwd = new File(homePath);
-	}
+        this.cwd = new File(homePath);
+    }
 
-	public SimpleShell(File file, InputStream stdin, OutputStream stdout) {
-		this(file.getAbsolutePath(), stdin, stdout);
-	}
+    public SimpleShell(File file, InputStream stdin, OutputStream stdout) {
+        this(file.getAbsolutePath(), stdin, stdout);
+    }
 
-	@Override
-	public void cd(String path) {
-		File dir = path.startsWith("/") ? new File(path) : new File(cwd, path);
-		if (dir.isDirectory()) {
-			cwd = dir;
-		}
-	}
+    @Override
+    public void cd(String path) {
+        File dir = path.startsWith("/") ? new File(path) : new File(cwd, path);
+        if (dir.isDirectory()) {
+            cwd = dir;
+        }
+    }
 
-	@Override
-	public void runCommand(String cmdname, String... args) {
-		if (cmdname.equals("cd")) {
-			cd(args.length > 0 ? args[0] : homePath);
-		} else {
-			Class<? extends Command> klass;
-			try {
-				klass = commandFinder.findCommandClassByShortName(cmdname);
-			} catch (CommandFinder.NoSuchCommandException e) {
-				writeLineOut(String.format("%s: %s: command not found", NAME, cmdname));
-				LOGGER.log(Level.SEVERE, e.getMessage(), e);
-				return;
-			}
-			Command command;
-			try {
-				command = commandFactory.createCommand(klass, cwd);
-			} catch (CommandFactory.CommandInstantiationException e) {
-				writeLineOut(String.format("%s: %s: unknown error", NAME, cmdname));
-				LOGGER.log(Level.SEVERE, e.getMessage(), e);
-				return;
-			}
-			for (String line : command.execute(args)) {
-				writeLineOut(line);
-			}
-		}
-	}
+    @Override
+    public void runCommand(String cmdname, String... args) {
+        if (cmdname.equals("cd")) {
+            cd(args.length > 0 ? args[0] : homePath);
+        } else {
+            Class<? extends Command> klass;
+            try {
+                klass = commandFinder.findCommandClassByShortName(cmdname);
+            } catch (CommandFinder.NoSuchCommandException e) {
+                writeLineOut(String.format("%s: %s: command not found", NAME, cmdname));
+                LOGGER.log(Level.SEVERE, e.getMessage(), e);
+                return;
+            }
+            Command command;
+            try {
+                command = commandFactory.createCommand(klass, cwd);
+            } catch (CommandFactory.CommandInstantiationException e) {
+                writeLineOut(String.format("%s: %s: unknown error", NAME, cmdname));
+                LOGGER.log(Level.SEVERE, e.getMessage(), e);
+                return;
+            }
+            for (String line : command.execute(args)) {
+                writeLineOut(line);
+            }
+        }
+    }
 
-	@Override
-	public void runInteractiveShell() {
-		writeOut(PROMPT);
-		Scanner scanner = new Scanner(stdin);
-		while (scanner.hasNextLine()) {
-			String cmd = scanner.next();
-			// Received ^D (End Of Transmission)
-			if (cmd.charAt(0) == 4) {
-				break;
-			}
-			String[] args = scanner.nextLine().trim().split(" ");
-			if (args[0].isEmpty()) {
-				runCommand(cmd);
-			} else {
-				runCommand(cmd, args);
-			}
-			writeOut(PROMPT);
-		}
-	}
+    @Override
+    public void runInteractiveShell() {
+        writeOut(PROMPT);
+        Scanner scanner = new Scanner(stdin);
+        while (scanner.hasNextLine()) {
+            String cmd = scanner.next();
+            // Received ^D (End Of Transmission)
+            if (cmd.charAt(0) == 4) {
+                break;
+            }
+            String[] args = scanner.nextLine().trim().split(" ");
+            if (args[0].isEmpty()) {
+                runCommand(cmd);
+            } else {
+                runCommand(cmd, args);
+            }
+            writeOut(PROMPT);
+        }
+    }
 
-	private void writeOut(String line) {
-		try {
-			stdout.write(line.getBytes());
-		} catch (IOException e) {
-			LOGGER.log(Level.SEVERE, e.getMessage(), e);
-		}
-	}
+    private void writeOut(String line) {
+        try {
+            stdout.write(line.getBytes());
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, e.getMessage(), e);
+        }
+    }
 
-	private void writeLineOut(String line) {
-		writeOut(line + "\n");
-	}
+    private void writeLineOut(String line) {
+        writeOut(line + "\n");
+    }
 }

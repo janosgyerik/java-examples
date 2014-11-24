@@ -7,21 +7,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SimpleCommandFinder implements CommandFinder {
-	private static final Map<String, Class<? extends Command>> commands;
+    private static final Map<String, Class<? extends Command>> commands;
 
-	static {
-		commands = new HashMap<>();
-		commands.put("ls", LsCommand.class);
-		commands.put("pwd", PwdCommand.class);
-		commands.put("mkdir", MkdirCommand.class);
-	}
+    static {
+        commands = new HashMap<>();
+        commands.put("ls", LsCommand.class);
+        commands.put("pwd", PwdCommand.class);
+        commands.put("mkdir", MkdirCommand.class);
+    }
 
-	@Override
-	public Class<? extends Command> findCommandClassByShortName(String shortName) throws NoSuchCommandException {
-		Class<? extends Command> commandClass = commands.get(shortName);
-		if (commandClass == null) {
-			throw new NoSuchCommandException("No such command: " + shortName);
-		}
-		return commandClass;
-	}
+    @Override
+    public Class<? extends Command> findCommandClassByShortName(String shortName) throws NoSuchCommandException {
+        Class<? extends Command> commandClass = commands.get(shortName);
+        if (commandClass == null) {
+            throw new NoSuchCommandException("No such command: " + shortName);
+        }
+        return commandClass;
+    }
 }

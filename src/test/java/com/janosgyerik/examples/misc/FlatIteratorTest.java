@@ -76,17 +76,7 @@ public class FlatIteratorTest {
 
     @Test
     public void testDeeplyNestedList() {
-        List<Object> nested = Arrays.asList(
-                1, 2,
-                Arrays.asList(3, 4),
-                Arrays.asList(5, Arrays.asList(6, 7, 8, Arrays.asList(Arrays.asList(9), 10))),
-                Arrays.asList(Arrays.asList(), Arrays.asList(), Arrays.asList(11)),
-                Arrays.asList(Arrays.asList(), Arrays.asList(), Arrays.asList()),
-                Arrays.asList(Arrays.asList(Arrays.asList())),
-                12,
-                Arrays.asList(),
-                Arrays.asList(13, 14)
-        );
+        List<Object> nested = Arrays.asList(1, 2, Arrays.asList(3, 4), Arrays.asList(5, Arrays.asList(6, 7, 8, Arrays.asList(Arrays.asList(9), 10))), Arrays.asList(Arrays.asList(), Arrays.asList(), Arrays.asList(11)), Arrays.asList(Arrays.asList(), Arrays.asList(), Arrays.asList()), Arrays.asList(Arrays.asList(Arrays.asList())), 12, Arrays.asList(), Arrays.asList(13, 14));
         FlatIterator<Object> iter = new FlatIterator<>(nested);
         for (int i = 1; i <= 14; ++i) {
             assertTrue(iter.hasNext());
