@@ -1,5 +1,7 @@
 package com.janosgyerik.examples.demo.csvwriter;
 
+import com.janosgyerik.examples.demo.company.Person;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
