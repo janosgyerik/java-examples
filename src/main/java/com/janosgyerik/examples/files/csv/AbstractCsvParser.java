@@ -4,17 +4,17 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractCsvReader implements CsvReader {
+public abstract class AbstractCsvParser implements CsvParser {
 
     public static final String DEFAULT_SEPARATOR = "\\s*,\\s*";
 
     private final String separator;
 
-    AbstractCsvReader(String separator) {
+    AbstractCsvParser(String separator) {
         this.separator = separator;
     }
 
-    AbstractCsvReader() {
+    AbstractCsvParser() {
         this(DEFAULT_SEPARATOR);
     }
 

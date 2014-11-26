@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 
-public class ScannerCsvReaderTest {
+public class ScannerCsvParserTest {
 
     private static class FirstColMapper implements RowMapper<String> {
         @Override
@@ -23,19 +23,19 @@ public class ScannerCsvReaderTest {
 
     @Test
     public void test_1line() throws IOException {
-        CsvReader reader = new ScannerCsvReader("hello");
+        CsvParser reader = new ScannerCsvParser("hello");
         assertEquals(1, reader.readLines(new FirstColMapper()).size());
     }
 
     @Test
     public void test_3lines() throws IOException {
-        CsvReader reader = new ScannerCsvReader("hello\n\nx");
+        CsvParser reader = new ScannerCsvParser("hello\n\nx");
         assertEquals(3, reader.readLines(new FirstColMapper()).size());
     }
 
     @Test
     public void test_3NonBlankLines() throws IOException {
-        CsvReader reader = new ScannerCsvReader("hello\n\nx");
+        CsvParser reader = new ScannerCsvParser("hello\n\nx");
         assertEquals(2, reader.readLines(new FirstColMapper() {
             @Override
             public boolean isValidRow(String[] cols) {
@@ -65,9 +65,9 @@ public class ScannerCsvReaderTest {
         }
 
         NthColMapper mapper = new NthColMapper(2);
-        assertEquals(0, new ScannerCsvReader("hello\n\nx").readLines(mapper).size());
-        assertEquals(1, new ScannerCsvReader("hello\na,b\nx").readLines(mapper).size());
-        assertEquals(1, new ScannerCsvReader("hello\na,b,c\nx").readLines(mapper).size());
-        assertEquals(Arrays.asList("b"), new ScannerCsvReader("hello\na,b,c\nx").readLines(mapper));
+        assertEquals(0, new ScannerCsvParser("hello\n\nx").readLines(mapper).size());
+        assertEquals(1, new ScannerCsvParser("hello\na,b\nx").readLines(mapper).size());
+        assertEquals(1, new ScannerCsvParser("hello\na,b,c\nx").readLines(mapper).size());
+        assertEquals(Arrays.asList("b"), new ScannerCsvParser("hello\na,b,c\nx").readLines(mapper));
     }
 }

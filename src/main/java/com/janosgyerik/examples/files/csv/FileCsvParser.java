@@ -2,16 +2,16 @@ package com.janosgyerik.examples.files.csv;
 
 import java.io.*;
 
-public class FileCsvReader extends AbstractCsvReader {
+public class FileCsvParser extends AbstractCsvParser {
 
     private final BufferedReader reader;
 
-    FileCsvReader(File file, String separator) throws FileNotFoundException {
+    FileCsvParser(File file, String separator) throws FileNotFoundException {
         super(separator);
         reader = new BufferedReader(new FileReader(file));
     }
 
-    public FileCsvReader(File file) throws FileNotFoundException {
+    public FileCsvParser(File file) throws FileNotFoundException {
         this(file, DEFAULT_SEPARATOR);
     }
 

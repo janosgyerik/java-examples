@@ -3,15 +3,15 @@ package com.janosgyerik.examples.files.csv;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-public class ScannerCsvReader extends AbstractCsvReader {
+public class ScannerCsvParser extends AbstractCsvParser {
 
     private final Scanner scanner;
 
-    public ScannerCsvReader(Scanner scanner) {
+    public ScannerCsvParser(Scanner scanner) {
         this.scanner = scanner;
     }
 
-    public ScannerCsvReader(String text) {
+    public ScannerCsvParser(String text) {
         this(new Scanner(text));
     }
 
