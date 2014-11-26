@@ -5,6 +5,6 @@ import java.util.List;
 
 public interface CsvParser {
 
-    <T> List<T> readLines(RowMapper<T> mapper) throws IOException;
+    <T> List<T> parseLines(RowMapper<T> mapper) throws IOException;
 
 }

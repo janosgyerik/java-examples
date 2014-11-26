@@ -21,7 +21,7 @@ public abstract class AbstractCsvParser implements CsvParser {
     abstract String nextLine() throws IOException;
 
     @Override
-    public <T> List<T> readLines(RowMapper<T> mapper) throws IOException {
+    public <T> List<T> parseLines(RowMapper<T> mapper) throws IOException {
         List<T> lines = new ArrayList<>();
         {
             String line;

@@ -24,19 +24,19 @@ public class ScannerCsvParserTest {
     @Test
     public void test_1line() throws IOException {
         CsvParser reader = new ScannerCsvParser("hello");
-        assertEquals(1, reader.readLines(new FirstColMapper()).size());
+        assertEquals(1, reader.parseLines(new FirstColMapper()).size());
     }
 
     @Test
     public void test_3lines() throws IOException {
         CsvParser reader = new ScannerCsvParser("hello\n\nx");
-        assertEquals(3, reader.readLines(new FirstColMapper()).size());
+        assertEquals(3, reader.parseLines(new FirstColMapper()).size());
     }
 
     @Test
     public void test_3NonBlankLines() throws IOException {
         CsvParser reader = new ScannerCsvParser("hello\n\nx");
-        assertEquals(2, reader.readLines(new FirstColMapper() {
+        assertEquals(2, reader.parseLines(new FirstColMapper() {
             @Override
             public boolean isValidRow(String[] cols) {
                 return cols[0].length() > 0;
@@ -65,9 +65,9 @@ public class ScannerCsvParserTest {
         }
 
         NthColMapper mapper = new NthColMapper(2);
-        assertEquals(0, new ScannerCsvParser("hello\n\nx").readLines(mapper).size());
-        assertEquals(1, new ScannerCsvParser("hello\na,b\nx").readLines(mapper).size());
-        assertEquals(1, new ScannerCsvParser("hello\na,b,c\nx").readLines(mapper).size());
-        assertEquals(Arrays.asList("b"), new ScannerCsvParser("hello\na,b,c\nx").readLines(mapper));
+        assertEquals(0, new ScannerCsvParser("hello\n\nx").parseLines(mapper).size());
+        assertEquals(1, new ScannerCsvParser("hello\na,b\nx").parseLines(mapper).size());
+        assertEquals(1, new ScannerCsvParser("hello\na,b,c\nx").parseLines(mapper).size());
+        assertEquals(Arrays.asList("b"), new ScannerCsvParser("hello\na,b,c\nx").parseLines(mapper));
     }
 }

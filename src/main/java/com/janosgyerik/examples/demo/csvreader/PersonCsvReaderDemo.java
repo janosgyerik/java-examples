@@ -22,7 +22,7 @@ public class PersonCsvReaderDemo {
                 return cols.length == 3 && cols[2].matches("^\\d+$");
             }
         };
-        for (Person person : reader.readLines(mapper)) {
+        for (Person person : reader.parseLines(mapper)) {
             System.out.println(person);
         }
     }
