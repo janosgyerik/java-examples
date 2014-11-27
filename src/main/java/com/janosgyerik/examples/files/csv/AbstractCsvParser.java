@@ -26,7 +26,7 @@ public abstract class AbstractCsvParser implements CsvParser {
         {
             String line;
             while ((line = nextLine()) != null) {
-                String[] cols = line.split(separator);
+                String[] cols = line.trim().split(separator);
                 if (mapper.isValidRow(cols)) {
                     lines.add(mapper.mapRow(cols));
                 }
