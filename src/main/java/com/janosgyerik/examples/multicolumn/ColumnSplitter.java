@@ -20,14 +20,4 @@ public interface ColumnSplitter {
      * @return columns found in the line
      */
     List<String> splitLine(String line);
-
-    /**
-     * Same as the single argument version, but return at most `limit` columns.
-     * Use `limit = 0` to return all columns.
-     *
-     * @param line a non-null input String to split
-     * @param limit maximum number of columns to return
-     * @return columns found in the line
-     */
-    List<String> splitLine(String line, int limit);
 }
