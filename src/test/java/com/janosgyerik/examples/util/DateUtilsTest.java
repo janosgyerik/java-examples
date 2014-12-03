@@ -18,7 +18,12 @@ public class DateUtilsTest {
         DateUtils.create(2014, 2, 31);
     }
 
-    @Test//(expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
+    public void test_create_2014_02_m1() {
+        DateUtils.create(2014, 2, -1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
     public void test_create_2014_13_01() {
         DateUtils.create(2014, 13, 1);
     }

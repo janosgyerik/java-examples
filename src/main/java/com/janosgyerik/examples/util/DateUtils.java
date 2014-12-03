@@ -29,8 +29,8 @@ public class DateUtils {
         if (calendar.get(Calendar.DAY_OF_MONTH) != day) {
             throw new IllegalArgumentException(String.format("Invalid day=%s for year=%s and month=%s", day, year, month));
         }
-        if (calendar.get(Calendar.DAY_OF_MONTH) != day) {
-            throw new IllegalArgumentException(String.format("Invalid day=%s for year=%s and month=%s", day, year, month));
+        if (calendar.get(Calendar.MONTH) != month - 1) {
+            throw new IllegalArgumentException(String.format("Invalid month=%s for year=%s and day=%s", month, year, day));
         }
     }
 
