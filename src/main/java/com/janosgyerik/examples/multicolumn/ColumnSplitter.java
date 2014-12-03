@@ -3,7 +3,15 @@ package com.janosgyerik.examples.multicolumn;
 import java.util.List;
 
 /**
- * Split a line to columns. Implementation ideas:
+ * Split input text to columns.
+ * Simple implementations might assume input text = line.
+ * More sophisticated implementations (for example proper CSV splitter)
+ * can be made to handle embedded newlines.
+ *
+ * The result of splitting is always a list of String columns.
+ * It's up to callers to map the String values to complex objects (if needed).
+ *
+ * Implementation ideas:
  *
  * - split by fixed string, for example ","
  * - split by regex, for example "\s*,\s*", and probably trim() first
@@ -12,12 +20,12 @@ import java.util.List;
  */
 public interface ColumnSplitter {
     /**
-     * Split a "line" of input to String columns.
+     * Split input text to String columns.
      * Note: a proper csv parser could contain embedded newlines.
      * Note: the returned array always contains at least one entry.
      *
-     * @param line a non-null input String to split
+     * @param input a non-null input String to split
      * @return columns found in the line
      */
-    List<String> splitLine(String line);
+    List<String> split(String input);
 }

@@ -12,7 +12,7 @@ public class RegexColumnSplitter implements ColumnSplitter {
     }
 
     @Override
-    public List<String> splitLine(String line) {
-        return Arrays.asList(line.trim().split(regex));
+    public List<String> split(String input) {
+        return Arrays.asList(input.trim().split(regex));
     }
 }
