@@ -2,6 +2,7 @@ package com.janosgyerik.examples.util;
 
 import org.junit.Test;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
@@ -50,5 +51,15 @@ public class DateUtilsTest {
     public void test_getDayLongName() {
         Date date = DateUtils.create(2014, 12, 3);
         assertEquals("Wednesday", DateUtils.getDayLongName(date));
+    }
+
+    @Test
+    public void test_truncate() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(DateUtils.truncate(new Date()));
+        assertEquals(0, calendar.get(Calendar.SECOND));
+        assertEquals(0, calendar.get(Calendar.MINUTE));
+        assertEquals(0, calendar.get(Calendar.HOUR));
+        assertEquals(0, calendar.get(Calendar.MILLISECOND));
     }
 }
