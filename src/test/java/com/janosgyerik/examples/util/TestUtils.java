@@ -30,7 +30,7 @@ public class TestUtils {
         }
     }
 
-    public static void wipeDirRecursively(File path) throws IOException {
+    private static void wipeDirRecursively(File path) throws IOException {
         String[] items = path.list();
         if (items != null) {
             for (String item : items) {

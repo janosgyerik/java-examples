@@ -75,9 +75,4 @@ public class TestUtilsTest {
     public void testCreateTestDirs() {
 
     }
-
-    @Test
-    public void testWipeDirRecursively() {
-
-    }
 }
