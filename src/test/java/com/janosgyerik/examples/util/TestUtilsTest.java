@@ -67,12 +67,26 @@ public class TestUtilsTest {
     }
 
     @Test
-    public void testCreateTestFiles() {
+    public void testCreateTestFiles() throws IOException {
+        File basedir = createTempDir();
+        String[] filenames = {"file1.txt", "file2.csv", "file3.xml"};
+        TestUtils.createTestFiles(basedir, filenames);
+        assertArrayEquals(filenames, basedir.list());
 
+        for (String filename : basedir.list()) {
+            assertTrue(new File(basedir, filename).isFile());
+        }
     }
 
     @Test
-    public void testCreateTestDirs() {
+    public void testCreateTestDirs() throws IOException {
+        File basedir = createTempDir();
+        String[] dirnames = {"dir1", "dir2", "dir3"};
+        TestUtils.createTestDirs(basedir, dirnames);
+        assertArrayEquals(dirnames, basedir.list());
 
+        for (String filename : basedir.list()) {
+            assertTrue(new File(basedir, filename).isDirectory());
+        }
     }
 }
