@@ -5,36 +5,36 @@ import java.io.IOException;
 
 public class TestUtils {
 
-    public static void setupCleanDir(File dir) throws IOException {
-        wipeDirRecursively(dir);
-        if (!dir.mkdirs()) {
-            throw new IOException("Could not create directory: " + dir);
+    public static void setupCleanDir(File path) throws IOException {
+        wipeDirRecursively(path);
+        if (!path.mkdirs()) {
+            throw new IOException("Could not create directory: " + path);
         }
     }
 
-    public static void createTestFiles(File dir, String... filenames) throws IOException {
+    public static void createTestFiles(File basedir, String... filenames) throws IOException {
         for (String filename : filenames) {
-            File file = new File(dir, filename);
+            File file = new File(basedir, filename);
             if (!file.createNewFile()) {
                 throw new IOException("Could not create file: " + file);
             }
         }
     }
 
-    public static void createTestDirs(File dir, String... dirnames) throws IOException {
+    public static void createTestDirs(File basedir, String... dirnames) throws IOException {
         for (String dirname : dirnames) {
-            File file = new File(dir, dirname);
-            if (!file.mkdirs()) {
-                throw new IOException("Could not create directory: " + file);
+            File path = new File(basedir, dirname);
+            if (!path.mkdirs()) {
+                throw new IOException("Could not create directory: " + path);
             }
         }
     }
 
-    public static void wipeDirRecursively(File dir) throws IOException {
-        String[] items = dir.list();
+    public static void wipeDirRecursively(File path) throws IOException {
+        String[] items = path.list();
         if (items != null) {
-            for (String item : dir.list()) {
-                File file = new File(dir, item);
+            for (String item : items) {
+                File file = new File(path, item);
                 if (file.isFile()) {
                     if (!file.delete()) {
                         throw new IOException("Could not delete file: " + file);
@@ -44,9 +44,9 @@ public class TestUtils {
                 }
             }
         }
-        if (dir.isDirectory()) {
-            if (!dir.delete()) {
-                throw new IOException("Could not delete dir: " + dir);
+        if (path.isDirectory()) {
+            if (!path.delete()) {
+                throw new IOException("Could not delete dir: " + path);
             }
         }
     }
