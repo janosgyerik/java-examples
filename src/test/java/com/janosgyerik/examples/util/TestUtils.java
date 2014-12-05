@@ -14,13 +14,19 @@ public class TestUtils {
 
     public static void createTestFiles(File dir, String... filenames) throws IOException {
         for (String filename : filenames) {
-            new File(dir, filename).createNewFile();
+            File file = new File(dir, filename);
+            if (!file.createNewFile()) {
+                throw new IOException("Could not create file: " + file);
+            }
         }
     }
 
-    public static void createTestDirs(File dir, String... dirnames) {
+    public static void createTestDirs(File dir, String... dirnames) throws IOException {
         for (String dirname : dirnames) {
-            new File(dir, dirname).mkdirs();
+            File file = new File(dir, dirname);
+            if (!file.mkdirs()) {
+                throw new IOException("Could not create directory: " + file);
+            }
         }
     }
 
