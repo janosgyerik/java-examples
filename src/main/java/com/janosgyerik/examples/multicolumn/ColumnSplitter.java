@@ -22,7 +22,7 @@ public interface ColumnSplitter {
     /**
      * Split input text to String columns.
      * Note: a proper csv parser could contain embedded newlines.
-     * Note: the returned array always contains at least one entry.
+     * Note: the returned list always contains at least one item.
      *
      * @param input a non-null input String to split
      * @return columns found in the line

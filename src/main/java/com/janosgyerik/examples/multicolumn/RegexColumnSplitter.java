@@ -8,7 +8,7 @@ public class RegexColumnSplitter implements ColumnSplitter {
     private final String regex;
 
     public RegexColumnSplitter(String regex) {
-        this.regex = String.format("\\s*%s\\s*", regex);
+        this.regex = regex;
     }
 
     @Override
