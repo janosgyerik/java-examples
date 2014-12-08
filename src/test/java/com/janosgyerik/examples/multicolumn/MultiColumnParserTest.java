@@ -18,8 +18,8 @@ public class MultiColumnParserTest {
                 "2,2014-12-08,25,29\n";
         ScannerRecordProvider provider = new ScannerRecordProvider(new Scanner(data), 1);
         ColumnSplitter splitter = ColumnSplitters.simpleCsvSplitter();
-        IntegerColumnParser col1Parser = new IntegerColumnParser(3);
-        IntegerColumnParser col2Parser = new IntegerColumnParser(4);
+        IntColumnParser col1Parser = new IntColumnParser(3);
+        IntColumnParser col2Parser = new IntColumnParser(4);
 
         MultiColumnParser parser = new MultiColumnParserImpl();
         List<ParsedColumn<?>> result = parser.parse(provider, splitter, Arrays.asList(col1Parser, col2Parser));
@@ -42,8 +42,8 @@ public class MultiColumnParserTest {
                 "2,2014-12-08,21,29\n";
         ScannerRecordProvider provider = new ScannerRecordProvider(new Scanner(data), 1);
         ColumnSplitter splitter = ColumnSplitters.simpleCsvSplitter();
-        IntegerColumnParser col1Parser = new IntegerColumnParser(3);
-        IntegerColumnParser col2Parser = new IntegerColumnParser(4);
+        IntColumnParser col1Parser = new IntColumnParser(3);
+        IntColumnParser col2Parser = new IntColumnParser(4);
 
         MultiColumnParser parser = new MultiColumnParserImpl();
         List<ParsedColumn<?>> result = parser.parse(provider, splitter, Arrays.asList(col1Parser, col2Parser));
@@ -66,8 +66,8 @@ public class MultiColumnParserTest {
                 "2,2014-12-08,21,29\n";
         ScannerRecordProvider provider = new ScannerRecordProvider(new Scanner(data), 1);
         ColumnSplitter splitter = ColumnSplitters.simpleCsvSplitter();
-        IntegerColumnParser col1Parser = new IntegerColumnParser(3);
-        IntegerColumnParser col2Parser = new IntegerColumnParser(4);
+        IntColumnParser col1Parser = new IntColumnParser(3);
+        IntColumnParser col2Parser = new IntColumnParser(4);
 
         MultiColumnParser parser = new MultiColumnParserImpl();
         List<ParsedColumn<?>> result = parser.parse(provider, splitter, Arrays.asList(col1Parser, col2Parser));
@@ -176,7 +176,7 @@ public class MultiColumnParserTest {
         ScannerRecordProvider provider = new ScannerRecordProvider(new Scanner(data), 1);
         ColumnSplitter splitter = ColumnSplitters.simpleCsvSplitter();
         StringColumnParser col1Parser = new StringColumnParser(2);
-        IntegerColumnParser col2Parser = new IntegerColumnParser(3);
+        IntColumnParser col2Parser = new IntColumnParser(3);
 
         MultiColumnParser parser = new MultiColumnParserImpl();
         List<ParsedColumn<?>> result = parser.parse(provider, splitter, Arrays.asList(col1Parser, col2Parser));

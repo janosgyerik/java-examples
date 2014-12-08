@@ -2,9 +2,9 @@ package com.janosgyerik.examples.multicolumn;
 
 import java.util.List;
 
-public class IntegerColumnParser extends AbstractColumnParser<Integer> {
+public class IntColumnParser extends AbstractColumnParser<Integer> {
 
-    public IntegerColumnParser(int index) {
+    public IntColumnParser(int index) {
         super(index);
     }
 
