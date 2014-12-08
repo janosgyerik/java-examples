@@ -20,9 +20,8 @@ import java.util.List;
  *
  * + Curve matrix: multiple columns, type double, using duration from another column
  * + Common id column: TODO: find a practical example
- * - Date column derived from year + month + day columns
- * - Multiple types: TODO: find a practical example
- * x Named columns: columns can be in any order, reader can find the right column by name in header
+ * + Date column derived from year + month + day columns
+ * + Multiple types: TODO: find a practical example
  * + Missing values: omit or fill with null? -> omit
  * + Invalid rows: ignore invalid rows. The header should not be treated as invalid
  * + Picking arbitrary columns: take only column 2 and 4, ignore the rest

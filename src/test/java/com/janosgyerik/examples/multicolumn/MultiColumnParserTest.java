@@ -167,4 +167,29 @@ public class MultiColumnParserTest {
         assertEquals(2, col2.getValues().size());
         assertArrayEquals(Arrays.asList(new DataPoint(1, 28), new DataPoint(2, 29)).toArray(), col2.getValues().toArray());
     }
+
+    @Test
+    public void testWithMultipleTypeColumns() {
+        String data = "id,name,height\n" +
+                "1,Jack,188\n" +
+                "2,Mike,169\n";
+        ScannerRecordProvider provider = new ScannerRecordProvider(new Scanner(data), 1);
+        ColumnSplitter splitter = ColumnSplitters.simpleCsvSplitter();
+        StringColumnParser col1Parser = new StringColumnParser(2);
+        IntegerColumnParser col2Parser = new IntegerColumnParser(3);
+
+        MultiColumnParser parser = new MultiColumnParserImpl();
+        List<ParsedColumn<?>> result = parser.parse(provider, splitter, Arrays.asList(col1Parser, col2Parser));
+
+        ParsedColumn<?> stringCol = result.get(0);
+        assertEquals(0, stringCol.getParseErrors().size());
+        assertEquals(2, stringCol.getValues().size());
+        assertEquals(Arrays.asList("Jack", "Mike"), stringCol.getValues());
+
+        ParsedColumn<?> intCol = result.get(1);
+        assertEquals(0, intCol.getParseErrors().size());
+        assertEquals(2, intCol.getValues().size());
+        assertEquals(Arrays.asList(188, 169), intCol.getValues());
+    }
+
 }
