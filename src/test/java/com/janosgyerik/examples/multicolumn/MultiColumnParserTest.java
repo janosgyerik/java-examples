@@ -9,7 +9,7 @@ import java.util.Scanner;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
-public class CurveMatrixParserTest {
+public class MultiColumnParserTest {
 
     @Test
     public void testWithTwoColumns() {
