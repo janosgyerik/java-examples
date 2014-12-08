@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
 
@@ -12,6 +13,7 @@ public class DateUtilsTest {
     public void test_create_2014_12_03() {
         Date date = DateUtils.create(2014, 12, 3);
         assertEquals("2014-12-03", DateUtils.formatYMD(date));
+        assertEquals("Wed Dec 03 00:00:00 CET 2014", date.toString());
     }
 
     @Test(expected = IllegalArgumentException.class)
