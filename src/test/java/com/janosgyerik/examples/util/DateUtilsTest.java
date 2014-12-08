@@ -62,4 +62,9 @@ public class DateUtilsTest {
         assertEquals(0, calendar.get(Calendar.HOUR));
         assertEquals(0, calendar.get(Calendar.MILLISECOND));
     }
+
+    @Test
+    public void test_fromYMD() {
+        assertEquals(DateUtils.create(2014, 12, 8), DateUtils.fromYMD("2014-12-08"));
+    }
 }

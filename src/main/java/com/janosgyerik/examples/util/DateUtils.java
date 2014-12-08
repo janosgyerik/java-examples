@@ -1,5 +1,6 @@
 package com.janosgyerik.examples.util;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -22,6 +23,10 @@ public class DateUtils {
         calendar.set(Calendar.MONTH, month - 1);
         calendar.set(Calendar.DAY_OF_MONTH, day);
         validate(year, month, day, calendar);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
         return calendar.getTime();
     }
 
@@ -36,6 +41,14 @@ public class DateUtils {
 
     public static String formatYMD(Date date) {
         return new SimpleDateFormat("yyyy-MM-dd").format(date);
+    }
+
+    public static Date fromYMD(String ymd) {
+        try {
+            return new SimpleDateFormat("yyyy-MM-dd").parse(ymd);
+        } catch (ParseException e) {
+            return null;
+        }
     }
 
     public static String getMonthShortName(Date date) {
