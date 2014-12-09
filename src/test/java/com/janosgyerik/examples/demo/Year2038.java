@@ -1,9 +1,11 @@
-package com.janosgyerik.examples.junk;
+package com.janosgyerik.examples.demo;
 
 import org.joda.time.DateTime;
+import org.junit.Test;
 
 public class Year2038 {
-    public static void main(String[] args) {
+    @Test
+    public void test() {
         int booking_year2 = 2038;
         int booking_month2 = 1;
         int booking_day2 = 17;
