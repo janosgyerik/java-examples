@@ -61,4 +61,12 @@ public class FizzBuzzTest {
         assertEquals(Integer.toString(31 * 3 * 5 + 1), fizzBuzz.getValue(31 * 3 * 5 + 1));
         assertEquals("FizzBuzzJazz", fizzBuzz.getValue(31 * 3 * 5 * 7));
     }
+
+    @Test
+    public void test_BuilderAdd_DifferentDivisorOrder_SameOutput() {
+        FizzBuzz fizzBuzz = FizzBuzz.builder().add("Fizz", 3).add("Buzz", 5).build();
+        FizzBuzz buzzFizz = FizzBuzz.builder().add("Buzz", 5).add("Fizz", 3).build();
+
+        assertEquals(fizzBuzz.getValue(15), buzzFizz.getValue(15));
+    }
 }

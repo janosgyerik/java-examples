@@ -7,13 +7,18 @@ import java.util.List;
 public class FizzBuzz {
     private final List<Fizzer> fizzers;
 
-    private static class Fizzer {
+    private static class Fizzer implements Comparable<Fizzer> {
         private final String name;
         private final int divisor;
 
         private Fizzer(String name, int divisor) {
             this.name = name;
             this.divisor = divisor;
+        }
+
+        @Override
+        public int compareTo(Fizzer o) {
+            return Integer.compare(divisor, o.divisor);
         }
     }
 
@@ -26,6 +31,7 @@ public class FizzBuzz {
         }
 
         public FizzBuzz build() {
+            Collections.sort(fizzers);
             return new FizzBuzz(this);
         }
     }
