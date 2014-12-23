@@ -1,11 +1,12 @@
 package com.janosgyerik.examples.misc;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 public class FizzBuzz {
-    private final List<Fizzer> fizzers;
+    private final SortedSet<Fizzer> fizzers;
 
     private static class Fizzer implements Comparable<Fizzer> {
         private final String name;
@@ -31,13 +32,12 @@ public class FizzBuzz {
         }
 
         public FizzBuzz build() {
-            Collections.sort(fizzers);
             return new FizzBuzz(this);
         }
     }
 
     private FizzBuzz(Builder builder) {
-        fizzers = Collections.unmodifiableList(builder.fizzers);
+        fizzers = new TreeSet<>(builder.fizzers);
     }
 
     public String getValue(int num) {
