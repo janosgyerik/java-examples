@@ -20,13 +20,7 @@ public class MergeSort {
     protected static void merge(int[] arr, int from, int mid, int to) {
         int[] sorted = new int[to - from];
         for (int i = 0, pos1 = from, pos2 = mid; i < sorted.length; ++i) {
-            if (pos1 < mid && pos2 < to) {
-                if (arr[pos1] <= arr[pos2]) {
-                    sorted[i] = arr[pos1++];
-                } else {
-                    sorted[i] = arr[pos2++];
-                }
-            } else if (pos1 < mid) {
+            if (pos1 < mid && (pos2 >= to || arr[pos1] <= arr[pos2])) {
                 sorted[i] = arr[pos1++];
             } else {
                 sorted[i] = arr[pos2++];
