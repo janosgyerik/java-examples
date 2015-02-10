@@ -14,6 +14,11 @@ public class StringBuilder {
         count = 0;
     }
 
+    public StringBuilder(int initialSize) {
+        buffer = new char[initialSize];
+        count = 0;
+    }
+
     public StringBuilder append(String string) {
         if (string == null) {
             string = "null";
