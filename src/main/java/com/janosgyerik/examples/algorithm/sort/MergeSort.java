@@ -7,14 +7,14 @@ public class MergeSort {
     }
 
     protected static void mergeSort(int[] arr, int from, int to) {
-        int half = from + (to - from) / 2;
-        if (half - from > 1) {
-            mergeSort(arr, from, half);
+        int diff = to - from;
+        if (diff < 2) {
+            return;
         }
-        if (to - half > 1) {
-            mergeSort(arr, half, to);
-        }
-        merge(arr, from, half, to);
+        int mid = from + diff / 2;
+        mergeSort(arr, from, mid);
+        mergeSort(arr, mid, to);
+        merge(arr, from, mid, to);
     }
 
     protected static void merge(int[] arr, int from, int mid, int to) {
