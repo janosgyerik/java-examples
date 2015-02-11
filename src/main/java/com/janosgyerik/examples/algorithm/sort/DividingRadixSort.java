@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public class RadixSort {
+public class DividingRadixSort {
     private static final int DEFAULT_RADIX = 10;
 
     public static void sort(int[] arr) {
