@@ -6,7 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class RadixSortWithBitShifting {
-    private static final int DEFAULT_RADIX = 8;
+
+    public static final int DEFAULT_RADIX = 8;
 
     public static void sort(int[] arr) {
         sort(arr, DEFAULT_RADIX);
