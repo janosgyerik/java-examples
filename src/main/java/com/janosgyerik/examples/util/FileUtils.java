@@ -8,7 +8,9 @@ public class FileUtils {
     private static final String TAG = FileUtils.class.getSimpleName();
 
     public static File createTempFile() throws IOException {
-        return File.createTempFile(TAG, Long.toString(System.nanoTime()));
+        File tempFile = File.createTempFile(TAG, Long.toString(System.nanoTime()));
+        tempFile.deleteOnExit();
+        return tempFile;
     }
 
     public static File createTempDir() throws IOException {
