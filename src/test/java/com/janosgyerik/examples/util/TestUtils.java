@@ -63,8 +63,6 @@ public class TestUtils {
                     deleteDirRecursively(file);
                 }
             }
-        }
-        if (path.isDirectory()) {
             if (!path.delete()) {
                 throw new IOException("Could not delete dir: " + path);
             }
