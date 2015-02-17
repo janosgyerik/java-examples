@@ -31,6 +31,8 @@ public class FileUtils {
                     deleteFile(file);
                 } else if (file.isDirectory()) {
                     deleteRecursively(file);
+                } else {
+                    throw new IOException("Neither file nor dir: " + file);
                 }
             }
             if (!fileOrDir.delete()) {
