@@ -9,10 +9,12 @@ import static org.junit.Assert.fail;
 public class TestUtils {
 
     public static void setupCleanDir(File path) throws IOException {
-        if (path.exists() && !path.isDirectory()) {
-            throw new IOException("Specified path should not exist or be a directory: " + path);
+        if (path.exists()) {
+            if (!path.isDirectory()) {
+                throw new IOException("Specified path should not exist or be a directory: " + path);
+            }
+            FileUtils.deleteRecursively(path);
         }
-        FileUtils.deleteRecursively(path);
         if (!path.mkdirs()) {
             throw new IOException("Could not create directory: " + path);
         }

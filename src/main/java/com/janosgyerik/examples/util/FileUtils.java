@@ -22,30 +22,24 @@ public class FileUtils {
         return file;
     }
 
+    public static void deleteFile(File file) throws IOException {
+        if (!file.delete()) {
+            throw new IOException("Could not delete file: " + file);
+        }
+    }
+
     public static void deleteRecursively(File fileOrDir) throws IOException {
-        String[] names = fileOrDir.list();
-        if (names != null) {
-            for (String name : names) {
-                File file = new File(fileOrDir, name);
-                if (file.isFile()) {
-                    deleteFile(file);
-                } else if (file.isDirectory()) {
-                    deleteRecursively(file);
-                } else {
-                    throw new IOException("Neither file nor dir: " + file);
-                }
+        if (fileOrDir.isFile()) {
+            deleteFile(fileOrDir);
+        } else if (fileOrDir.isDirectory()) {
+            for (String name : fileOrDir.list()) {
+                deleteRecursively(new File(fileOrDir, name));
             }
             if (!fileOrDir.delete()) {
                 throw new IOException("Could not delete dir: " + fileOrDir);
             }
-        } else if (fileOrDir.isFile()) {
-            deleteFile(fileOrDir);
-        }
-    }
-
-    public static void deleteFile(File file) throws IOException {
-        if (!file.delete()) {
-            throw new IOException("Could not delete file: " + file);
+        } else {
+            throw new IOException("Neither file nor dir: " + fileOrDir);
         }
     }
 }
