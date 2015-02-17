@@ -9,17 +9,9 @@ import static org.junit.Assert.*;
 
 public class TestUtilsTest {
 
-    @Test
-    public void testDeleteRecursively_DeletesFile() throws IOException {
-        File file = TestUtils.createTempFile();
-        assertTrue(file.exists());
-        TestUtils.deleteRecursively(file);
-        assertFalse(file.exists());
-    }
-
     @Test(expected = IOException.class)
     public void testSetupCleanDir_Throws_IfPathIsFile() throws IOException {
-        File tempfile = TestUtils.createTempFile();
+        File tempfile = FileUtils.createTempFile();
         assertTrue(tempfile.isFile());
         TestUtils.setupCleanDir(tempfile);
     }
@@ -31,7 +23,7 @@ public class TestUtilsTest {
 
     @Test
     public void testSetupCleanDir_OK_IfPathIsDir() throws IOException {
-        File tempdir = TestUtils.createTempDir();
+        File tempdir = FileUtils.createTempDir();
         assertTrue(tempdir.isDirectory());
         TestUtils.setupCleanDir(tempdir);
         assertTrue(tempdir.isDirectory());
@@ -39,7 +31,7 @@ public class TestUtilsTest {
 
     @Test
     public void testSetupCleanDir_WipesNonEmptyDir() throws IOException {
-        File tempdir = TestUtils.createTempDir();
+        File tempdir = FileUtils.createTempDir();
         assertTrue(tempdir.isDirectory());
         assertEquals(0, tempdir.list().length);
         assertTrue(new File(tempdir, "dummy").createNewFile());
@@ -50,7 +42,7 @@ public class TestUtilsTest {
 
     @Test
     public void testSetupCleanDir_CreatesDir() throws IOException {
-        File tempdir = TestUtils.createTempDir();
+        File tempdir = FileUtils.createTempDir();
         assertTrue(tempdir.delete());
         assertFalse(tempdir.exists());
         TestUtils.setupCleanDir(tempdir);
@@ -59,7 +51,7 @@ public class TestUtilsTest {
 
     @Test
     public void testCreateTestFiles() throws IOException {
-        File basedir = TestUtils.createTempDir();
+        File basedir = FileUtils.createTempDir();
         String[] filenames = {"file1.txt", "file2.csv", "file3.xml"};
         TestUtils.createTestFiles(basedir, filenames);
         assertArrayEquals(filenames, basedir.list());
@@ -71,7 +63,7 @@ public class TestUtilsTest {
 
     @Test
     public void testCreateTestDirs() throws IOException {
-        File basedir = TestUtils.createTempDir();
+        File basedir = FileUtils.createTempDir();
         String[] dirnames = {"dir1", "dir2", "dir3"};
         TestUtils.createTestDirs(basedir, dirnames);
         assertArrayEquals(dirnames, basedir.list());
