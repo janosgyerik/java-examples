@@ -22,22 +22,22 @@ public class FileUtils {
         return file;
     }
 
-    public static void deleteRecursively(File path) throws IOException {
-        String[] items = path.list();
-        if (items != null) {
-            for (String item : items) {
-                File file = new File(path, item);
+    public static void deleteRecursively(File fileOrDir) throws IOException {
+        String[] names = fileOrDir.list();
+        if (names != null) {
+            for (String name : names) {
+                File file = new File(fileOrDir, name);
                 if (file.isFile()) {
                     deleteFile(file);
                 } else if (file.isDirectory()) {
                     deleteRecursively(file);
                 }
             }
-            if (!path.delete()) {
-                throw new IOException("Could not delete dir: " + path);
+            if (!fileOrDir.delete()) {
+                throw new IOException("Could not delete dir: " + fileOrDir);
             }
-        } else if (path.isFile()) {
-            deleteFile(path);
+        } else if (fileOrDir.isFile()) {
+            deleteFile(fileOrDir);
         }
     }
 
