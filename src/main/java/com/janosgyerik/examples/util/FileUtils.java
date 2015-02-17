@@ -28,9 +28,7 @@ public class FileUtils {
             for (String item : items) {
                 File file = new File(path, item);
                 if (file.isFile()) {
-                    if (!file.delete()) {
-                        throw new IOException("Could not delete file: " + file);
-                    }
+                    deleteFile(file);
                 } else if (file.isDirectory()) {
                     deleteRecursively(file);
                 }
@@ -39,9 +37,7 @@ public class FileUtils {
                 throw new IOException("Could not delete dir: " + path);
             }
         } else if (path.isFile()) {
-            if (!path.delete()) {
-                throw new IOException("Could not delete file: " + path);
-            }
+            deleteFile(path);
         }
     }
 
