@@ -3,10 +3,30 @@ package com.janosgyerik.examples.util;
 import java.io.File;
 import java.io.IOException;
 
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 public class TestUtils {
 
+    private static final String TAG = TestUtils.class.getSimpleName();
+
+    public static File createTempFile() throws IOException {
+        return File.createTempFile(TAG, Long.toString(System.nanoTime()));
+    }
+
+    public static File createTempDir() throws IOException {
+        File file = createTempFile();
+        if (!file.delete()) {
+            throw new IOException("Could not delete temp file: " + file.getAbsolutePath());
+        }
+        if (!file.mkdir()) {
+            throw new IOException("Could not create temp dir: " + file.getAbsolutePath());
+        }
+        return file;
+    }
+
     public static void setupCleanDir(File path) throws IOException {
-        wipeDirRecursively(path);
+        deleteDirRecursively(path);
         if (!path.mkdirs()) {
             throw new IOException("Could not create directory: " + path);
         }
@@ -30,7 +50,7 @@ public class TestUtils {
         }
     }
 
-    private static void wipeDirRecursively(File path) throws IOException {
+    public static void deleteDirRecursively(File path) throws IOException {
         String[] items = path.list();
         if (items != null) {
             for (String item : items) {
@@ -40,7 +60,7 @@ public class TestUtils {
                         throw new IOException("Could not delete file: " + file);
                     }
                 } else if (file.isDirectory()) {
-                    wipeDirRecursively(file);
+                    deleteDirRecursively(file);
                 }
             }
         }
