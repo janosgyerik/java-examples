@@ -9,6 +9,14 @@ import static org.junit.Assert.*;
 
 public class TestUtilsTest {
 
+    @Test
+    public void testDeleteRecursively_DeletesFile() throws IOException {
+        File file = TestUtils.createTempFile();
+        assertTrue(file.exists());
+        TestUtils.deleteRecursively(file);
+        assertFalse(file.exists());
+    }
+
     @Test(expected = IOException.class)
     public void testSetupCleanDir_Throws_IfPathIsFile() throws IOException {
         File tempfile = TestUtils.createTempFile();

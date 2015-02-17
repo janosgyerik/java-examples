@@ -26,7 +26,10 @@ public class TestUtils {
     }
 
     public static void setupCleanDir(File path) throws IOException {
-        deleteDirRecursively(path);
+        if (path.exists() && !path.isDirectory()) {
+            throw new IOException("Specified path should not exist or be a directory: " + path);
+        }
+        deleteRecursively(path);
         if (!path.mkdirs()) {
             throw new IOException("Could not create directory: " + path);
         }
@@ -50,7 +53,7 @@ public class TestUtils {
         }
     }
 
-    public static void deleteDirRecursively(File path) throws IOException {
+    public static void deleteRecursively(File path) throws IOException {
         String[] items = path.list();
         if (items != null) {
             for (String item : items) {
@@ -60,11 +63,15 @@ public class TestUtils {
                         throw new IOException("Could not delete file: " + file);
                     }
                 } else if (file.isDirectory()) {
-                    deleteDirRecursively(file);
+                    deleteRecursively(file);
                 }
             }
             if (!path.delete()) {
                 throw new IOException("Could not delete dir: " + path);
+            }
+        } else if (path.isFile()) {
+            if (!path.delete()) {
+                throw new IOException("Could not delete file: " + path);
             }
         }
     }
