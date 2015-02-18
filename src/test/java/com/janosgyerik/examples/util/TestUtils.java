@@ -2,9 +2,7 @@ package com.janosgyerik.examples.util;
 
 import java.io.File;
 import java.io.IOException;
-
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import java.util.List;
 
 public class TestUtils {
 
@@ -20,7 +18,7 @@ public class TestUtils {
         }
     }
 
-    public static void createTestFiles(File basedir, String... filenames) throws IOException {
+    public static void createTempFiles(File basedir, List<String> filenames) throws IOException {
         for (String filename : filenames) {
             File file = new File(basedir, filename);
             if (!file.createNewFile()) {

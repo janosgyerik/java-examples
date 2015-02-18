@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -52,9 +54,9 @@ public class TestUtilsTest {
     @Test
     public void testCreateTestFiles() throws IOException {
         File basedir = FileUtils.createTempDir();
-        String[] filenames = {"file1.txt", "file2.csv", "file3.xml"};
-        TestUtils.createTestFiles(basedir, filenames);
-        assertArrayEquals(filenames, basedir.list());
+        List<String> filenames = Arrays.asList("file1.txt", "file2.csv", "file3.xml");
+        TestUtils.createTempFiles(basedir, filenames);
+        assertEquals(filenames, Arrays.asList(basedir.list()));
 
         for (String filename : basedir.list()) {
             assertTrue(new File(basedir, filename).isFile());
