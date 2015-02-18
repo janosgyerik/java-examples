@@ -3,13 +3,11 @@ package com.janosgyerik.examples.files.finder;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
-
 public class RegexMatchingFileFinderTest extends FileFinderTest {
 
     @Override
     FileFinder getFileFinder() {
-        return new RegexMatchingFileFinder("fund_\\d+.*.csv");
+        return FileFinders.regexMatching("fund_\\d+.*.csv");
     }
 
     @Override
@@ -29,5 +27,4 @@ public class RegexMatchingFileFinderTest extends FileFinderTest {
         }
         return names;
     }
-
 }

@@ -10,5 +10,5 @@ public interface FileFinder {
      * @param basedir Base directory
      * @return list of files found
      */
-    List<File> listFiles(File basedir);
+    List<File> findFiles(File basedir);
 }

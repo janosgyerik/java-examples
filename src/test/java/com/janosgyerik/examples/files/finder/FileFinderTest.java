@@ -1,15 +1,18 @@
 package com.janosgyerik.examples.files.finder;
 
-import com.janosgyerik.examples.util.FileUtils;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import com.janosgyerik.examples.util.FileUtils;
+import com.janosgyerik.examples.util.TestUtils;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public abstract class FileFinderTest {
 
@@ -37,54 +40,55 @@ public abstract class FileFinderTest {
     }
 
     private void createTempFiles(List<String> filenames) throws IOException {
-        for (String filename : filenames) {
-            File file = new File(tempDir, filename);
-            if (!file.createNewFile()) {
-                throw new IOException("Could not create temp file: " + file);
-            }
-        }
+        TestUtils.createTempFiles(tempDir, filenames);
     }
 
     @Test
     public void testNonexistentDir() {
-        assertEquals(0, getFileFinder().listFiles(new File("nonexistent")).size());
+        assertEquals(0, getFileFinder().findFiles(new File("nonexistent")).size());
     }
 
     @Test
     public void testInvalidPath() {
-        assertEquals(0, getFileFinder().listFiles(new File("!@#$%^&*()")).size());
+        assertEquals(0, getFileFinder().findFiles(new File("!@#$%^&*()")).size());
     }
 
     @Test
     public void testPathIsFile() throws IOException {
-        assertEquals(0, getFileFinder().listFiles(createTempFile("hello")).size());
+        assertEquals(0, getFileFinder().findFiles(createTempFile("hello")).size());
     }
 
     @Test
     public void testPathIsEmptyDir() {
-        assertEquals(0, getFileFinder().listFiles(tempDir).size());
+        assertEquals(0, getFileFinder().findFiles(tempDir).size());
     }
 
     @Test
     public void testMatchOneOfMany() throws IOException {
         createTempFiles(getMatchingNames(1));
         createTempFiles(getNonMatchingNames(3));
-        assertEquals(4, tempDir.listFiles().length);
-        assertEquals(1, getFileFinder().listFiles(tempDir).size());
+        File[] files = tempDir.listFiles();
+        assertNotNull(files);
+        assertTrue(files.length > 1);
+        assertEquals(1, getFileFinder().findFiles(tempDir).size());
     }
 
     @Test
     public void testMatchManyOfMany() throws IOException {
         createTempFiles(getMatchingNames(2));
         createTempFiles(getNonMatchingNames(3));
-        assertEquals(5, tempDir.listFiles().length);
-        assertEquals(2, getFileFinder().listFiles(tempDir).size());
+        File[] files = tempDir.listFiles();
+        assertNotNull(files);
+        assertTrue(files.length > 2);
+        assertEquals(2, getFileFinder().findFiles(tempDir).size());
     }
 
     @Test
     public void testMatchNoneOfMany() throws IOException {
         createTempFiles(getNonMatchingNames(3));
-        assertEquals(3, tempDir.listFiles().length);
-        assertEquals(0, getFileFinder().listFiles(tempDir).size());
+        File[] files = tempDir.listFiles();
+        assertNotNull(files);
+        assertTrue(files.length > 0);
+        assertEquals(0, getFileFinder().findFiles(tempDir).size());
     }
 }
