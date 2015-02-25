@@ -52,7 +52,7 @@ public class MinHeap {
         int top = storage[0];
 
         int currentIndex = 0;
-        while (hasChildren(currentIndex)) {
+        while (hasLeft(currentIndex)) {
             currentIndex = swapWithMinChild(currentIndex);
         }
 
@@ -72,7 +72,7 @@ public class MinHeap {
         return index > 0 && storage[index] < storage[getParentIndex(index)];
     }
 
-    private boolean hasChildren(int index) {
+    private boolean hasLeft(int index) {
         return getLeftIndex(index) < size;
     }
 
