@@ -5,8 +5,8 @@ import java.util.Arrays;
 public class MinHeap {
 
     private int[] storage;
-
     private int size;
+
     public MinHeap(int capacity) {
         storage = new int[capacity];
         size = 0;
@@ -78,34 +78,25 @@ public class MinHeap {
 
     private int swapWithParent(int index) {
         int parentIndex = getParentIndex(index);
-        swapIndexes(index, parentIndex);
-        return parentIndex;
+        return swapIndexes(index, parentIndex);
     }
 
     private int swapWithMinChild(int index) {
         int leftIndex = getLeftIndex(index);
         int rightIndex = getRightIndex(index);
-        int minChildIndex;
 
-        if (rightIndex < size) {
-            if (storage[leftIndex] < storage[rightIndex]) {
-                minChildIndex = leftIndex;
-            } else {
-                minChildIndex = rightIndex;
-            }
-        } else {
-            minChildIndex = leftIndex;
+        if (rightIndex < size && storage[rightIndex] < storage[leftIndex]) {
+            return swapIndexes(index, rightIndex);
         }
 
-        swapIndexes(index, minChildIndex);
-
-        return minChildIndex;
+        return swapIndexes(index, leftIndex);
     }
 
-    private void swapIndexes(int index1, int index2) {
-        int work = storage[index1];
-        storage[index1] = storage[index2];
-        storage[index2] = work;
+    private int swapIndexes(int from, int to) {
+        int work = storage[from];
+        storage[from] = storage[to];
+        storage[to] = work;
+        return to;
     }
 
     private void ensureCapacity(int targetSize) {
