@@ -42,8 +42,7 @@ public class MinHeap {
         ensureCapacity(size + 1);
         storage[size++] = num;
 
-        int currentIndex = size - 1;
-        while (smallerThanParent(currentIndex)) {
+        for (int currentIndex = size - 1; smallerThanParent(currentIndex); ) {
             currentIndex = swapWithParent(currentIndex);
         }
     }
