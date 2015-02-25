@@ -38,7 +38,7 @@ public class MinHeap {
         return 2 * index + 2;
     }
 
-    private void insert(int num) {
+    public void insert(int num) {
         ensureCapacity(size + 1);
         storage[size++] = num;
 
@@ -100,9 +100,7 @@ public class MinHeap {
 
     private void ensureCapacity(int targetSize) {
         if (targetSize >= storage.length) {
-            int[] newStorage = new int[storage.length * 2];
-            System.arraycopy(storage, 0, newStorage, 0, size);
-            storage = newStorage;
+            storage = Arrays.copyOf(storage, storage.length * 2);
         }
     }
 
