@@ -30,11 +30,11 @@ public class MinHeap {
         return (index - 2 + index % 2) / 2;
     }
 
-    private int getLeftChildIndex(int index) {
+    private int getLeftIndex(int index) {
         return 2 * index + 1;
     }
 
-    private int getRightChildIndex(int index) {
+    private int getRightIndex(int index) {
         return 2 * index + 2;
     }
 
@@ -73,7 +73,7 @@ public class MinHeap {
     }
 
     private boolean hasChildren(int index) {
-        return getLeftChildIndex(index) < size;
+        return getLeftIndex(index) < size;
     }
 
     private int swapWithParent(int index) {
@@ -83,18 +83,18 @@ public class MinHeap {
     }
 
     private int swapWithMinChild(int index) {
-        int leftChildIndex = getLeftChildIndex(index);
-        int rightChildIndex = getRightChildIndex(index);
+        int leftIndex = getLeftIndex(index);
+        int rightIndex = getRightIndex(index);
         int minChildIndex;
 
-        if (rightChildIndex < size) {
-            if (storage[leftChildIndex] < storage[rightChildIndex]) {
-                minChildIndex = leftChildIndex;
+        if (rightIndex < size) {
+            if (storage[leftIndex] < storage[rightIndex]) {
+                minChildIndex = leftIndex;
             } else {
-                minChildIndex = rightChildIndex;
+                minChildIndex = rightIndex;
             }
         } else {
-            minChildIndex = leftChildIndex;
+            minChildIndex = leftIndex;
         }
 
         swapIndexes(index, minChildIndex);
