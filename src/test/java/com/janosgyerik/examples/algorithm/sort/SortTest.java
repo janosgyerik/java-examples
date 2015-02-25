@@ -6,8 +6,11 @@ import java.util.Arrays;
 import java.util.Random;
 
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 
 public abstract class SortTest {
+
+    private static final int MAX_LENGTH_TO_COMPARE_WITH_TOSTRING = 15;
 
     abstract void sort(int[] arr);
 
@@ -24,7 +27,12 @@ public abstract class SortTest {
         int[] copy = arr.clone();
         Arrays.sort(copy);
         sort(arr);
-        assertArrayEquals(copy, arr);
+
+        if (arr.length < MAX_LENGTH_TO_COMPARE_WITH_TOSTRING) {
+            assertEquals(Arrays.toString(copy), Arrays.toString(arr));
+        } else {
+            assertArrayEquals(copy, arr);
+        }
     }
 
     @Test
