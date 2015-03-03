@@ -16,27 +16,31 @@ public class FrequencyCounter<T> {
         frequencyMap.put(item, count + 1);
     }
 
-    public SortedMap<T, Integer> toSortedMap() {
-        SortedMap<T, Integer> sortedMap = new TreeMap<>(countComparator);
+    private SortedMap<T, Integer> toSortedMap(Comparator<T> comparator) {
+        SortedMap<T, Integer> sortedMap = new TreeMap<>(comparator);
         sortedMap.putAll(frequencyMap);
         return sortedMap;
+    }
+
+    public SortedMap<T, Integer> toSortedMap() {
+        return toSortedMap(countComparator);
     }
 
     public SortedMap<T, Integer> toReversedMap() {
-        SortedMap<T, Integer> sortedMap = new TreeMap<>(Collections.reverseOrder(countComparator));
-        sortedMap.putAll(frequencyMap);
-        return sortedMap;
+        return toSortedMap(Collections.reverseOrder(countComparator));
+    }
+
+    public List<T> toSortedList(Comparator<T> comparator) {
+        List<T> list = new ArrayList<>(frequencyMap.keySet());
+        Collections.sort(list, comparator);
+        return list;
     }
 
     public List<T> toSortedList() {
-        List<T> list = new ArrayList<>(frequencyMap.keySet());
-        Collections.sort(list, countComparator);
-        return list;
+        return toSortedList(countComparator);
     }
 
     public List<T> toReversedList() {
-        List<T> list = new ArrayList<>(frequencyMap.keySet());
-        Collections.sort(list, Collections.reverseOrder(countComparator));
-        return list;
+        return toSortedList(Collections.reverseOrder(countComparator));
     }
 }
