@@ -17,14 +17,14 @@ public class EnumeratedRankComparator<T> implements Comparator<T> {
         }
     }
 
-    public static <T> EnumeratedRankComparator<T> fromLowToHigh(List<T> items) {
-        return new EnumeratedRankComparator<>(items);
+    public static <T> Comparator<T> fromLowToHigh(List<T> items) {
+        return Comparator.nullsFirst(new EnumeratedRankComparator<>(items));
     }
 
-    public static <T> EnumeratedRankComparator<T> fromHighToLow(List<T> items) {
+    public static <T> Comparator<T> fromHighToLow(List<T> items) {
         List<T> copy = new ArrayList<>(items);
         Collections.reverse(copy);
-        return new EnumeratedRankComparator<>(copy);
+        return fromLowToHigh(copy);
     }
 
     @Override

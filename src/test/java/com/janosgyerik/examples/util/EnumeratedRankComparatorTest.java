@@ -40,7 +40,7 @@ public class EnumeratedRankComparatorTest {
     }
 
     private static class RatingComparator implements Comparator<Rating> {
-        private EnumeratedRankComparator<Rating> comparator =
+        private Comparator<Rating> comparator =
                 EnumeratedRankComparator.fromHighToLow(Arrays.asList(
                         Rating.AAA_PLUS,
                         Rating.AAA,
@@ -114,8 +114,9 @@ public class EnumeratedRankComparatorTest {
         Issuer issuerBB = new Issuer(Rating.BB);
         Issuer issuerAA = new Issuer(Rating.AA);
         Issuer issuerNR = new Issuer(Rating.NR);
+        Issuer issuerNull = new Issuer(null);
 
-        List<Issuer> issuers = Arrays.asList(issuerBB, issuerAA, issuerNR);
+        List<Issuer> issuers = Arrays.asList(issuerBB, issuerAA, issuerNR, issuerNull);
         Collections.sort(issuers, new Comparator<Issuer>() {
             @Override
             public int compare(Issuer o1, Issuer o2) {
@@ -123,6 +124,6 @@ public class EnumeratedRankComparatorTest {
             }
         });
 
-        assertEquals(Arrays.asList(issuerNR, issuerBB, issuerAA), issuers);
+        assertEquals(Arrays.asList(issuerNull, issuerNR, issuerBB, issuerAA), issuers);
     }
 }
