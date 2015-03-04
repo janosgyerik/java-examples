@@ -44,7 +44,7 @@ public class FrequencyCounter<T> {
         return toSortedMap(Collections.reverseOrder(countComparator));
     }
 
-    public List<T> toSortedList(Comparator<T> comparator) {
+    private List<T> toSortedList(Comparator<T> comparator) {
         List<T> list = new ArrayList<>(frequencyMap.keySet());
         Collections.sort(list, comparator);
         return list;
