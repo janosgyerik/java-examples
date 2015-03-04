@@ -91,4 +91,16 @@ public class FrequencyCounterTest {
         counter.add("hello");
         assertEquals("[hello, hi]", counter.toReversedList().toString());
     }
+
+    @Test
+    public void test_reversedList_hello_hi_hi_hello_hello_null() {
+        FrequencyCounter<String> counter = new FrequencyCounter<>();
+        counter.add("hello");
+        counter.add("hi");
+        counter.add("hi");
+        counter.add("hello");
+        counter.add("hello");
+        counter.add(null);
+        assertEquals("[hello, hi, null]", counter.toReversedList().toString());
+    }
 }
