@@ -16,6 +16,16 @@ public class FrequencyCounter<T> {
         frequencyMap.put(item, count + 1);
     }
 
+    public T getMostFrequentItem() {
+        return toSortedMap().lastKey();
+    }
+
+    public int getMostFrequentCount() {
+        SortedMap<T, Integer> sortedMap = toSortedMap();
+        T lastKey = sortedMap.lastKey();
+        return sortedMap.get(lastKey);
+    }
+
     private SortedMap<T, Integer> toSortedMap(Comparator<T> comparator) {
         SortedMap<T, Integer> sortedMap = new TreeMap<>(comparator);
         sortedMap.putAll(frequencyMap);
