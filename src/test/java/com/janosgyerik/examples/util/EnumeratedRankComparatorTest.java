@@ -34,7 +34,7 @@ public class EnumeratedRankComparatorTest {
     }
 
     private static class RatingComparator implements Comparator<Rating> {
-        private final EnumeratedRankComparator<Rating> comparator;
+        private final Comparator<Rating> comparator;
 
         public RatingComparator() {
             comparator = EnumeratedRankComparator.fromHighToLow(Arrays.asList(Rating.values()));
