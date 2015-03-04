@@ -8,18 +8,24 @@ import java.util.Comparator;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class EnumeratedRankComparatorTest {
-    enum Rating {
-        AAA_PLUS("AAA+"),
-        AAA("AAA"),
-        AAA_MINUS("AAA-"),
-        AA_PLUS("AA+"),
-        AA("AA"),
-        AA_MINUS("AA-"),
-        BB("BB"),
-        NR("Non-rated")
-        ;
+
+    // Yes. An enum would make sense for this example.
+    // But with an enum, the rank-comparator is pointless,
+    // as the enum values can be compared directly using their natural order.
+    // The purpose of this example is to illustrate usage
+    // with objects that don't have a natural ordering by themselves.
+    private static class Rating {
+        static Rating AAA_PLUS = new Rating("AAA+");
+        static Rating AAA = new Rating("AAA");
+        static Rating AAA_MINUS = new Rating("AAA-");
+        static Rating AA_PLUS = new Rating("AA+");
+        static Rating AA = new Rating("AA");
+        static Rating AA_MINUS = new Rating("AA-");
+        static Rating BB = new Rating("BB");
+        static Rating NR = new Rating("Non-rated");
 
         private final String label;
 
@@ -34,11 +40,16 @@ public class EnumeratedRankComparatorTest {
     }
 
     private static class RatingComparator implements Comparator<Rating> {
-        private final Comparator<Rating> comparator;
-
-        public RatingComparator() {
-            comparator = EnumeratedRankComparator.fromHighToLow(Arrays.asList(Rating.values()));
-        }
+        private EnumeratedRankComparator<Rating> comparator =
+                EnumeratedRankComparator.fromHighToLow(Arrays.asList(
+                        Rating.AAA_PLUS,
+                        Rating.AAA,
+                        Rating.AAA_MINUS,
+                        Rating.AA_PLUS,
+                        Rating.AA,
+                        Rating.BB,
+                        Rating.NR
+                ));
 
         @Override
         public int compare(Rating o1, Rating o2) {
@@ -50,17 +61,17 @@ public class EnumeratedRankComparatorTest {
 
     @Test
     public void test_AA_lessThan_AAA() {
-        assertEquals(-1, comparator.compare(Rating.AA, Rating.AAA));
+        assertTrue(comparator.compare(Rating.AA, Rating.AAA) < 0);
     }
 
     @Test
     public void test_AAA_lessThan_AAA_PLUS() {
-        assertEquals(-1, comparator.compare(Rating.AAA, Rating.AAA_PLUS));
+        assertTrue(comparator.compare(Rating.AAA, Rating.AAA_PLUS) < 0);
     }
 
     @Test
     public void test_AAA_greaterThan_AAA_MINUS() {
-        assertEquals(1, comparator.compare(Rating.AAA, Rating.AAA_MINUS));
+        assertTrue(comparator.compare(Rating.AAA, Rating.AAA_MINUS) > 0);
     }
 
     @Test
@@ -70,7 +81,7 @@ public class EnumeratedRankComparatorTest {
 
     @Test
     public void test_NR_lessThan_A_MINUS() {
-        assertEquals(-1, comparator.compare(Rating.NR, Rating.AAA));
+        assertTrue(comparator.compare(Rating.NR, Rating.AAA) < 0);
     }
 
     @Test
