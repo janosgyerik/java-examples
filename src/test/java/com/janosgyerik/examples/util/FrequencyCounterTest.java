@@ -22,6 +22,23 @@ public class FrequencyCounterTest {
     }
 
     @Test
+    public void test_getMostFrequentLetter() {
+        FrequencyCounter<Character> counter = new FrequencyCounter<>();
+        String text = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, " +
+                "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
+                "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris " +
+                "nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in " +
+                "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla " +
+                "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in " +
+                "culpa qui officia deserunt mollit anim id est laborum.";
+
+        for (char c : text.replace(" ", "").toCharArray()) {
+            counter.add(c);
+        }
+        assertEquals(new Character('i'), counter.getMostFrequentItem());
+    }
+
+    @Test
     public void test_map_hi_hi_hello() {
         FrequencyCounter<String> counter = new FrequencyCounter<>();
         counter.add("hi");
