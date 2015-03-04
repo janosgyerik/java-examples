@@ -19,6 +19,11 @@ public class StringBuilder {
         count = 0;
     }
 
+    public StringBuilder(String string) {
+        this();
+        this.append(string);
+    }
+
     public StringBuilder append(String string) {
         if (string == null) {
             string = "null";
@@ -27,6 +32,16 @@ public class StringBuilder {
         ensureCapacity(count + len);
         string.getChars(0, len, buffer, count);
         count += len;
+        return this;
+    }
+
+    public StringBuilder reverse() {
+        for (int i = 0; i < count / 2; ++i) {
+            int indexFromEnd = count - i - 1;
+            char work = buffer[i];
+            buffer[i] = buffer[indexFromEnd];
+            buffer[indexFromEnd] = work;
+        }
         return this;
     }
 
