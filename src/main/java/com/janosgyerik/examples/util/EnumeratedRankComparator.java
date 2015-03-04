@@ -29,6 +29,6 @@ public class EnumeratedRankComparator<T> implements Comparator<T> {
 
     @Override
     public int compare(T o1, T o2) {
-        return Integer.compare(itemsToIndex.get(o1), itemsToIndex.get(o2));
+        return itemsToIndex.get(o1).compareTo(itemsToIndex.get(o2));
     }
 }
