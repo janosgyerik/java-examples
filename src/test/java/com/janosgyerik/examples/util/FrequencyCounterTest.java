@@ -2,6 +2,7 @@ package com.janosgyerik.examples.util;
 
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -10,28 +11,14 @@ public class FrequencyCounterTest {
     @Test
     public void test_getMostFrequentItem() {
         FrequencyCounter<Integer> counter = new FrequencyCounter<>();
-        counter.add(1);
-        counter.add(4);
-        counter.add(9);
-        counter.add(3);
-        counter.add(4);
-        counter.add(5);
-        counter.add(4);
-        counter.add(9);
+        counter.addAll(Arrays.asList(1, 4, 9, 3, 4, 5, 4, 9));
         assertEquals(new Integer(4), counter.getMostFrequentItem());
     }
 
     @Test
     public void test_getMostFrequentCount() {
         FrequencyCounter<Integer> counter = new FrequencyCounter<>();
-        counter.add(1);
-        counter.add(4);
-        counter.add(9);
-        counter.add(3);
-        counter.add(4);
-        counter.add(5);
-        counter.add(4);
-        counter.add(9);
+        counter.addAll(Arrays.asList(1, 4, 9, 3, 4, 5, 4, 9));
         assertEquals(3, counter.getMostFrequentCount());
     }
 

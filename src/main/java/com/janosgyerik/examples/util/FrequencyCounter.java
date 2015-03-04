@@ -16,6 +16,10 @@ public class FrequencyCounter<T> {
         frequencyMap.put(item, count + 1);
     }
 
+    public void addAll(Collection<T> items) {
+        items.forEach(this::add);
+    }
+
     public T getMostFrequentItem() {
         return toSortedMap().lastKey();
     }
