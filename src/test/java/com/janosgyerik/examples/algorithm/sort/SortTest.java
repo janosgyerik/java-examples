@@ -66,6 +66,11 @@ public abstract class SortTest {
     }
 
     @Test
+    public void test_m2_m3_m1() {
+        sortAndVerify(new int[]{-3, -2, -1});
+    }
+
+    @Test
     public void test_random_10() {
         sortAndVerify(newRandomArray(10));
     }
