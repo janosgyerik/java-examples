@@ -67,7 +67,22 @@ public abstract class SortTest {
 
     @Test
     public void test_m2_m3_m1() {
-        sortAndVerify(new int[]{-3, -2, -1});
+        sortAndVerify(new int[]{-2, -3, -1});
+    }
+
+    @Test
+    public void test_m300_m200_m1000() {
+        sortAndVerify(new int[]{-300, -200, -1000});
+    }
+
+    @Test
+    public void test_m300_m200_0() {
+        sortAndVerify(new int[]{-300, -200, 0});
+    }
+
+    @Test
+    public void test_0() {
+        sortAndVerify(new int[]{0});
     }
 
     @Test
