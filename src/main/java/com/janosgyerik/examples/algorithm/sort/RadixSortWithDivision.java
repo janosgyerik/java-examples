@@ -14,7 +14,7 @@ public class RadixSortWithDivision {
     }
 
     public static void sort(int[] arr, int radix) {
-        int maxDigits = 1 + (int) (Math.log(max(arr)) / Math.log(radix));
+        int maxDigits = countDigits(getMaxAbs(arr), radix);
         int divisor = 1;
         for (int pos = 0; pos < maxDigits; ++pos) {
             List<List<Integer>> buckets = splitToBuckets(arr, divisor, radix);
@@ -59,13 +59,27 @@ public class RadixSortWithDivision {
         }
     }
 
-    private static int max(int[] arr) {
-        int max = Integer.MIN_VALUE;
+    private static int getMaxAbs(int[] arr) {
+        int maxAbs = 0;
         for (int num : arr) {
-            if (num > max) {
-                max = num;
+            int absNum = Math.abs(num);
+            if (absNum > maxAbs) {
+                maxAbs = absNum;
             }
         }
-        return max;
+        return maxAbs;
+    }
+
+    private static int countDigits(int num, int radix) {
+        if (num == 0) {
+            return 1;
+        }
+        int work = num;
+        int count = 0;
+        while (work > 0) {
+            work /= radix;
+            ++count;
+        }
+        return count;
     }
 }
