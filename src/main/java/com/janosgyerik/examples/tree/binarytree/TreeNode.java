@@ -8,4 +8,9 @@ public class TreeNode<T> {
     public TreeNode(T x) {
         val = x;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf(val);
+    }
 }
