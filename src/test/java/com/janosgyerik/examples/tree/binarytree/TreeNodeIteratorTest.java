@@ -9,7 +9,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class TraversalTest {
+public class TreeNodeIteratorTest {
 
     // example tree from http://en.wikipedia.org/wiki/Tree_traversal
     /*
@@ -20,7 +20,7 @@ public class TraversalTest {
           */
     private final TreeNode<Character> root;
 
-    public TraversalTest() {
+    public TreeNodeIteratorTest() {
         root = new TreeNode<>('F');
         root.left = new TreeNode<>('B');
         root.left.left = new TreeNode<>('A');
