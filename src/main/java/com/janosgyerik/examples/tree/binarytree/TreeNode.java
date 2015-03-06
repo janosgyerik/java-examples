@@ -1,7 +1,7 @@
 package com.janosgyerik.examples.tree.binarytree;
 
 public class TreeNode<T> {
-    public T val;
+    public final T val;
     public TreeNode<T> left;
     public TreeNode<T> right;
 
