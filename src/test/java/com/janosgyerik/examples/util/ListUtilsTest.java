@@ -1,5 +1,6 @@
-package com.janosgyerik.examples.lists;
+package com.janosgyerik.examples.util;
 
+import com.janosgyerik.examples.util.ListUtils;
 import org.junit.Test;
 
 import java.util.Arrays;

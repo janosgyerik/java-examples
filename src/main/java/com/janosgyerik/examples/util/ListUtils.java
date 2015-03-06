@@ -1,4 +1,4 @@
-package com.janosgyerik.examples.lists;
+package com.janosgyerik.examples.util;
 
 import java.util.ArrayList;
 import java.util.List;
