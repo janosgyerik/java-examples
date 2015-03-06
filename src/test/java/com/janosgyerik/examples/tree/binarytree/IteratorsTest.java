@@ -9,7 +9,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class TreeNodeIteratorTest {
+public class IteratorsTest {
 
     // example tree from http://en.wikipedia.org/wiki/Tree_traversal
     /*
@@ -20,7 +20,7 @@ public class TreeNodeIteratorTest {
           */
     private final TreeNode<Character> root;
 
-    public TreeNodeIteratorTest() {
+    public IteratorsTest() {
         root = new TreeNode<>('F');
         root.left = new TreeNode<>('B');
         root.left.left = new TreeNode<>('A');
@@ -42,25 +42,25 @@ public class TreeNodeIteratorTest {
 
     @Test
     public void testPreOrderIterator() {
-        Iterator<Character> iterator = new PreOrderIterator<>(root);
+        Iterator<Character> iterator = Iterators.preOrderIterator(root);
         assertEquals(Arrays.asList('F', 'B', 'A', 'D', 'C', 'E', 'G', 'I', 'H'), iterateToList(iterator));
     }
 
     @Test
     public void testInOrderIterator() {
-        Iterator<Character> iterator = new InOrderIterator<>(root);
+        Iterator<Character> iterator = Iterators.inOrderIterator(root);
         assertEquals(Arrays.asList('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'), iterateToList(iterator));
     }
 
     @Test
     public void testPostOrderIterator() {
-        Iterator<Character> iterator = new PostOrderIterator<>(root);
+        Iterator<Character> iterator = Iterators.postOrderIterator(root);
         assertEquals(Arrays.asList('A', 'C', 'E', 'D', 'B', 'H', 'I', 'G', 'F'), iterateToList(iterator));
     }
 
     @Test
     public void testLevelOrderIterator() {
-        Iterator<Character> iterator = new LevelOrderIterator<>(root);
+        Iterator<Character> iterator = Iterators.levelOrderIterator(root);
         assertEquals(Arrays.asList('F', 'B', 'G', 'A', 'D', 'I', 'C', 'E', 'H'), iterateToList(iterator));
     }
 }
