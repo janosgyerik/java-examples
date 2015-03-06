@@ -12,6 +12,12 @@ import static org.junit.Assert.*;
 public class TraversalTest {
 
     // example tree from http://en.wikipedia.org/wiki/Tree_traversal
+    /*
+            F
+        B       G
+      A   D       I
+         C E     H
+          */
     private final TreeNode<Character> root;
 
     public TraversalTest() {
@@ -38,5 +44,11 @@ public class TraversalTest {
     public void testPreOrderIterator() {
         PreOrderIterator<Character> iterator = new PreOrderIterator<>(root);
         assertEquals(Arrays.asList('F', 'B', 'A', 'D', 'C', 'E', 'G', 'I', 'H'), iterateToList(iterator));
+    }
+
+    @Test
+    public void testInOrderIterator() {
+        InOrderIterator<Character> iterator = new InOrderIterator<>(root);
+        assertEquals(Arrays.asList('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'), iterateToList(iterator));
     }
 }
