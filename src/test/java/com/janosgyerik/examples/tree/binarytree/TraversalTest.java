@@ -57,4 +57,10 @@ public class TraversalTest {
         Iterator<Character> iterator = new PostOrderIterator<>(root);
         assertEquals(Arrays.asList('A', 'C', 'E', 'D', 'B', 'H', 'I', 'G', 'F'), iterateToList(iterator));
     }
+
+    @Test
+    public void testLevelOrderIterator() {
+        Iterator<Character> iterator = new LevelOrderIterator<>(root);
+        assertEquals(Arrays.asList('F', 'B', 'G', 'A', 'D', 'I', 'C', 'E', 'H'), iterateToList(iterator));
+    }
 }
