@@ -42,13 +42,19 @@ public class TraversalTest {
 
     @Test
     public void testPreOrderIterator() {
-        PreOrderIterator<Character> iterator = new PreOrderIterator<>(root);
+        Iterator<Character> iterator = new PreOrderIterator<>(root);
         assertEquals(Arrays.asList('F', 'B', 'A', 'D', 'C', 'E', 'G', 'I', 'H'), iterateToList(iterator));
     }
 
     @Test
     public void testInOrderIterator() {
-        InOrderIterator<Character> iterator = new InOrderIterator<>(root);
+        Iterator<Character> iterator = new InOrderIterator<>(root);
         assertEquals(Arrays.asList('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'), iterateToList(iterator));
+    }
+
+    @Test
+    public void testPostOrderIterator() {
+        Iterator<Character> iterator = new PostOrderIterator<>(root);
+        assertEquals(Arrays.asList('A', 'C', 'E', 'D', 'B', 'H', 'I', 'G', 'F'), iterateToList(iterator));
     }
 }
