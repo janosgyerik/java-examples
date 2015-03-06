@@ -13,8 +13,9 @@ public class ImmutableListTest {
     @Test
     public void testMutatedUnmodifiableList() {
         List<Integer> origList = new ArrayList<>(Arrays.asList(1, 2, 3));
-        List<Integer> mutableList = Collections.unmodifiableList(origList);
+        List<Integer> unmodifiableList = Collections.unmodifiableList(origList);
         origList.remove(new Integer(2));
-        assertEquals(Arrays.asList(1, 3), mutableList);
+        // unmodifiableList is modified!
+        assertEquals(Arrays.asList(1, 3), unmodifiableList);
     }
 }
