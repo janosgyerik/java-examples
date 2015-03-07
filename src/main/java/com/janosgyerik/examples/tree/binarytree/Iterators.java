@@ -70,10 +70,14 @@ public class Iterators {
         public InOrderIterator(TreeNode<T> root) {
             current = root;
             if (current != null) {
-                while (current.left != null) {
-                    stack.push(current);
-                    current = current.left;
-                }
+                moveToLastLeft();
+            }
+        }
+
+        private final void moveToLastLeft() {
+            while (current.left != null) {
+                stack.push(current);
+                current = current.left;
             }
         }
 
@@ -87,10 +91,7 @@ public class Iterators {
             TreeNode<T> nextNode = current;
             current = current.right;
             if (current != null) {
-                while (current.left != null) {
-                    stack.push(current);
-                    current = current.left;
-                }
+                moveToLastLeft();
             } else if (!stack.isEmpty()) {
                 current = stack.pop();
             }
@@ -107,13 +108,17 @@ public class Iterators {
         public PostOrderIterator(TreeNode<T> root) {
             current = root;
             if (current != null) {
-                while (current.left != null || current.right != null) {
-                    stack.push(current);
-                    if (current.left != null) {
-                        current = current.left;
-                    } else {
-                        current = current.right;
-                    }
+                moveToLast();
+            }
+        }
+
+        private final void moveToLast() {
+            while (current.left != null || current.right != null) {
+                stack.push(current);
+                if (current.left != null) {
+                    current = current.left;
+                } else {
+                    current = current.right;
                 }
             }
         }
@@ -131,14 +136,7 @@ public class Iterators {
                 if (current.right != null && current.right != nextNode) {
                     stack.push(current);
                     current = current.right;
-                    while (current.left != null || current.right != null) {
-                        stack.push(current);
-                        if (current.left != null) {
-                            current = current.left;
-                        } else {
-                            current = current.right;
-                        }
-                    }
+                    moveToLast();
                 }
             } else {
                 current = null;
@@ -156,12 +154,16 @@ public class Iterators {
         public LevelOrderIterator(TreeNode<T> root) {
             current = root;
             if (current != null) {
-                if (current.left != null) {
-                    queue.add(current.left);
-                }
-                if (current.right != null) {
-                    queue.add(current.right);
-                }
+                enqueueThisLevel();
+            }
+        }
+
+        private final void enqueueThisLevel() {
+            if (current.left != null) {
+                queue.add(current.left);
+            }
+            if (current.right != null) {
+                queue.add(current.right);
             }
         }
 
@@ -175,12 +177,7 @@ public class Iterators {
             TreeNode<T> nextNode = current;
             if (!queue.isEmpty()) {
                 current = queue.poll();
-                if (current.left != null) {
-                    queue.add(current.left);
-                }
-                if (current.right != null) {
-                    queue.add(current.right);
-                }
+                enqueueThisLevel();
             } else {
                 current = null;
             }
