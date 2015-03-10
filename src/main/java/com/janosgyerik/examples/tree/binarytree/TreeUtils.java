@@ -5,6 +5,11 @@ import java.util.List;
 import java.util.Queue;
 
 public class TreeUtils {
+
+    private TreeUtils() {
+        // utility class, forbidden constructor
+    }
+
     // Something like this:
     /*
                       A
