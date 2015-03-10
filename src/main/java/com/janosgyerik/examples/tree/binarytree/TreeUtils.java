@@ -59,10 +59,10 @@ public class TreeUtils {
         }
     }
 
-    private static int getHeight(TreeNode node) {
-        if (node == null) {
+    public static int getHeight(TreeNode<?> root) {
+        if (root == null) {
             return 0;
         }
-        return Math.max(1 + getHeight(node.left), 1 + getHeight(node.right));
+        return 1 + Math.max(getHeight(root.left), getHeight(root.right));
     }
 }

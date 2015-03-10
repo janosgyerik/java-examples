@@ -35,11 +35,4 @@ public class BalancedTreeUtils {
 
         return 1 + Math.max(leftHeight, rightHeight);
     }
-
-    public static int getHeight(TreeNode<?> root) {
-        if (root == null) {
-            return 0;
-        }
-        return 1 + Math.max(getHeight(root.left), getHeight(root.right));
-    }
 }

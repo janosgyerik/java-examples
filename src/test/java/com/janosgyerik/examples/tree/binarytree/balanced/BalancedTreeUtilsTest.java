@@ -43,30 +43,4 @@ public class BalancedTreeUtilsTest {
         root.right.right.left = new TreeNode<>(8);
         assertFalse(BalancedTreeUtils.isBalanced(root));
     }
-
-    @Test
-    public void testGetHeight_empty() {
-        assertEquals(0, BalancedTreeUtils.getHeight(null));
-    }
-
-    @Test
-    public void testGetHeight_singleton() {
-        assertEquals(1, BalancedTreeUtils.getHeight(new TreeNode<>(3)));
-    }
-
-    @Test
-    public void testGetHeight_leftHigher() {
-        TreeNode<Integer> root = new TreeNode<>(3);
-        root.left = new TreeNode<>(4);
-        assertEquals(2, BalancedTreeUtils.getHeight(root));
-    }
-
-    @Test
-    public void testGetHeight_rightHigher() {
-        TreeNode<Integer> root = new TreeNode<>(3);
-        root.left = new TreeNode<>(4);
-        root.right = new TreeNode<>(5);
-        root.right.right = new TreeNode<>(6);
-        assertEquals(3, BalancedTreeUtils.getHeight(root));
-    }
 }
