@@ -55,7 +55,7 @@ public class TreeUtils {
 
     private static void printPadding(int padding) {
         for (int i = 0; i < padding; ++i) {
-            System.out.printf(" ");
+            System.out.print(" ");
         }
     }
 
