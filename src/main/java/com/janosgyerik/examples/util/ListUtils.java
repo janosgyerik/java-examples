@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListUtils {
+
+    private ListUtils() {
+        // utility class, forbidden constructor
+    }
+
     public static <T> List<List<T>> partition(List<T> orig, int size) {
         if (orig == null) {
             throw new NullPointerException("The list to partition must not be null");
