@@ -9,29 +9,29 @@ import static org.junit.Assert.assertTrue;
 public class TreeUtilsTest {
 
     @Test
-    public void test_getHeight_empty() {
-        assertEquals(0, TreeUtils.getHeight(null));
+    public void test_height_empty() {
+        assertEquals(0, TreeUtils.height(null));
     }
 
     @Test
-    public void test_getHeight_singleton() {
-        assertEquals(1, TreeUtils.getHeight(new TreeNode<>(3)));
+    public void test_height_singleton() {
+        assertEquals(1, TreeUtils.height(new TreeNode<>(3)));
     }
 
     @Test
-    public void test_getHeight_leftHigher() {
+    public void test_height_leftHigher() {
         TreeNode<Integer> root = new TreeNode<>(3);
         root.left = new TreeNode<>(4);
-        assertEquals(2, TreeUtils.getHeight(root));
+        assertEquals(2, TreeUtils.height(root));
     }
 
     @Test
-    public void test_getHeight_rightHigher() {
+    public void test_height_rightHigher() {
         TreeNode<Integer> root = new TreeNode<>(3);
         root.left = new TreeNode<>(4);
         root.right = new TreeNode<>(5);
         root.right.right = new TreeNode<>(6);
-        assertEquals(3, TreeUtils.getHeight(root));
+        assertEquals(3, TreeUtils.height(root));
     }
 
     @Test

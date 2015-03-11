@@ -1,6 +1,5 @@
 package com.janosgyerik.examples.tree.binarytree;
 
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -24,7 +23,7 @@ public class TreeUtils {
             return;
         }
 
-        int height = getHeight(root);
+        int height = height(root);
 
         Queue<TreeNode<?>> queue = new LinkedList<>();
         queue.add(root);
@@ -60,11 +59,11 @@ public class TreeUtils {
         }
     }
 
-    public static int getHeight(TreeNode<?> root) {
+    public static int height(TreeNode<?> root) {
         if (root == null) {
             return 0;
         }
-        return 1 + Math.max(getHeight(root.left), getHeight(root.right));
+        return 1 + Math.max(height(root.left), height(root.right));
     }
 
     public static int size(TreeNode<?> root) {
