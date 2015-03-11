@@ -1,6 +1,8 @@
 package com.janosgyerik.examples.util;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ListUtils {
@@ -22,5 +24,13 @@ public class ListUtils {
             result.add(orig.subList(i, Math.min(i + size, origSize)));
         }
         return result;
+    }
+
+    public static <T> List<T> toList(Iterator<T> iterator) {
+        List<T> list = new LinkedList<>();
+        while (iterator.hasNext()) {
+            list.add(iterator.next());
+        }
+        return list;
     }
 }
