@@ -1,8 +1,12 @@
 package com.janosgyerik.examples.tree.binarytree;
 
+import com.janosgyerik.examples.util.ListUtils;
 import org.junit.Test;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 import static org.junit.Assert.*;
 
@@ -62,12 +66,6 @@ public abstract class BinarySearchTreeTest {
         BinarySearchTree<Integer> tree = newBinarySearchTree();
         list.forEach(tree::insert);
 
-        Iterator<Integer> treeIterator = Iterators.inOrderIterator(tree.getRoot());
-        Iterator<Integer> listIterator = list.listIterator();
-        while (treeIterator.hasNext() && listIterator.hasNext()) {
-            assertEquals(listIterator.next(), treeIterator.next());
-        }
-        assertFalse(treeIterator.hasNext());
-        assertFalse(listIterator.hasNext());
+        assertEquals(list, ListUtils.toList(Iterators.inOrderIterator(tree.getRoot())));
     }
 }
