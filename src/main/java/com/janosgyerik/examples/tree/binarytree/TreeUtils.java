@@ -1,5 +1,6 @@
 package com.janosgyerik.examples.tree.binarytree;
 
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -64,5 +65,12 @@ public class TreeUtils {
             return 0;
         }
         return 1 + Math.max(getHeight(root.left), getHeight(root.right));
+    }
+
+    public static <T extends Comparable<T>> boolean isBinarySearchTree(TreeNode<T> root, T minValue, T maxValue) {
+        return root == null ||
+                minValue.compareTo(root.val) < 0 && root.val.compareTo(maxValue) < 0
+                && isBinarySearchTree(root.left, minValue, root.val)
+                && isBinarySearchTree(root.right, root.val, maxValue);
     }
 }
