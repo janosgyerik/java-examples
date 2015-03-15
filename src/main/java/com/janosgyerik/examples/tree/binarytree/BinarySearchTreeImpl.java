@@ -1,5 +1,7 @@
 package com.janosgyerik.examples.tree.binarytree;
 
+import java.util.Collection;
+
 public class BinarySearchTreeImpl<T extends Comparable<T>> implements BinarySearchTree<T> {
 
     private TreeNode<T> root = null;
@@ -16,6 +18,11 @@ public class BinarySearchTreeImpl<T extends Comparable<T>> implements BinarySear
         } else {
             insert(root, val);
         }
+    }
+
+    @Override
+    public void insertAll(Collection<T> values) {
+        values.forEach(this::insert);
     }
 
     private void insert(TreeNode<T> node, T val) {
