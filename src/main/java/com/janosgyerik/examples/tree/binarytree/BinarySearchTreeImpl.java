@@ -1,6 +1,9 @@
 package com.janosgyerik.examples.tree.binarytree;
 
 import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 public class BinarySearchTreeImpl<T extends Comparable<T>> implements BinarySearchTree<T> {
 
@@ -62,6 +65,49 @@ public class BinarySearchTreeImpl<T extends Comparable<T>> implements BinarySear
 
     @Override
     public void delete(T val) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        if (root == null) {
+            return;
+        }
+        List<TreeNode<T>> deleted = new LinkedList<>();
+        if (root.val.equals(val)) {
+            if (root.left == null) {
+                root = root.right;
+            } else if (root.right == null) {
+                root = root.left;
+            } else {
+                // delete one of the branches and re-add elements to the other
+                // TODO: find a better way to choose a branch to delete
+                deleted.add(root.left);
+                root = root.right;
+            }
+        } else {
+            TreeNode<T> node = root;
+            while (node != null) {
+                if (node.val.compareTo(val) > 0) {
+                    if (node.left != null && node.left.val.equals(val)) {
+                        deleted.add(node.left.left);
+                        deleted.add(node.left.right);
+                        node.left = null;
+                    }
+                    node = node.left;
+                } else {
+                    if (node.right != null && node.right.val.equals(val)) {
+                        deleted.add(node.right.left);
+                        deleted.add(node.right.right);
+                        node.right = null;
+                    }
+                    node = node.right;
+                }
+            }
+        }
+        for (TreeNode<T> node : deleted) {
+            if (node == null) {
+                continue;
+            }
+            Iterator<T> iterator = Iterators.levelOrderIterator(node);
+            while (iterator.hasNext()) {
+                insert(iterator.next());
+            }
+        }
     }
 }

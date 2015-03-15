@@ -3,10 +3,7 @@ package com.janosgyerik.examples.tree.binarytree;
 import com.janosgyerik.examples.util.ListUtils;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -67,5 +64,68 @@ public abstract class BinarySearchTreeTest {
         list.forEach(tree::insert);
 
         assertEquals(list, ListUtils.toList(Iterators.inOrderIterator(tree.getRoot())));
+    }
+
+    private void assertBinarySearchTree(BinarySearchTree<Integer> tree) {
+        assertTrue(TreeUtils.isBinarySearchTree(tree.getRoot(), Integer.MIN_VALUE, Integer.MAX_VALUE));
+    }
+
+    private void assertTreeSize(int size, BinarySearchTree<Integer> tree) {
+        assertEquals(size, TreeUtils.size(tree.getRoot()));
+    }
+
+    private void testDeleteNode(List<Integer> list, int value) {
+        BinarySearchTree<Integer> tree = newBinarySearchTree();
+        list.forEach(tree::insert);
+
+        assertTreeSize(list.size(), tree);
+        assertBinarySearchTree(tree);
+
+        tree.delete(value);
+        assertTreeSize(list.size() - 1, tree);
+        assertBinarySearchTree(tree);
+    }
+
+    @Test
+    public void test_delete_leaf() {
+        testDeleteNode(Arrays.asList(1, 2, 3), 3);
+    }
+
+    @Test
+    public void test_delete_nonleaf() {
+        testDeleteNode(Arrays.asList(1, 2, 3), 2);
+    }
+
+    @Test
+    public void test_delete_root_with_only_left() {
+        testDeleteNode(Arrays.asList(3, 2, 1), 3);
+    }
+
+    @Test
+    public void test_delete_root_with_only_right() {
+        testDeleteNode(Arrays.asList(1, 2, 3), 1);
+    }
+
+    @Test
+    public void test_delete_root_with_both_left_right() {
+        testDeleteNode(Arrays.asList(2, 1, 3), 2);
+    }
+
+    @Test
+    public void test_delete_various() {
+        List<Integer> list = createList(10);
+        Collections.shuffle(list);
+
+        BinarySearchTree<Integer> tree = newBinarySearchTree();
+        tree.insertAll(list);
+
+        int min = -1;
+        int max = list.size() + 1;
+        assertTrue(TreeUtils.isBinarySearchTree(tree.getRoot(), min, max));
+        assertEquals(list.size(), TreeUtils.size(tree.getRoot()));
+
+        tree.delete(list.get(0));
+        assertTrue(TreeUtils.isBinarySearchTree(tree.getRoot(), min, max));
+        assertEquals(list.size() - 1, TreeUtils.size(tree.getRoot()));
     }
 }
