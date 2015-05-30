@@ -1,9 +1,6 @@
 package com.janosgyerik.examples.util;
 
-import java.io.BufferedInputStream;
-import java.io.Closeable;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
 public class IOUtils {
 
@@ -11,6 +8,10 @@ public class IOUtils {
 
     private IOUtils() {
         // utility class, forbidden constructor
+    }
+
+    public static boolean contentEquals(File file1, File file2) throws IOException {
+        return contentEquals(new FileInputStream(file1), new FileInputStream(file2));
     }
 
     // http://grepcode.com/file/repo1.maven.org/maven2/commons-io/commons-io/2.4/org/apache/commons/io/IOUtils.java
