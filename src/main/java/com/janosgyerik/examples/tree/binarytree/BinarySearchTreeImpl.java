@@ -2,8 +2,6 @@ package com.janosgyerik.examples.tree.binarytree;
 
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
 
 public class BinarySearchTreeImpl<T extends Comparable<T>> implements BinarySearchTree<T> {
 
@@ -29,13 +27,13 @@ public class BinarySearchTreeImpl<T extends Comparable<T>> implements BinarySear
     }
 
     private void insert(TreeNode<T> node, T val) {
-        if (val.compareTo(node.val) < 0) {
+        if (val.compareTo(node.value) < 0) {
             if (node.left == null) {
                 node.left = new TreeNode<>(val);
             } else {
                 insert(node.left, val);
             }
-        } else if (node.val.compareTo(val) < 0) {
+        } else if (node.value.compareTo(val) < 0) {
             if (node.right == null) {
                 node.right = new TreeNode<>(val);
             } else {
@@ -53,7 +51,7 @@ public class BinarySearchTreeImpl<T extends Comparable<T>> implements BinarySear
         if (node == null) {
             return false;
         }
-        int compare = val.compareTo(node.val);
+        int compare = val.compareTo(node.value);
         if (compare == 0) {
             return true;
         }
@@ -82,20 +80,20 @@ public class BinarySearchTreeImpl<T extends Comparable<T>> implements BinarySear
     }
 
     TreeNode<T> deleteSubTree(T val) {
-        if (root == null || root.val.equals(val)) {
+        if (root == null || root.value.equals(val)) {
             return root;
         }
         TreeNode<T> deleted = null;
         TreeNode<T> node = root;
         while (node != null) {
-            if (node.val.compareTo(val) > 0) {
-                if (node.left.val.equals(val)) {
+            if (node.value.compareTo(val) > 0) {
+                if (node.left.value.equals(val)) {
                     deleted = node.left;
                     node.left = null;
                 }
                 node = node.left;
             } else {
-                if (node.right.val.equals(val)) {
+                if (node.right.value.equals(val)) {
                     deleted = node.right;
                     node.right = null;
                 }

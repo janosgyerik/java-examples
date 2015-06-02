@@ -28,160 +28,115 @@ public class Iterators {
     }
 
     private static class PreOrderIterator<T> implements Iterator<T> {
-
         private final Stack<TreeNode<T>> stack = new Stack<>();
 
-        private TreeNode<T> current;
-
-        public PreOrderIterator(TreeNode<T> root) {
-            current = root;
+        private PreOrderIterator(TreeNode<T> root) {
+            if (root != null) {
+                stack.push(root);
+            }
         }
 
         @Override
         public boolean hasNext() {
-            return current != null;
+            return !stack.isEmpty();
         }
 
         @Override
         public T next() {
-            TreeNode<T> nextNode = current;
-            if (current.left != null) {
-                if (current.right != null) {
-                    stack.push(current.right);
-                }
-                current = current.left;
-            } else if (current.right != null) {
-                current = current.right;
-            } else if (!stack.isEmpty()) {
-                current = stack.pop();
-            } else {
-                current = null;
+            TreeNode<T> node = stack.pop();
+            if (node.right != null) {
+                stack.push(node.right);
             }
-            return nextNode.val;
+            if (node.left != null) {
+                stack.push(node.left);
+            }
+            return node.value;
         }
     }
 
     private static class InOrderIterator<T> implements Iterator<T> {
+        private Stack<TreeNode<T>> stack = new Stack<>();
 
-        private final Stack<TreeNode<T>> stack = new Stack<>();
-
-        private TreeNode<T> current;
-
-        public InOrderIterator(TreeNode<T> root) {
-            current = root;
-            if (current != null) {
-                moveToLastLeft();
-            }
+        private InOrderIterator(TreeNode<T> root) {
+            moveToLeftMost(root);
         }
 
-        private final void moveToLastLeft() {
-            while (current.left != null) {
-                stack.push(current);
-                current = current.left;
+        private void moveToLeftMost(TreeNode<T> node) {
+            while (node != null) {
+                stack.push(node);
+                node = node.left;
             }
         }
 
         @Override
         public boolean hasNext() {
-            return current != null;
+            return !stack.isEmpty();
         }
 
         @Override
         public T next() {
-            TreeNode<T> nextNode = current;
-            current = current.right;
-            if (current != null) {
-                moveToLastLeft();
-            } else if (!stack.isEmpty()) {
-                current = stack.pop();
-            }
-            return nextNode.val;
+            TreeNode<T> current = stack.pop();
+            moveToLeftMost(current.right);
+            return current.value;
         }
     }
 
     private static class PostOrderIterator<T> implements Iterator<T> {
+        private Stack<TreeNode<T>> stack = new Stack<>();
 
-        private final Stack<TreeNode<T>> stack = new Stack<>();
-
-        private TreeNode<T> current;
-
-        public PostOrderIterator(TreeNode<T> root) {
-            current = root;
-            if (current != null) {
-                moveToLast();
-            }
+        private PostOrderIterator(TreeNode<T> root) {
+            moveToNextLeaf(root);
         }
 
-        private final void moveToLast() {
-            while (current.left != null || current.right != null) {
-                stack.push(current);
-                if (current.left != null) {
-                    current = current.left;
-                } else {
-                    current = current.right;
-                }
+        private void moveToNextLeaf(TreeNode<T> node) {
+            while (node != null) {
+                stack.push(node);
+                node = node.left != null ? node.left : node.right;
             }
         }
 
         @Override
         public boolean hasNext() {
-            return current != null;
+            return !stack.isEmpty();
         }
 
         @Override
         public T next() {
-            TreeNode<T> nextNode = current;
+            TreeNode<T> current = stack.pop();
             if (!stack.isEmpty()) {
-                current = stack.pop();
-                if (current.right != null && current.right != nextNode) {
-                    stack.push(current);
-                    current = current.right;
-                    moveToLast();
+                TreeNode<T> parent = stack.peek();
+                if (parent.right != current) {
+                    moveToNextLeaf(parent.right);
                 }
-            } else {
-                current = null;
             }
-            return nextNode.val;
+            return current.value;
         }
     }
 
     private static class LevelOrderIterator<T> implements Iterator<T> {
-
         private final Queue<TreeNode<T>> queue = new LinkedList<>();
 
-        private TreeNode<T> current;
-
-        public LevelOrderIterator(TreeNode<T> root) {
-            current = root;
-            if (current != null) {
-                enqueueThisLevel();
-            }
+        private LevelOrderIterator(TreeNode<T> root) {
+            queue.add(root);
         }
 
-        private final void enqueueThisLevel() {
+        @Override
+        public boolean hasNext() {
+            return !queue.isEmpty();
+        }
+
+        @Override
+        public T next() {
+            TreeNode<T> current = queue.poll();
+
             if (current.left != null) {
                 queue.add(current.left);
             }
             if (current.right != null) {
                 queue.add(current.right);
             }
-        }
 
-        @Override
-        public boolean hasNext() {
-            return current != null;
-        }
-
-        @Override
-        public T next() {
-            TreeNode<T> nextNode = current;
-            if (!queue.isEmpty()) {
-                current = queue.poll();
-                enqueueThisLevel();
-            } else {
-                current = null;
-            }
-            return nextNode.val;
+            return current.value;
         }
     }
 }

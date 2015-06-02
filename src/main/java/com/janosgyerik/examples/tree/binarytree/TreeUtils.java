@@ -43,7 +43,7 @@ public class TreeUtils {
                     queue.add(null);
                     queue.add(null);
                 } else {
-                    System.out.print(node.val);
+                    System.out.print(node.value);
                     queue.add(node.left);
                     queue.add(node.right);
                 }
@@ -75,8 +75,8 @@ public class TreeUtils {
 
     public static <T extends Comparable<T>> boolean isBinarySearchTree(TreeNode<T> root, T minValue, T maxValue) {
         return root == null ||
-                minValue.compareTo(root.val) < 0 && root.val.compareTo(maxValue) < 0
-                && isBinarySearchTree(root.left, minValue, root.val)
-                && isBinarySearchTree(root.right, root.val, maxValue);
+                minValue.compareTo(root.value) < 0 && root.value.compareTo(maxValue) < 0
+                && isBinarySearchTree(root.left, minValue, root.value)
+                && isBinarySearchTree(root.right, root.value, maxValue);
     }
 }
