@@ -1,5 +1,6 @@
-package com.janosgyerik.examples.util;
+package com.janosgyerik.examples.reinvent;
 
+import com.janosgyerik.examples.reinvent.ExampleHashMap;
 import org.junit.Test;
 
 import java.util.Map;
