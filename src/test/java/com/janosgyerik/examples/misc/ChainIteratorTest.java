@@ -10,61 +10,61 @@ import static org.junit.Assert.*;
 
 public class ChainIteratorTest {
     @Test
-    public void testSingle() {
-        List<Integer> list1 = Arrays.asList(1, 2, 3);
-        ChainIterator<Integer> iter2x = new ChainIterator<>(list1.iterator());
-        for (Integer item : list1) {
-            assertTrue(iter2x.hasNext());
-            assertEquals(item, iter2x.next());
+    public void test_single_iterator() {
+        List<Integer> list = Arrays.asList(1, 2, 3);
+        ChainIterator<Integer> chainIterator = new ChainIterator<>(list.iterator());
+        for (Integer item : list) {
+            assertTrue(chainIterator.hasNext());
+            assertEquals(item, chainIterator.next());
         }
-        assertFalse(iter2x.hasNext());
+        assertFalse(chainIterator.hasNext());
     }
 
     @Test
-    public void testConcat() {
+    public void test_two_iterators() {
         List<Integer> list1 = Arrays.asList(1, 2, 3);
         List<Integer> list2 = Arrays.asList(4, 5);
-        ChainIterator<Integer> iter2x = new ChainIterator<>(list1.iterator(), list2.iterator());
+        ChainIterator<Integer> chainIterator = new ChainIterator<>(list1.iterator(), list2.iterator());
         for (Integer item : list1) {
-            assertTrue(iter2x.hasNext());
-            assertEquals(item, iter2x.next());
+            assertTrue(chainIterator.hasNext());
+            assertEquals(item, chainIterator.next());
         }
         for (Integer item : list2) {
-            assertTrue(iter2x.hasNext());
-            assertEquals(item, iter2x.next());
+            assertTrue(chainIterator.hasNext());
+            assertEquals(item, chainIterator.next());
         }
-        assertFalse(iter2x.hasNext());
+        assertFalse(chainIterator.hasNext());
     }
 
     @Test
-    public void testConcatWithEmptyInMiddle() {
+    public void test_empty_iterator_between_nonempty() {
         List<Integer> list1 = Arrays.asList(1, 2, 3);
         List<Integer> list2 = Arrays.asList(4, 5);
-        ChainIterator<Integer> iter2x = new ChainIterator<>(list1.iterator(), Collections.<Integer>emptyList().iterator(), list2.iterator());
+        ChainIterator<Integer> chainIterator = new ChainIterator<>(list1.iterator(), Collections.<Integer>emptyList().iterator(), list2.iterator());
         for (Integer item : list1) {
-            assertTrue(iter2x.hasNext());
-            assertEquals(item, iter2x.next());
+            assertTrue(chainIterator.hasNext());
+            assertEquals(item, chainIterator.next());
         }
         for (Integer item : list2) {
-            assertTrue(iter2x.hasNext());
-            assertEquals(item, iter2x.next());
+            assertTrue(chainIterator.hasNext());
+            assertEquals(item, chainIterator.next());
         }
-        assertFalse(iter2x.hasNext());
+        assertFalse(chainIterator.hasNext());
     }
 
     @Test
-    public void testConcatWithManyEmpty() {
+    public void test_with_many_empty_iterators() {
         List<Integer> list1 = Arrays.asList(1, 2, 3);
         List<Integer> list2 = Arrays.asList(4, 5);
-        ChainIterator<Integer> iter2x = new ChainIterator<>(Collections.<Integer>emptyList().iterator(), list1.iterator(), Collections.<Integer>emptyList().iterator(), Collections.<Integer>emptyList().iterator(), list2.iterator());
+        ChainIterator<Integer> chainIterator = new ChainIterator<>(Collections.<Integer>emptyList().iterator(), list1.iterator(), Collections.<Integer>emptyList().iterator(), Collections.<Integer>emptyList().iterator(), list2.iterator());
         for (Integer item : list1) {
-            assertTrue(iter2x.hasNext());
-            assertEquals(item, iter2x.next());
+            assertTrue(chainIterator.hasNext());
+            assertEquals(item, chainIterator.next());
         }
         for (Integer item : list2) {
-            assertTrue(iter2x.hasNext());
-            assertEquals(item, iter2x.next());
+            assertTrue(chainIterator.hasNext());
+            assertEquals(item, chainIterator.next());
         }
-        assertFalse(iter2x.hasNext());
+        assertFalse(chainIterator.hasNext());
     }
 }
