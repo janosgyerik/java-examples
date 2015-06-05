@@ -1,35 +1,32 @@
 package com.janosgyerik.examples.misc;
 
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class ChainIterator<E> implements Iterator<E> {
-    private final Iterator<E>[] iterators;
-    private int index = 0;
+    private final Queue<Iterator<E>> iterators = new LinkedList<>();
 
     public ChainIterator(Iterator<E>... iterators) {
-        this.iterators = iterators;
-    }
-
-    @Override
-    public boolean hasNext() {
-        while (true) {
-            if (iterators[index].hasNext()) {
-                return true;
+        for (Iterator<E> iterator : iterators) {
+            if (iterator.hasNext()) {
+                this.iterators.add(iterator);
             }
-            if (index == iterators.length - 1) {
-                return false;
-            }
-            ++index;
         }
     }
 
     @Override
-    public E next() {
-        return iterators[index].next();
+    public boolean hasNext() {
+        return !iterators.isEmpty();
     }
 
     @Override
-    public void remove() {
-        throw new UnsupportedOperationException();
+    public E next() {
+        Iterator<E> iterator = iterators.peek();
+        E result = iterator.next();
+        if (!iterator.hasNext()) {
+            iterators.poll();
+        }
+        return result;
     }
 }
