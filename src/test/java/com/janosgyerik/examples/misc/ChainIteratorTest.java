@@ -24,7 +24,12 @@ public class ChainIteratorTest {
     public void test_two_iterators() {
         List<Integer> list1 = Arrays.asList(1, 2, 3);
         List<Integer> list2 = Arrays.asList(4, 5);
-        ChainIterator<Integer> chainIterator = new ChainIterator<>(list1.iterator(), list2.iterator());
+
+        ChainIterator<Integer> chainIterator = new ChainIterator<>(
+                list1.iterator(),
+                list2.iterator()
+        );
+
         for (Integer item : list1) {
             assertTrue(chainIterator.hasNext());
             assertEquals(item, chainIterator.next());
@@ -40,7 +45,13 @@ public class ChainIteratorTest {
     public void test_empty_iterator_between_nonempty() {
         List<Integer> list1 = Arrays.asList(1, 2, 3);
         List<Integer> list2 = Arrays.asList(4, 5);
-        ChainIterator<Integer> chainIterator = new ChainIterator<>(list1.iterator(), Collections.<Integer>emptyList().iterator(), list2.iterator());
+
+        ChainIterator<Integer> chainIterator = new ChainIterator<>(
+                list1.iterator(),
+                Collections.<Integer>emptyList().iterator(),
+                list2.iterator()
+        );
+
         for (Integer item : list1) {
             assertTrue(chainIterator.hasNext());
             assertEquals(item, chainIterator.next());
@@ -56,7 +67,15 @@ public class ChainIteratorTest {
     public void test_with_many_empty_iterators() {
         List<Integer> list1 = Arrays.asList(1, 2, 3);
         List<Integer> list2 = Arrays.asList(4, 5);
-        ChainIterator<Integer> chainIterator = new ChainIterator<>(Collections.<Integer>emptyList().iterator(), list1.iterator(), Collections.<Integer>emptyList().iterator(), Collections.<Integer>emptyList().iterator(), list2.iterator());
+
+        ChainIterator<Integer> chainIterator = new ChainIterator<>(
+                Collections.<Integer>emptyList().iterator(),
+                list1.iterator(),
+                Collections.<Integer>emptyList().iterator(),
+                Collections.<Integer>emptyList().iterator(),
+                list2.iterator()
+        );
+
         for (Integer item : list1) {
             assertTrue(chainIterator.hasNext());
             assertEquals(item, chainIterator.next());
