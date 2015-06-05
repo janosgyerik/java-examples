@@ -10,7 +10,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class EnumeratedRankComparatorTest {
+public class RankComparatorTest {
 
     // Yes. An enum would make sense for this example.
     // But with an enum, the rank-comparator is pointless,
@@ -41,15 +41,9 @@ public class EnumeratedRankComparatorTest {
 
     private static class RatingComparator implements Comparator<Rating> {
         private Comparator<Rating> comparator =
-                EnumeratedRankComparator.fromHighToLow(Arrays.asList(
-                        Rating.AAA_PLUS,
-                        Rating.AAA,
-                        Rating.AAA_MINUS,
-                        Rating.AA_PLUS,
-                        Rating.AA,
-                        Rating.BB,
-                        Rating.NR
-                ));
+                RankComparator.fromHighToLow(
+                        Arrays.asList(Rating.AAA_PLUS, Rating.AAA, Rating.AAA_MINUS, Rating.AA_PLUS, Rating.AA,
+                                Rating.BB, Rating.NR));
 
         @Override
         public int compare(Rating o1, Rating o2) {
@@ -93,7 +87,7 @@ public class EnumeratedRankComparatorTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void test_inconsistent_ranks() {
-        EnumeratedRankComparator.fromHighToLow(Arrays.asList(Rating.AA, Rating.AA_MINUS, Rating.AA));
+        RankComparator.fromHighToLow(Arrays.asList(Rating.AA, Rating.AA_MINUS, Rating.AA));
     }
 
     @Test

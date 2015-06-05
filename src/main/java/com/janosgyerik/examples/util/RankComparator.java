@@ -2,10 +2,10 @@ package com.janosgyerik.examples.util;
 
 import java.util.*;
 
-public class EnumeratedRankComparator<T> implements Comparator<T> {
+public class RankComparator<T> implements Comparator<T> {
     private final Map<T, Integer> itemsToIndex;
 
-    private EnumeratedRankComparator(List<T> items) {
+    private RankComparator(List<T> items) {
         itemsToIndex = new HashMap<>(items.size());
 
         int index = 0;
@@ -18,7 +18,7 @@ public class EnumeratedRankComparator<T> implements Comparator<T> {
     }
 
     public static <T> Comparator<T> fromLowToHigh(List<T> items) {
-        return Comparator.nullsFirst(new EnumeratedRankComparator<>(items));
+        return Comparator.nullsFirst(new RankComparator<>(items));
     }
 
     public static <T> Comparator<T> fromHighToLow(List<T> items) {
