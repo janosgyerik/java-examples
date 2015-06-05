@@ -3,17 +3,17 @@ package com.janosgyerik.examples.util;
 import java.util.*;
 
 public class RankComparator<T> implements Comparator<T> {
-    private final Map<T, Integer> itemsToIndex;
+    private final Map<T, Integer> indexes;
 
     private RankComparator(List<T> items) {
-        itemsToIndex = new HashMap<>(items.size());
+        indexes = new HashMap<>(items.size());
 
         int index = 0;
         for (T item : items) {
-            if (itemsToIndex.containsKey(item)) {
+            if (indexes.containsKey(item)) {
                 throw new IllegalArgumentException("Inconsistent ranks: there should be no duplicates");
             }
-            itemsToIndex.put(item, ++index);
+            indexes.put(item, ++index);
         }
     }
 
@@ -29,6 +29,6 @@ public class RankComparator<T> implements Comparator<T> {
 
     @Override
     public int compare(T o1, T o2) {
-        return itemsToIndex.get(o1).compareTo(itemsToIndex.get(o2));
+        return indexes.get(o1).compareTo(indexes.get(o2));
     }
 }
