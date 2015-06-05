@@ -1,4 +1,4 @@
-package com.janosgyerik.examples.misc;
+package com.janosgyerik.examples.util;
 
 import java.util.Iterator;
 import java.util.LinkedList;

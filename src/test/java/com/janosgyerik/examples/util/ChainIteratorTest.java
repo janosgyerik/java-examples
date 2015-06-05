@@ -1,5 +1,6 @@
-package com.janosgyerik.examples.misc;
+package com.janosgyerik.examples.util;
 
+import com.janosgyerik.examples.util.ChainIterator;
 import org.junit.Test;
 
 import java.util.Arrays;
