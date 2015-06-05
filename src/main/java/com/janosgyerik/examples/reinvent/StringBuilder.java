@@ -1,4 +1,4 @@
-package com.janosgyerik.examples.util;
+package com.janosgyerik.examples.reinvent;
 
 import java.util.Arrays;
 
