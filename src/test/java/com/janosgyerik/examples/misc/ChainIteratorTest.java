@@ -67,4 +67,14 @@ public class ChainIteratorTest {
         }
         assertFalse(chainIterator.hasNext());
     }
+
+    @Test
+    public void test_only_empty_iterators() {
+        ChainIterator<Integer> chainIterator = new ChainIterator<>(
+                Collections.<Integer>emptyList().iterator(),
+                Collections.<Integer>emptyList().iterator(),
+                Collections.<Integer>emptyList().iterator()
+        );
+        assertFalse(chainIterator.hasNext());
+    }
 }
