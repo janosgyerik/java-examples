@@ -6,24 +6,24 @@ import java.util.Arrays;
 
 import static org.junit.Assert.*;
 
-public class FrequencyCounterTest {
+public class CounterTest {
     @Test
     public void test_getMostFrequentItem() {
-        FrequencyCounter<Integer> counter = new FrequencyCounter<>();
+        Counter<Integer> counter = new Counter<>();
         counter.addAll(Arrays.asList(1, 4, 9, 3, 4, 5, 4, 9));
         assertEquals(new Integer(4), counter.getMostFrequentItem());
     }
 
     @Test
     public void test_getMostFrequentCount() {
-        FrequencyCounter<Integer> counter = new FrequencyCounter<>();
+        Counter<Integer> counter = new Counter<>();
         counter.addAll(Arrays.asList(1, 4, 9, 3, 4, 5, 4, 9));
         assertEquals(3, counter.getMostFrequentCount());
     }
 
     @Test
     public void test_getMostFrequentLetter() {
-        FrequencyCounter<Character> counter = new FrequencyCounter<>();
+        Counter<Character> counter = new Counter<>();
         String text = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, " +
                 "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. " +
                 "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris " +
@@ -40,7 +40,7 @@ public class FrequencyCounterTest {
 
     @Test
     public void test_map_hi_hi_hello() {
-        FrequencyCounter<String> counter = new FrequencyCounter<>();
+        Counter<String> counter = new Counter<>();
         counter.add("hi");
         counter.add("hi");
         counter.add("hello");
@@ -49,7 +49,7 @@ public class FrequencyCounterTest {
 
     @Test
     public void test_map_hello_hi_hi() {
-        FrequencyCounter<String> counter = new FrequencyCounter<>();
+        Counter<String> counter = new Counter<>();
         counter.add("hello");
         counter.add("hi");
         counter.add("hi");
@@ -58,7 +58,7 @@ public class FrequencyCounterTest {
 
     @Test
     public void test_map_hello_hi_hi_hello_hello() {
-        FrequencyCounter<String> counter = new FrequencyCounter<>();
+        Counter<String> counter = new Counter<>();
         counter.add("hello");
         counter.add("hi");
         counter.add("hi");
@@ -69,7 +69,7 @@ public class FrequencyCounterTest {
 
     @Test
     public void test_sortedList_hi_hi_hello() {
-        FrequencyCounter<String> counter = new FrequencyCounter<>();
+        Counter<String> counter = new Counter<>();
         counter.add("hi");
         counter.add("hi");
         counter.add("hello");
@@ -78,7 +78,7 @@ public class FrequencyCounterTest {
 
     @Test
     public void test_sortedList_hello_hi_hi() {
-        FrequencyCounter<String> counter = new FrequencyCounter<>();
+        Counter<String> counter = new Counter<>();
         counter.add("hello");
         counter.add("hi");
         counter.add("hi");
@@ -87,7 +87,7 @@ public class FrequencyCounterTest {
 
     @Test
     public void test_sortedList_hello_hi_hi_hello_hello() {
-        FrequencyCounter<String> counter = new FrequencyCounter<>();
+        Counter<String> counter = new Counter<>();
         counter.add("hello");
         counter.add("hi");
         counter.add("hi");
@@ -98,7 +98,7 @@ public class FrequencyCounterTest {
 
     @Test
     public void test_reversedList_hi_hi_hello() {
-        FrequencyCounter<String> counter = new FrequencyCounter<>();
+        Counter<String> counter = new Counter<>();
         counter.add("hi");
         counter.add("hi");
         counter.add("hello");
@@ -107,7 +107,7 @@ public class FrequencyCounterTest {
 
     @Test
     public void test_reversedList_hello_hi_hi() {
-        FrequencyCounter<String> counter = new FrequencyCounter<>();
+        Counter<String> counter = new Counter<>();
         counter.add("hello");
         counter.add("hi");
         counter.add("hi");
@@ -116,7 +116,7 @@ public class FrequencyCounterTest {
 
     @Test
     public void test_reversedList_hello_hi_hi_hello_hello() {
-        FrequencyCounter<String> counter = new FrequencyCounter<>();
+        Counter<String> counter = new Counter<>();
         counter.add("hello");
         counter.add("hi");
         counter.add("hi");
@@ -127,7 +127,7 @@ public class FrequencyCounterTest {
 
     @Test
     public void test_reversedList_hello_hi_hi_hello_hello_null() {
-        FrequencyCounter<String> counter = new FrequencyCounter<>();
+        Counter<String> counter = new Counter<>();
         counter.add("hello");
         counter.add("hi");
         counter.add("hi");

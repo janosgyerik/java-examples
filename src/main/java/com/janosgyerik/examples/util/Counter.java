@@ -2,18 +2,19 @@ package com.janosgyerik.examples.util;
 
 import java.util.*;
 
-public class FrequencyCounter<T> {
+public class Counter<T> {
 
-    private final Map<T, Integer> frequencyMap = new HashMap<>();
+    private final Map<T, Integer> counts = new HashMap<>();
 
-    private final Comparator<T> countComparator = (o1, o2) -> Integer.compare(frequencyMap.get(o1), frequencyMap.get(o2));
+    private final Comparator<T> countComparator = (o1, o2) -> Integer.compare(counts.get(o1),
+            counts.get(o2));
 
     public void add(T item) {
-        Integer count = frequencyMap.get(item);
+        Integer count = counts.get(item);
         if (count == null) {
             count = 0;
         }
-        frequencyMap.put(item, count + 1);
+        counts.put(item, count + 1);
     }
 
     public void addAll(Collection<T> items) {
@@ -32,7 +33,7 @@ public class FrequencyCounter<T> {
 
     private SortedMap<T, Integer> toSortedMap(Comparator<T> comparator) {
         SortedMap<T, Integer> sortedMap = new TreeMap<>(comparator);
-        sortedMap.putAll(frequencyMap);
+        sortedMap.putAll(counts);
         return sortedMap;
     }
 
@@ -45,7 +46,7 @@ public class FrequencyCounter<T> {
     }
 
     private List<T> toSortedList(Comparator<T> comparator) {
-        List<T> list = new ArrayList<>(frequencyMap.keySet());
+        List<T> list = new ArrayList<>(counts.keySet());
         Collections.sort(list, comparator);
         return list;
     }
