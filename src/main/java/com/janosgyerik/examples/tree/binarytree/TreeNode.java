@@ -5,8 +5,8 @@ public class TreeNode<T> {
     public TreeNode<T> left;
     public TreeNode<T> right;
 
-    public TreeNode(T x) {
-        value = x;
+    public TreeNode(T value) {
+        this.value = value;
     }
 
     @Override
