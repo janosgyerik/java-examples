@@ -1,9 +1,6 @@
 package com.janosgyerik.examples.tree.binarytree;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.*;
 
 public class Iterators {
 
@@ -28,7 +25,7 @@ public class Iterators {
     }
 
     private static class PreOrderIterator<T> implements Iterator<T> {
-        private final Stack<TreeNode<T>> stack = new Stack<>();
+        private final Deque<TreeNode<T>> stack = new ArrayDeque<>();
 
         private PreOrderIterator(TreeNode<T> root) {
             if (root != null) {
@@ -55,7 +52,7 @@ public class Iterators {
     }
 
     private static class InOrderIterator<T> implements Iterator<T> {
-        private Stack<TreeNode<T>> stack = new Stack<>();
+        private Deque<TreeNode<T>> stack = new ArrayDeque<>();
 
         private InOrderIterator(TreeNode<T> root) {
             moveToLeftMost(root);
@@ -82,7 +79,7 @@ public class Iterators {
     }
 
     private static class PostOrderIterator<T> implements Iterator<T> {
-        private Stack<TreeNode<T>> stack = new Stack<>();
+        private Deque<TreeNode<T>> stack = new ArrayDeque<>();
 
         private PostOrderIterator(TreeNode<T> root) {
             moveToNextLeaf(root);
