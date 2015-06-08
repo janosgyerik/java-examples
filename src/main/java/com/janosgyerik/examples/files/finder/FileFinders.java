@@ -13,7 +13,7 @@ public class FileFinders {
 		// utility class, forbidden constructor
 	}
 
-	public static class FileFinderImpl implements FileFinder {
+	private static class FileFinderImpl implements FileFinder {
 		private final FileFilter fileFilter;
 
 		public FileFinderImpl(FileFilter fileFilter) {
