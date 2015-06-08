@@ -7,14 +7,6 @@ import java.io.IOException;
 
 public class FileComparator {
 
-    public boolean sameContentSimple(File file1, File file2) {
-        try {
-            return sameContent(file1, file2);
-        } catch (IOException e) {
-            return false;
-        }
-    }
-
     public boolean sameContent(File file1, File file2) throws IOException {
         BufferedReader reader1 = new BufferedReader(new FileReader(file1));
         BufferedReader reader2 = new BufferedReader(new FileReader(file2));
