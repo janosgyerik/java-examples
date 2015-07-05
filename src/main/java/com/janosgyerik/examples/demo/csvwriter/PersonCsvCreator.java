@@ -1,9 +1,9 @@
 package com.janosgyerik.examples.demo.csvwriter;
 
 import com.janosgyerik.examples.demo.company.Person;
-import com.janosgyerik.examples.files.csv.AbstractCsvWriter;
+import com.janosgyerik.examples.files.csv.AbstractCsvCreator;
 
-public class PersonCsvWriter extends AbstractCsvWriter<Person> {
+public class PersonCsvCreator extends AbstractCsvCreator<Person> {
 
     int counter = 0;
 

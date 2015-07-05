@@ -3,18 +3,18 @@ package com.janosgyerik.examples.files.csv;
 import java.io.*;
 import java.util.Collection;
 
-public abstract class AbstractCsvWriter<T> implements CsvWriter<T> {
+public abstract class AbstractCsvCreator<T> implements CsvCreator<T> {
 
     private static final String DEFAULT_NEWLINE = System.getProperty("line.separator");
     private static final String DEFAULT_SEPARATOR = ",";
 
     private final String separator;
 
-    public AbstractCsvWriter() {
+    public AbstractCsvCreator() {
         this(DEFAULT_SEPARATOR);
     }
 
-    AbstractCsvWriter(String separator) {
+    AbstractCsvCreator(String separator) {
         this.separator = separator;
     }
 

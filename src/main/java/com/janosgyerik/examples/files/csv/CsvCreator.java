@@ -4,6 +4,6 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Collection;
 
-public interface CsvWriter<T> {
+public interface CsvCreator<T> {
     void createCsv(PrintStream stream, Collection<T> items) throws IOException;
 }
