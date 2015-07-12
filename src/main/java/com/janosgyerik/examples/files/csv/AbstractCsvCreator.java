@@ -5,8 +5,8 @@ import java.util.Collection;
 
 public abstract class AbstractCsvCreator<T> implements CsvCreator<T> {
 
-    private static final String DEFAULT_NEWLINE = System.getProperty("line.separator");
     private static final String DEFAULT_SEPARATOR = ",";
+    private static final String DEFAULT_NEWLINE = System.getProperty("line.separator");
 
     private final String separator;
 
@@ -18,20 +18,20 @@ public abstract class AbstractCsvCreator<T> implements CsvCreator<T> {
         this.separator = separator;
     }
 
-    @Override
-    public void createCsv(PrintStream stream, Collection<T> items) throws IOException {
-        PrintWriter writer = createWriter(stream);
-        writeHeader(writer);
-        write(writer, items);
-        writer.close();
-    }
+//    @Override
+//    public void create(Collection<T> items) throws IOException {
+//        PrintWriter writer = createWriter(stream);
+//        writeHeader(writer);
+//        write(writer, items);
+//        writer.close();
+//    }
 
-    public void createCsv(Collection<T> items) throws IOException {
-        createCsv(System.out, items);
+    public void createCsv(Collection<T> items, CsvColumnizer<T> csvColumnizer) throws IOException {
+//        create(System.out, items);
     }
 
     public void createCsv(File file, Collection<T> items) throws IOException {
-        createCsv(new PrintStream(new FileOutputStream(file)), items);
+//        create(new PrintStream(new FileOutputStream(file)), items);
     }
 
     private PrintWriter createWriter(PrintStream stream) throws IOException {
