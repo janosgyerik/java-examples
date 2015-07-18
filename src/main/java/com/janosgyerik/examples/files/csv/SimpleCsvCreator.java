@@ -3,31 +3,26 @@ package com.janosgyerik.examples.files.csv;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.io.Writer;
 
 public class SimpleCsvCreator<T> extends AbstractCsvCreator<T> {
 
-    public SimpleCsvCreator(PrintWriter writer, String separator) throws FileNotFoundException {
-        super(writer, separator);
-    }
+    private final Writer writer;
 
-    public SimpleCsvCreator(File file, String separator) throws FileNotFoundException {
-        this(new PrintWriter(file), separator);
+    public SimpleCsvCreator(Writer writer) throws FileNotFoundException {
+        this.writer = writer;
     }
 
     public SimpleCsvCreator(File file) throws FileNotFoundException {
-        this(file, DEFAULT_SEPARATOR);
-    }
-
-    public SimpleCsvCreator(String path) throws FileNotFoundException {
-        this(new File(path));
+        this(new PrintWriter(file));
     }
 
     public SimpleCsvCreator() throws FileNotFoundException {
-        this(new PrintWriter(System.out), DEFAULT_SEPARATOR);
+        this(new PrintWriter(System.out));
     }
 
     @Override
-    protected Object[] getColumns(T item) {
-        return new Object[0];
+    protected Writer getWriter() throws FileNotFoundException {
+        return writer;
     }
 }

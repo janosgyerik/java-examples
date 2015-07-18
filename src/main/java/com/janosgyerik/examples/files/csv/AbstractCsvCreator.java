@@ -8,63 +8,38 @@ public abstract class AbstractCsvCreator<T> implements CsvCreator<T> {
     protected static final String DEFAULT_SEPARATOR = ",";
     private static final String DEFAULT_NEWLINE = System.getProperty("line.separator");
 
-    private final PrintWriter writer;
     private final String separator;
     private final String newline;
 
-    public AbstractCsvCreator(PrintWriter writer, String separator, String newline) {
-        this.writer = writer;
+    public AbstractCsvCreator(String separator, String newline) {
         this.separator = separator;
         this.newline = newline;
     }
 
-    public AbstractCsvCreator(PrintWriter writer, String separator) {
-        this(writer, separator, DEFAULT_NEWLINE);
+    public AbstractCsvCreator(String separator) {
+        this(separator, DEFAULT_NEWLINE);
+    }
+
+    public AbstractCsvCreator() {
+        this(DEFAULT_SEPARATOR, DEFAULT_NEWLINE);
     }
 
     @Override
     public void create(Collection<T> items, CsvColumnizer<T> csvColumnizer) throws IOException {
-        writeHeader(writer);
-        write(writer, items);
-        writer.close();
+        try (Writer writer = getWriter()) {
+            writeLine(writer, csvColumnizer.getColumnHeaders());
+            for (T item : items) {
+                writeLine(writer, csvColumnizer.getColumnValues(item));
+            }
+        }
     }
 
-    public void createCsv(Collection<T> items, CsvColumnizer<T> csvColumnizer) throws IOException {
-//        create(System.out, items);
-    }
+    protected abstract Writer getWriter() throws FileNotFoundException;
 
-    public void createCsv(File file, Collection<T> items) throws IOException {
-//        create(new PrintStream(new FileOutputStream(file)), items);
-    }
-
-    private PrintWriter createWriter(PrintStream stream) throws IOException {
-        return new PrintWriter(stream);
-    }
-
-    private void writeLine(PrintWriter writer, String line) throws IOException {
+    private void writeLine(Writer writer, Object[] columns) throws IOException {
+        String line = toCsv(columns);
         writer.append(line);
-        writer.append(DEFAULT_NEWLINE);
-    }
-
-    private void writeLine(PrintWriter writer, T item) throws IOException {
-        writeLine(writer, toCsv(getColumns(item)));
-    }
-
-    private void writeHeader(PrintWriter writer) throws IOException {
-        Object[] headerColumns = getHeaderColumns();
-        if (headerColumns.length > 0) {
-            writeLine(writer, toCsv(headerColumns));
-        }
-    }
-
-    private void write(PrintWriter writer, T item) throws IOException {
-        writeLine(writer, item);
-    }
-
-    private void write(PrintWriter writer, Collection<T> items) throws IOException {
-        for (T item : items) {
-            write(writer, item);
-        }
+        writer.append(newline);
     }
 
     private String toCsv(Object[] columns) {
@@ -75,11 +50,4 @@ public abstract class AbstractCsvCreator<T> implements CsvCreator<T> {
         }
         return builder.toString();
     }
-
-    protected Object[] getHeaderColumns() {
-        return new Object[]{};
-    }
-
-    protected abstract Object[] getColumns(T item);
-
 }
