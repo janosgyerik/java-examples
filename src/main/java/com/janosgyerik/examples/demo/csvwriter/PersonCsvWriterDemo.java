@@ -13,6 +13,6 @@ public class PersonCsvWriterDemo {
         List<Person> persons = new ArrayList<Person>();
         persons.add(new Person("jack", 25));
         persons.add(new Person("mike", 21));
-        csvWriter.createCsv(persons);
+//        csvWriter.createCsv(persons);
     }
 }

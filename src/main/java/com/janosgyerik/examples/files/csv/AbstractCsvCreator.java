@@ -5,26 +5,29 @@ import java.util.Collection;
 
 public abstract class AbstractCsvCreator<T> implements CsvCreator<T> {
 
-    private static final String DEFAULT_SEPARATOR = ",";
+    protected static final String DEFAULT_SEPARATOR = ",";
     private static final String DEFAULT_NEWLINE = System.getProperty("line.separator");
 
+    private final PrintWriter writer;
     private final String separator;
+    private final String newline;
 
-    public AbstractCsvCreator() {
-        this(DEFAULT_SEPARATOR);
-    }
-
-    AbstractCsvCreator(String separator) {
+    public AbstractCsvCreator(PrintWriter writer, String separator, String newline) {
+        this.writer = writer;
         this.separator = separator;
+        this.newline = newline;
     }
 
-//    @Override
-//    public void create(Collection<T> items) throws IOException {
-//        PrintWriter writer = createWriter(stream);
-//        writeHeader(writer);
-//        write(writer, items);
-//        writer.close();
-//    }
+    public AbstractCsvCreator(PrintWriter writer, String separator) {
+        this(writer, separator, DEFAULT_NEWLINE);
+    }
+
+    @Override
+    public void create(Collection<T> items, CsvColumnizer<T> csvColumnizer) throws IOException {
+        writeHeader(writer);
+        write(writer, items);
+        writer.close();
+    }
 
     public void createCsv(Collection<T> items, CsvColumnizer<T> csvColumnizer) throws IOException {
 //        create(System.out, items);
