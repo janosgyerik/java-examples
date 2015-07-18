@@ -1,12 +1,11 @@
-package com.janosgyerik.examples.demo.csvwriter;
+package com.janosgyerik.examples.demo.csv.writing;
 
 import com.janosgyerik.examples.demo.company.Person;
-import com.janosgyerik.examples.files.csv.CsvColumnizer;
-import com.janosgyerik.examples.files.csv.CsvCreator;
-import com.janosgyerik.examples.files.csv.SimpleCsvCreator;
+import com.janosgyerik.examples.files.csv.writing.CsvColumnizer;
+import com.janosgyerik.examples.files.csv.writing.CsvCreator;
+import com.janosgyerik.examples.files.csv.writing.SimpleCsvCreator;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 

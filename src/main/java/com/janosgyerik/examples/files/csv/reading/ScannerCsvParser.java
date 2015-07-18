@@ -1,4 +1,4 @@
-package com.janosgyerik.examples.files.csv;
+package com.janosgyerik.examples.files.csv.reading;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;

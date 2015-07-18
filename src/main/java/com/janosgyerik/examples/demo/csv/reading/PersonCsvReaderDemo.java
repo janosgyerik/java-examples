@@ -1,9 +1,9 @@
-package com.janosgyerik.examples.demo.csvreader;
+package com.janosgyerik.examples.demo.csv.reading;
 
 import com.janosgyerik.examples.demo.company.Person;
-import com.janosgyerik.examples.files.csv.CsvParser;
-import com.janosgyerik.examples.files.csv.FileCsvParser;
-import com.janosgyerik.examples.files.csv.RowMapper;
+import com.janosgyerik.examples.files.csv.reading.CsvParser;
+import com.janosgyerik.examples.files.csv.reading.FileCsvParser;
+import com.janosgyerik.examples.files.csv.reading.RowMapper;
 
 import java.io.File;
 import java.io.IOException;

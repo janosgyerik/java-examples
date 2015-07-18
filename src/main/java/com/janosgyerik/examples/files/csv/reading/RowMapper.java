@@ -1,4 +1,4 @@
-package com.janosgyerik.examples.files.csv;
+package com.janosgyerik.examples.files.csv.reading;
 
 public interface RowMapper<T> {
     /**

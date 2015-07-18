@@ -1,5 +1,8 @@
 package com.janosgyerik.examples.files.csv;
 
+import com.janosgyerik.examples.files.csv.reading.CsvParser;
+import com.janosgyerik.examples.files.csv.reading.RowMapper;
+import com.janosgyerik.examples.files.csv.reading.ScannerCsvParser;
 import org.junit.Test;
 
 import java.io.IOException;
