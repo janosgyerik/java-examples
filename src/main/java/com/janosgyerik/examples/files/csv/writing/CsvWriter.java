@@ -5,7 +5,7 @@ import java.io.IOException;
 public interface CsvWriter extends AutoCloseable {
 
     /**
-     * Append columns separated by some delimeter
+     * Write columns separated by some delimiter
      *
      * @param columns columns to form a record
      */

@@ -9,9 +9,9 @@ public interface ObjectWriter<T> extends CsvWriter {
     void writeHeader() throws IOException;
 
     /**
-     * Append specified object on a new line to a CSV file
+     * Write specified object on a new line to a CSV file
      *
      * @param object object to append
      */
-    void appendObject(T object) throws IOException;
+    void writeObject(T object) throws IOException;
 }

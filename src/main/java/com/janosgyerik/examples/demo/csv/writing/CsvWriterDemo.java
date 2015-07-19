@@ -50,7 +50,7 @@ public class CsvWriterDemo {
         printHeader("writeObjectsDemo");
         ObjectWriter<Person> writer = CsvWriters.builder().objectWriter(columnizer);
         writer.writeHeader();
-        writer.appendObject(persons.get(0));
+        writer.writeObject(persons.get(0));
     }
 
     private void writeToBufferDemo() throws IOException {

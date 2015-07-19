@@ -110,7 +110,7 @@ public class CsvWriters {
         }
 
         @Override
-        public void appendObject(T object) throws IOException {
+        public void writeObject(T object) throws IOException {
             writeLine(columnizer.getValues(object));
         }
     }
@@ -133,7 +133,7 @@ public class CsvWriters {
         ObjectWriter<T> appender = objectWriter(writer, separator, newline, columnizer);
         appender.writeLine(columnizer.getHeaders());
         for (T item : collection) {
-            appender.appendObject(item);
+            appender.writeObject(item);
         }
         appender.close();
     }
