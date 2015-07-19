@@ -32,4 +32,13 @@ public class FileUtilsTest {
         assertFalse(file.exists());
     }
 
+    @Test
+    public void test_writing_and_reading() throws IOException {
+        File file = FileUtils.createTempFile();
+        String origContent = "hello world";
+        FileUtils.write(file, origContent);
+        String readContent = FileUtils.read(file);
+        assertEquals(origContent, readContent);
+    }
+
 }

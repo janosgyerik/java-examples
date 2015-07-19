@@ -6,6 +6,8 @@ public class FileUtils {
 
     private static final String TAG = FileUtils.class.getSimpleName();
 
+    private static final int BUFSIZE = 512;
+
     private FileUtils() {
         // utility class, forbidden constructor
     }
@@ -86,5 +88,27 @@ public class FileUtils {
             IOUtils.closeQuietly(input1);
             IOUtils.closeQuietly(input2);
         }
+    }
+
+    public static void write(File file, String content) throws IOException {
+        try (OutputStream output = new FileOutputStream(file)) {
+            output.write(content.getBytes());
+        }
+    }
+
+    public static String read(File file) throws IOException {
+        StringBuilder builder = new StringBuilder();
+        try (InputStream input = new FileInputStream(file)) {
+            int bytesRead;
+            byte[] buffer = new byte[BUFSIZE];
+            while (true) {
+                bytesRead = input.read(buffer);
+                if (bytesRead == -1) {
+                    break;
+                }
+                builder.append(new String(buffer, 0, bytesRead));
+            }
+        }
+        return builder.toString();
     }
 }
