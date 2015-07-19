@@ -1,13 +1,13 @@
 package com.janosgyerik.examples.files.csv.writing;
 
-public interface CsvColumnizer<T> {
+public interface Columnizer<T> {
 
     /**
      * Get the column headers
      *
      * @return array of objects to use as the column headers
      */
-    Object[] getColumnHeaders();
+    Object[] getHeaders();
 
     /**
      * Get the column values of specified object
@@ -15,5 +15,5 @@ public interface CsvColumnizer<T> {
      * @param item the object from which to extract column values
      * @return array of objects to use as the column values
      */
-    Object[] getColumnValues(T item);
+    Object[] getValues(T item);
 }

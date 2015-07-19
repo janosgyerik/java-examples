@@ -1,0 +1,18 @@
+package com.janosgyerik.examples.files.csv.writing;
+
+import java.io.IOException;
+
+public interface CsvWriter extends AutoCloseable {
+
+    /**
+     * Append columns separated by some delimeter
+     *
+     * @param columns columns to form a record
+     */
+    void writeLine(Object... columns) throws IOException;
+
+    /**
+     * Close the output resource
+     */
+    void close() throws IOException;
+}
