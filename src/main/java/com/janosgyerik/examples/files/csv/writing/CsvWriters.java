@@ -46,8 +46,8 @@ public class CsvWriters {
             return CsvWriters.objectWriter(writer, separator, newline, columnizer);
         }
 
-        public <T> void createCsv(Collection<T> collection, Columnizer<T> columnizer) throws IOException {
-            CsvWriters.createCsv(writer, separator, newline, collection, columnizer);
+        public <T> void write(Collection<T> collection, Columnizer<T> columnizer) throws IOException {
+            CsvWriters.write(writer, separator, newline, collection, columnizer);
         }
     }
 
@@ -128,8 +128,8 @@ public class CsvWriters {
         return new ObjectWriterImpl<>(writer, separator, newline, columnizer);
     }
 
-    public static <T> void createCsv(Writer writer, String separator, String newline, Collection<T> collection,
-                                     Columnizer<T> columnizer) throws IOException {
+    public static <T> void write(Writer writer, String separator, String newline, Collection<T> collection,
+                                 Columnizer<T> columnizer) throws IOException {
         ObjectWriter<T> appender = objectWriter(writer, separator, newline, columnizer);
         appender.writeLine(columnizer.getHeaders());
         for (T item : collection) {

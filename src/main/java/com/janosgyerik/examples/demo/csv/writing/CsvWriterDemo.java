@@ -57,7 +57,7 @@ public class CsvWriterDemo {
         printHeader("writeToBufferDemo");
 
         StringWriter writer = new StringWriter();
-        CsvWriters.builder().writer(writer).createCsv(persons, columnizer);
+        CsvWriters.builder().writer(writer).write(persons, columnizer);
 
         System.out.println(writer.toString());
     }
@@ -66,14 +66,14 @@ public class CsvWriterDemo {
         printHeader("writeToFileDemo");
 
         String path = FileUtils.createTempFile().getPath();
-        CsvWriters.builder().path(path).createCsv(persons, columnizer);
+        CsvWriters.builder().path(path).write(persons, columnizer);
 
         System.out.println(FileUtils.read(new File(path)));
     }
 
     private void writeCollectionDemo() throws IOException {
         printHeader("writeCollectionDemo");
-        CsvWriters.builder().createCsv(persons, columnizer);
+        CsvWriters.builder().write(persons, columnizer);
     }
 
     private void printHeader(String label) {
