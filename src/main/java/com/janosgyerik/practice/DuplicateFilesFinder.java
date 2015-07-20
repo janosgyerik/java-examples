@@ -1,6 +1,6 @@
 package com.janosgyerik.practice;
 
-import com.janosgyerik.examples.util.IOUtils;
+import com.janosgyerik.tools.util.IOUtils;
 
 import java.io.File;
 import java.io.IOException;

@@ -1,6 +1,6 @@
 package com.janosgyerik.examples.tree.binarytree;
 
-import com.janosgyerik.examples.util.ListUtils;
+import com.janosgyerik.tools.util.ListUtils;
 import org.junit.Test;
 
 import java.util.*;
