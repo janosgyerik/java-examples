@@ -1,6 +1,6 @@
-package com.janosgyerik.tools.files.archive;
+package com.janosgyerik.tools.files;
 
-import com.janosgyerik.tools.files.archive.SimpleArchiver;
+import com.janosgyerik.tools.files.SimpleArchiver;
 import org.junit.Before;
 import org.junit.Test;
 

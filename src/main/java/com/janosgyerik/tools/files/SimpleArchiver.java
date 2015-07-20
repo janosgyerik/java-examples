@@ -1,4 +1,4 @@
-package com.janosgyerik.tools.files.archive;
+package com.janosgyerik.tools.files;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
