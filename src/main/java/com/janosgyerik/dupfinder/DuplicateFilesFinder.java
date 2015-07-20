@@ -1,4 +1,4 @@
-package com.janosgyerik.practice;
+package com.janosgyerik.dupfinder;
 
 import com.janosgyerik.tools.util.IOUtils;
 
