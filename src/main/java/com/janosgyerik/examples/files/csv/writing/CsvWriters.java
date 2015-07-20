@@ -130,11 +130,11 @@ public class CsvWriters {
 
     public static <T> void write(Writer writer, String separator, String newline, Collection<T> collection,
                                  Columnizer<T> columnizer) throws IOException {
-        ObjectWriter<T> appender = objectWriter(writer, separator, newline, columnizer);
-        appender.writeLine(columnizer.getHeaders());
+        ObjectWriter<T> objectWriter = objectWriter(writer, separator, newline, columnizer);
+        objectWriter.writeLine(columnizer.getHeaders());
         for (T item : collection) {
-            appender.writeObject(item);
+            objectWriter.writeObject(item);
         }
-        appender.close();
+        objectWriter.close();
     }
 }
