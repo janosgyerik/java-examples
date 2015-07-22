@@ -11,6 +11,5 @@ I plan to extract the `tools` package to its own Maven project soon.
 TODO:
 
 - properly implement heap sort
-- clean up csv.reading like csv.writing
 - clean up FileComparator
 

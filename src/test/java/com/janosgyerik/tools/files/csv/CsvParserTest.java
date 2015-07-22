@@ -2,7 +2,6 @@ package com.janosgyerik.tools.files.csv;
 
 import com.janosgyerik.tools.files.csv.reading.CsvParser;
 import com.janosgyerik.tools.files.csv.reading.RowMapper;
-import com.janosgyerik.tools.files.csv.reading.ScannerCsvParser;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -10,9 +9,9 @@ import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 
-public class ScannerCsvParserTest {
+public class CsvParserTest {
 
-    private static class FirstColMapper implements RowMapper<String> {
+    private static RowMapper<String> firstColMapper = new RowMapper<String>() {
         @Override
         public String mapRow(String[] cols) {
             return cols[0];
@@ -22,33 +21,38 @@ public class ScannerCsvParserTest {
         public boolean isValidRow(String[] cols) {
             return true;
         }
-    }
+    };
 
     @Test
     public void test_1line() throws IOException {
-        CsvParser reader = new ScannerCsvParser("hello");
-        assertEquals(1, reader.parseLines(new FirstColMapper()).size());
+        assertEquals(1, CsvParser.objectsFromText("hello", firstColMapper).size());
     }
 
     @Test
     public void test_3lines() throws IOException {
-        CsvParser reader = new ScannerCsvParser("hello\n\nx");
-        assertEquals(3, reader.parseLines(new FirstColMapper()).size());
+        assertEquals(3, CsvParser.objectsFromText("hello\n\nx", firstColMapper).size());
     }
 
     @Test
-    public void test_3NonBlankLines() throws IOException {
-        CsvParser reader = new ScannerCsvParser("hello\n\nx");
-        assertEquals(2, reader.parseLines(new FirstColMapper() {
+    public void test_3lines_ignore_blank() throws IOException {
+        RowMapper<String> nonBlankFirstColMapper = new RowMapper<String>() {
+            @Override
+            public String mapRow(String[] cols) {
+                return cols[0];
+            }
+
             @Override
             public boolean isValidRow(String[] cols) {
-                return cols[0].length() > 0;
+                return cols.length > 0 && cols[0].length() > 0;
             }
-        }).size());
+        };
+
+        assertEquals(3, CsvParser.objectsFromText("hello\n\nx", firstColMapper).size());
+        assertEquals(2, CsvParser.objectsFromText("hello\n\nx", nonBlankFirstColMapper).size());
     }
 
     @Test
-    public void test_NthColMapper() throws IOException {
+    public void test_nth_col_mapper() throws IOException {
         class NthColMapper implements RowMapper<String> {
             private final int index;
 
@@ -68,9 +72,9 @@ public class ScannerCsvParserTest {
         }
 
         NthColMapper mapper = new NthColMapper(2);
-        assertEquals(0, new ScannerCsvParser("hello\n\nx").parseLines(mapper).size());
-        assertEquals(1, new ScannerCsvParser("hello\na,b\nx").parseLines(mapper).size());
-        assertEquals(1, new ScannerCsvParser("hello\na,b,c\nx").parseLines(mapper).size());
-        assertEquals(Arrays.asList("b"), new ScannerCsvParser("hello\na,b,c\nx").parseLines(mapper));
+        assertEquals(0, CsvParser.objectsFromText("hello\n\nx", mapper).size());
+        assertEquals(1, CsvParser.objectsFromText("hello\na,b\nx", mapper).size());
+        assertEquals(1, CsvParser.objectsFromText("hello\na,b,c\nx", mapper).size());
+        assertEquals(Arrays.asList("b"), CsvParser.objectsFromText("hello\na,b,c\nx", mapper));
     }
 }
