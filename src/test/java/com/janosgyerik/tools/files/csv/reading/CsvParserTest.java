@@ -1,4 +1,4 @@
-package com.janosgyerik.tools.files.csv;
+package com.janosgyerik.tools.files.csv.reading;
 
 import com.janosgyerik.tools.files.csv.reading.CsvParser;
 import com.janosgyerik.tools.files.csv.reading.RowMapper;
