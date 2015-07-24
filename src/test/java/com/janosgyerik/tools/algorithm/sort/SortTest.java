@@ -27,12 +27,14 @@ public abstract class SortTest {
     }
 
     private void sortAndVerify(int[] arr) {
+        int[] orig = arr.clone();
         int[] copy = arr.clone();
         Arrays.sort(copy);
         sort(arr);
 
         if (arr.length < MAX_LENGTH_TO_COMPARE_WITH_TOSTRING) {
-            assertEquals(Arrays.toString(copy), Arrays.toString(arr));
+            assertEquals("should sort correctly: " + Arrays.toString(orig),
+                    Arrays.toString(copy), Arrays.toString(arr));
         } else {
             assertArrayEquals(copy, arr);
         }
