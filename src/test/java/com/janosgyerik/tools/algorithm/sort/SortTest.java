@@ -61,6 +61,11 @@ public abstract class SortTest {
     }
 
     @Test
+    public void test_1_2_3_4_5_6_7_8_9() {
+        sortAndVerify(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9});
+    }
+
+    @Test
     public void test_3_2_1() {
         sortAndVerify(new int[]{3, 2, 1});
     }
