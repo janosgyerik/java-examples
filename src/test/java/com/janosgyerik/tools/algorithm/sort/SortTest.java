@@ -1,9 +1,12 @@
 package com.janosgyerik.tools.algorithm.sort;
 
+import com.janosgyerik.tools.util.IterTools;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
@@ -103,6 +106,22 @@ public abstract class SortTest {
     @Test
     public void test_random_1000() {
         sortAndVerify(newRandomArray(1000));
+    }
+
+    @Test
+    public void test_permutations_1_2_3_4_5_6_7_8() {
+        Set<List<Integer>> permutations = IterTools.permutations(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8));
+        for (List<Integer> combo : permutations) {
+            sortAndVerify(toArrary(combo));
+        }
+    }
+
+    private int[] toArrary(List<Integer> combo) {
+        int[] arr = new int[combo.size()];
+        for (int i = 0; i < arr.length; ++i) {
+            arr[i] = combo.get(i);
+        }
+        return arr;
     }
 
 }
