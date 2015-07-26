@@ -24,4 +24,11 @@ public class HeapSortTest extends SortTest {
         HeapSort.heapify(arr, arr.length);
         assertTrue(HeapUtils.isHeap(arr));
     }
+
+    @Test
+    public void test_heapify_1_2_5_6_7_3_4_8() {
+        int[] arr = {1, 2, 5, 6, 7, 3, 4, 8};
+        HeapSort.heapify(arr, arr.length);
+        assertTrue(HeapUtils.isHeap(arr));
+    }
 }
