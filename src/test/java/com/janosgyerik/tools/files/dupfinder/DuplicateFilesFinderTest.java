@@ -1,4 +1,4 @@
-package com.janosgyerik.dupfinder;
+package com.janosgyerik.tools.files.dupfinder;
 
 import org.junit.Test;
 
@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Set;
 
-import static com.janosgyerik.dupfinder.DuplicateFilesFinder.findDuplicateFiles;
+import static com.janosgyerik.tools.files.dupfinder.DuplicateFilesFinder.findDuplicateFiles;
 
 public class DuplicateFilesFinderTest {
 

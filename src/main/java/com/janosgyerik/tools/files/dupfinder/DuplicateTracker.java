@@ -1,4 +1,4 @@
-package com.janosgyerik.dupfinder;
+package com.janosgyerik.tools.files.dupfinder;
 
 import java.util.*;
 
