@@ -2,9 +2,10 @@ package com.janosgyerik.tools.util;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
-public class HeapUtilsTest {
+public class HeapUtils_isHeapTest {
     @Test
     public void is_max_heap_1_2_3() {
         assertFalse(HeapUtils.isHeap(new int[]{1, 2, 3}));
