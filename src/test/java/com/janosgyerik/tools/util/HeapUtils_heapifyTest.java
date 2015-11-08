@@ -18,6 +18,26 @@ public class HeapUtils_heapifyTest {
     }
 
     @Test
+    public void test_heapify_3_2_1() {
+        heapifyAndVerify(new int[]{3, 2, 1});
+    }
+
+    @Test
+    public void test_heapify_1_2_3() {
+        heapifyAndVerify(new int[]{1, 2, 3});
+    }
+
+    @Test
+    public void test_heapify_1_2_3_4() {
+        heapifyAndVerify(new int[]{1, 2, 3, 4});
+    }
+
+    @Test
+    public void test_heapify_1_2_4_3() {
+        heapifyAndVerify(new int[]{1, 2, 4, 3});
+    }
+
+    @Test
     public void test_heapify_1_2_3_4_5() {
         heapifyAndVerify(new int[]{1, 2, 3, 4, 5});
     }
