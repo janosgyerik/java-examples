@@ -2,10 +2,10 @@ package com.janosgyerik.examples.tree.binarytree;
 
 import java.util.*;
 
-public class Iterators {
+public final class Iterators {
 
     private Iterators() {
-        // utility class, forbidden constructor
+        throw new AssertionError("utility class, forbidden constructor");
     }
 
     public static <T> Iterator<T> preOrderIterator(TreeNode<T> root) {
