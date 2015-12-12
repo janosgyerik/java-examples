@@ -4,21 +4,23 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public class TreeUtils {
+public final class TreeUtils {
 
     private TreeUtils() {
-        // utility class, forbidden constructor
+        throw new AssertionError("utility class, forbidden constructor");
     }
 
-    // Something like this:
-    /*
+    /**
+     * "Pretty print" a tree, something like this:
                       A
              B                  C
         D        E         F         G
      H    I    J    K    L    M    N    O
     P Q  R S  T U  V W  X Y  Z 1  2 3  4 5
+     *
+     * @param root The root node of the tree
      */
-    public static void prettyPrint(TreeNode<?> root) {
+    public static void print(TreeNode<?> root) {
         if (root == null) {
             return;
         }
