@@ -25,6 +25,7 @@ public class Iterators {
     }
 
     private static class PreOrderIterator<T> implements Iterator<T> {
+        // Note: Stack is legacy http://docs.oracle.com/javase/7/docs/api/java/util/Deque.html
         private final Deque<TreeNode<T>> stack = new ArrayDeque<>();
 
         private PreOrderIterator(TreeNode<T> root) {
