@@ -7,6 +7,16 @@ import static org.junit.Assert.assertEquals;
 
 public class StringUtilsTest {
     @Test
+    public void test_empty_text() {
+        assertEquals("", replace("", new String[]{"foo"}, new String[]{"bar"}));
+    }
+
+    @Test
+    public void test_empty_patterns_and_replacements() {
+        assertEquals("", replace("", new String[0], new String[0]));
+    }
+
+    @Test
     public void test_replace_one_pattern_once() {
         assertEquals("bar", replace("foo", new String[]{"foo"}, new String[]{"bar"}));
     }
