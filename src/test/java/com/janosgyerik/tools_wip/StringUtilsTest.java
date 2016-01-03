@@ -1,6 +1,5 @@
 package com.janosgyerik.tools_wip;
 
-import com.janosgyerik.tools_wip.StringUtils;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
