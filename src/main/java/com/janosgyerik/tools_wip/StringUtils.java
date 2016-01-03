@@ -4,10 +4,18 @@ import java.util.*;
 
 public class StringUtils {
 
-    public static String replace(String text, String[] searchList, String[] replacementList) {
-        validateParams(text, searchList, replacementList);
+    /**
+     * Replace multiple patterns simultaneously
+     *
+     * @param text the source text
+     * @param patterns patterns to replace
+     * @param replacements texts to replace patterns
+     * @return new text with patterns replaced
+     */
+    public static String replace(String text, String[] patterns, String[] replacements) {
+        validateParams(text, patterns, replacements);
 
-        SearchTracker tracker = new SearchTracker(text, searchList, replacementList);
+        SearchTracker tracker = new SearchTracker(text, patterns, replacements);
         if (!tracker.hasNextMatch(0)) {
             return text;
         }
@@ -84,7 +92,7 @@ public class StringUtils {
         }
     }
 
-    private static void validateParams(String text, String[] searchList, String[] replacementList) {
+    private static void validateParams(String text, String[] patterns, String[] replacements) {
         //throw new IllegalArgumentException();
         // TODO text cannot be null or empty
         // TODO searchList cannot be null or empty
