@@ -4,7 +4,7 @@ import java.util.*;
 
 public class StringUtils {
 
-    public static String replaceEach(String text, String[] searchList, String[] replacementList) {
+    public static String replace(String text, String[] searchList, String[] replacementList) {
         validateParams(text, searchList, replacementList);
 
         SearchTracker tracker = new SearchTracker(text, searchList, replacementList);
