@@ -52,8 +52,15 @@ public class StringUtilsTest {
     }
 
     @Test
-    public void test_overlap() {
+    public void test_source_overlap() {
         assertEquals("foovel", replace("applevel", new String[]{"apple", "level"}, new String[]{"foo", "bar"}));
+    }
+
+    @Test
+    public void test_result_overlap() {
+        assertEquals("spacemarvel", replace("applevel",
+                new String[]{"apple", "marvel"},
+                new String[]{"spacemar", "bar"}));
     }
 
     @Test
