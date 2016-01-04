@@ -95,22 +95,22 @@ public class StringUtils {
 
     private static void validateParams(String text, String[] patterns, String[] replacements) {
         if (text == null || patterns == null || replacements == null) {
-            throw new IllegalArgumentException("None of the parameters should be null");
+            throw new IllegalArgumentException("none of the parameters should be null");
         }
         if (patterns.length != replacements.length) {
-            throw new IllegalArgumentException("There must be the same number of patterns and replacements");
+            throw new IllegalArgumentException("there must be the same number of patterns and replacements");
         }
         if (patterns.length == 0) {
             return;
         }
         if (anyNullOrEmpty(patterns)) {
-            throw new IllegalArgumentException("There must be no null element or empty element in patterns");
+            throw new IllegalArgumentException("there must be no null element or empty element in patterns");
         }
         if (anyNull(replacements)) {
-            throw new IllegalArgumentException("There must be no null element in replacements");
+            throw new IllegalArgumentException("there must be no null element in replacements");
         }
         if (Stream.of(patterns).distinct().count() != patterns.length) {
-            throw new IllegalArgumentException("Patterns must be distinct");
+            throw new IllegalArgumentException("patterns must be distinct");
         }
     }
 
