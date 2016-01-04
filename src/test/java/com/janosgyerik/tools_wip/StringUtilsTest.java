@@ -44,6 +44,11 @@ public class StringUtilsTest {
     }
 
     @Test
+    public void test_overlap() {
+        assertEquals("foovel", replace("applevel", new String[]{"apple", "level"}, new String[]{"foo", "bar"}));
+    }
+
+    @Test
     public void test_replace_multiple_simultaneous_patterns() {
         assertEquals("Once upon a foo, there was a bar and a baz, and another bar and a cat.",
                 replace("Once upon a baz, there was a foo and a bar, and another foo and a cat.",
