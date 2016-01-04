@@ -64,12 +64,27 @@ public class StringUtilsTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void test_more_replacements_than_patterns_should_throw() {
-        replace("", new String[0], new String[]{"hello"});
+        replace("", new String[0], new String[]{"bar"});
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void test_more_patterns_than_replacements_should_throw() {
-        replace("", new String[]{"hello"}, new String[0]);
+        replace("", new String[]{"foo"}, new String[0]);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_null_element_in_patterns_should_throw() {
+        replace("", new String[]{null}, new String[]{"bar"});
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_empty_element_in_patterns_should_throw() {
+        replace("", new String[]{""}, new String[]{"bar"});
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_null_element_in_replacements_should_throw() {
+        replace("", new String[]{"foo"}, new String[]{null});
     }
 
     //    @Test

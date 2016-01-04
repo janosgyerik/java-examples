@@ -1,6 +1,7 @@
 package com.janosgyerik.tools_wip;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 public class StringUtils {
 
@@ -99,8 +100,23 @@ public class StringUtils {
         if (patterns.length != replacements.length) {
             throw new IllegalArgumentException("There must be the same number of patterns and replacements");
         }
-        // TODO searchList should not have null or empty elements
-        // TODO replacementList should not have null elements
+        if (patterns.length == 0) {
+            return;
+        }
+        if (anyNullOrEmpty(patterns)) {
+            throw new IllegalArgumentException("There must be no null element or empty element in patterns");
+        }
+        if (anyNull(replacements)) {
+            throw new IllegalArgumentException("There must be no null element in replacements");
+        }
         // TODO searchList should not contain duplicates
+    }
+
+    private static boolean anyNullOrEmpty(String[] strings) {
+        return Stream.of(strings).allMatch(x -> x == null || x.isEmpty());
+    }
+
+    private static boolean anyNull(String[] strings) {
+        return Stream.of(strings).allMatch(x -> x == null);
     }
 }
