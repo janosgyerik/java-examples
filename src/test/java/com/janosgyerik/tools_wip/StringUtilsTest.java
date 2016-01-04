@@ -1,7 +1,5 @@
 package com.janosgyerik.tools_wip;
 
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.Matcher;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -54,50 +52,74 @@ public class StringUtilsTest {
         );
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void test_null_text_throws() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("none of the parameters should be null");
+
         replace(null, new String[0], new String[0]);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void test_null_patterns_throws() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("none of the parameters should be null");
+
         replace("", null, new String[0]);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void test_null_replacements_throws() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("none of the parameters should be null");
+
         replace("", new String[0], null);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void test_more_replacements_than_patterns_should_throw() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("there must be the same number of patterns and replacements");
+
         replace("", new String[0], new String[]{"bar"});
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void test_more_patterns_than_replacements_should_throw() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("there must be the same number of patterns and replacements");
+
         replace("", new String[]{"foo"}, new String[0]);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void test_null_element_in_patterns_should_throw() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("there must be no null element or empty element in patterns");
+
         replace("", new String[]{null}, new String[]{"bar"});
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void test_empty_element_in_patterns_should_throw() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("there must be no null element or empty element in patterns");
+
         replace("", new String[]{""}, new String[]{"bar"});
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void test_null_element_in_replacements_should_throw() {
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("there must be no null element in replacements");
+
         replace("", new String[]{"foo"}, new String[]{null});
     }
 
     @Test
     public void test_non_distinct_patterns_should_throw() {
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage(CoreMatchers.containsString("must be distinct"));
+        thrown.expectMessage("patterns must be distinct");
 
         replace("", new String[]{"foo", "foo"}, new String[]{"bar", "baz"});
     }
