@@ -33,14 +33,6 @@ public class StringUtilsTest {
                 new String[]{"bar", "baz"}));
     }
 
-    //TODO invalid input, should throw exception
-    //@Test
-    public void test_ambiguous_patterns_should_throw() {
-        assertEquals("barbar", replace("foobar",
-                new String[]{"foo", "foo"},
-                new String[]{"bar", "baz"}));
-    }
-
     @Test
     public void test_no_matches() {
         assertEquals("foofoo", replace("foofoo", new String[]{"x"}, new String[]{"bar"}));
@@ -53,5 +45,27 @@ public class StringUtilsTest {
                         new String[]{"foo", "bar", "baz"},
                         new String[]{"bar", "baz", "foo"})
         );
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_null_text_throws() {
+        replace(null, new String[0], new String[0]);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_null_patterns_throws() {
+        replace("", null, new String[0]);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_null_replacements_throws() {
+        replace("", new String[0], null);
+    }
+
+    //    @Test
+    public void test_ambiguous_patterns_should_throw() {
+        assertEquals("barbar", replace("foobar",
+                new String[]{"foo", "foo"},
+                new String[]{"bar", "baz"}));
     }
 }

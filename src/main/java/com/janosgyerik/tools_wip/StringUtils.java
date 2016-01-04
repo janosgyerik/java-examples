@@ -93,12 +93,12 @@ public class StringUtils {
     }
 
     private static void validateParams(String text, String[] patterns, String[] replacements) {
-        //throw new IllegalArgumentException();
-        // TODO text should not be null
-        // TODO searchList should not be null
-        // TODO replacementList should not be null
+        if (text == null || patterns == null || replacements == null) {
+            throw new IllegalArgumentException("None of the parameters should be null");
+        }
         // TODO searchList length must be equal to replacementList length
         // TODO searchList should not have null or empty elements
         // TODO replacementList should not have null elements
+        // TODO searchList should not contain duplicates
     }
 }
