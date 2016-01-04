@@ -1,11 +1,18 @@
 package com.janosgyerik.tools_wip;
 
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.Matcher;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import static com.janosgyerik.tools_wip.StringUtils.replace;
 import static org.junit.Assert.assertEquals;
 
 public class StringUtilsTest {
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
     @Test
     public void test_empty_text() {
         assertEquals("", replace("", new String[]{"foo"}, new String[]{"bar"}));
@@ -87,10 +94,11 @@ public class StringUtilsTest {
         replace("", new String[]{"foo"}, new String[]{null});
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void test_non_distinct_patterns_should_throw() {
-        assertEquals("barbar", replace("foobar",
-                new String[]{"foo", "foo"},
-                new String[]{"bar", "baz"}));
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage(CoreMatchers.containsString("must be distinct"));
+
+        replace("", new String[]{"foo", "foo"}, new String[]{"bar", "baz"});
     }
 }
