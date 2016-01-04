@@ -53,7 +53,7 @@ public class StringUtils {
         @Override
         public String next() {
             int start = pos;
-            while (pos < text.length()) {
+            do {
                 for (int index = 0; index < patterns.length; ++index) {
                     if (matches(patterns[index])) {
                         String segment = text.substring(start, pos) + replacements[index];
@@ -62,7 +62,7 @@ public class StringUtils {
                     }
                 }
                 ++pos;
-            }
+            } while (pos < text.length());
             return text.substring(start);
         }
 
