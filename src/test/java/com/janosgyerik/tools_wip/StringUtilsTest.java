@@ -87,8 +87,8 @@ public class StringUtilsTest {
         replace("", new String[]{"foo"}, new String[]{null});
     }
 
-    //    @Test
-    public void test_ambiguous_patterns_should_throw() {
+    @Test(expected = IllegalArgumentException.class)
+    public void test_non_distinct_patterns_should_throw() {
         assertEquals("barbar", replace("foobar",
                 new String[]{"foo", "foo"},
                 new String[]{"bar", "baz"}));

@@ -109,7 +109,9 @@ public class StringUtils {
         if (anyNull(replacements)) {
             throw new IllegalArgumentException("There must be no null element in replacements");
         }
-        // TODO searchList should not contain duplicates
+        if (Stream.of(patterns).distinct().count() != patterns.length) {
+            throw new IllegalArgumentException("Patterns must be distinct");
+        }
     }
 
     private static boolean anyNullOrEmpty(String[] strings) {
