@@ -23,24 +23,32 @@ public class StringUtilsTest {
 
     @Test
     public void test_replace_one_pattern_once() {
-        assertEquals("bar", replace("foo", new String[]{"foo"}, new String[]{"bar"}));
+        String before = "foo";
+        String after = "bar";
+        assertEquals(after, replace(before, new String[]{before}, new String[]{after}));
     }
 
     @Test
     public void test_replace_one_pattern_twice() {
-        assertEquals("barbar", replace("foofoo", new String[]{"foo"}, new String[]{"bar"}));
+        String before = "foo";
+        String after = "bar";
+        assertEquals(after + after, replace(before + before, new String[]{before}, new String[]{after}));
     }
 
     @Test
     public void test_replace_two_patterns_simultaneously() {
-        assertEquals("barbaz", replace("foobar",
-                new String[]{"foo", "bar"},
-                new String[]{"bar", "baz"}));
+        String before1 = "foo";
+        String after1 = "bar";
+        String after2 = "baz";
+        assertEquals(after1 + after2, replace(before1 + after1,
+                new String[]{before1, after1},
+                new String[]{after1, after2}));
     }
 
     @Test
     public void test_no_matches() {
-        assertEquals("foofoo", replace("foofoo", new String[]{"x"}, new String[]{"bar"}));
+        String text = "foofoo";
+        assertEquals(text, replace(text, new String[]{"notmatching"}, new String[]{"bar"}));
     }
 
     @Test
@@ -126,6 +134,7 @@ public class StringUtilsTest {
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage(ERR_DUPLICATE_PATTERNS);
 
-        replace("", new String[]{"foo", "foo"}, new String[]{"bar", "baz"});
+        String before = "foo";
+        replace("", new String[]{before, before}, new String[]{"bar", "baz"});
     }
 }
