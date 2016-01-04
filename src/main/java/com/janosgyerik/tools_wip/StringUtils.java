@@ -96,7 +96,9 @@ public class StringUtils {
         if (text == null || patterns == null || replacements == null) {
             throw new IllegalArgumentException("None of the parameters should be null");
         }
-        // TODO searchList length must be equal to replacementList length
+        if (patterns.length != replacements.length) {
+            throw new IllegalArgumentException("There must be the same number of patterns and replacements");
+        }
         // TODO searchList should not have null or empty elements
         // TODO replacementList should not have null elements
         // TODO searchList should not contain duplicates

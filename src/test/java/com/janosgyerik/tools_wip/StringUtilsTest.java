@@ -62,6 +62,16 @@ public class StringUtilsTest {
         replace("", new String[0], null);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void test_more_replacements_than_patterns_should_throw() {
+        replace("", new String[0], new String[]{"hello"});
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_more_patterns_than_replacements_should_throw() {
+        replace("", new String[]{"hello"}, new String[0]);
+    }
+
     //    @Test
     public void test_ambiguous_patterns_should_throw() {
         assertEquals("barbar", replace("foobar",
