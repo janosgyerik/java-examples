@@ -4,7 +4,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import static com.janosgyerik.tools_wip.StringUtils.replace;
+import static com.janosgyerik.tools_wip.StringUtils.*;
 import static org.junit.Assert.assertEquals;
 
 public class StringUtilsTest {
@@ -55,7 +55,7 @@ public class StringUtilsTest {
     @Test
     public void test_null_text_throws() {
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("none of the parameters should be null");
+        thrown.expectMessage(ERR_NULL_PARAM);
 
         replace(null, new String[0], new String[0]);
     }
@@ -63,7 +63,7 @@ public class StringUtilsTest {
     @Test
     public void test_null_patterns_throws() {
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("none of the parameters should be null");
+        thrown.expectMessage(ERR_NULL_PARAM);
 
         replace("", null, new String[0]);
     }
@@ -71,7 +71,7 @@ public class StringUtilsTest {
     @Test
     public void test_null_replacements_throws() {
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("none of the parameters should be null");
+        thrown.expectMessage(ERR_NULL_PARAM);
 
         replace("", new String[0], null);
     }
@@ -79,7 +79,7 @@ public class StringUtilsTest {
     @Test
     public void test_more_replacements_than_patterns_should_throw() {
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("there must be the same number of patterns and replacements");
+        thrown.expectMessage(ERR_PATTERNS_REPLACEMENTS_LENGTH_MISMATCH);
 
         replace("", new String[0], new String[]{"bar"});
     }
@@ -87,7 +87,7 @@ public class StringUtilsTest {
     @Test
     public void test_more_patterns_than_replacements_should_throw() {
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("there must be the same number of patterns and replacements");
+        thrown.expectMessage(ERR_PATTERNS_REPLACEMENTS_LENGTH_MISMATCH);
 
         replace("", new String[]{"foo"}, new String[0]);
     }
@@ -95,7 +95,7 @@ public class StringUtilsTest {
     @Test
     public void test_null_element_in_patterns_should_throw() {
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("there must be no null element or empty element in patterns");
+        thrown.expectMessage(ERR_NULL_OR_EMPTY_PATTERN);
 
         replace("", new String[]{null}, new String[]{"bar"});
     }
@@ -103,7 +103,7 @@ public class StringUtilsTest {
     @Test
     public void test_empty_element_in_patterns_should_throw() {
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("there must be no null element or empty element in patterns");
+        thrown.expectMessage(ERR_NULL_OR_EMPTY_PATTERN);
 
         replace("", new String[]{""}, new String[]{"bar"});
     }
@@ -111,7 +111,7 @@ public class StringUtilsTest {
     @Test
     public void test_null_element_in_replacements_should_throw() {
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("there must be no null element in replacements");
+        thrown.expectMessage(ERR_NULL_REPLACEMENT);
 
         replace("", new String[]{"foo"}, new String[]{null});
     }
@@ -119,7 +119,7 @@ public class StringUtilsTest {
     @Test
     public void test_non_distinct_patterns_should_throw() {
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("patterns must be distinct");
+        thrown.expectMessage(ERR_DUPLICATE_PATTERNS);
 
         replace("", new String[]{"foo", "foo"}, new String[]{"bar", "baz"});
     }

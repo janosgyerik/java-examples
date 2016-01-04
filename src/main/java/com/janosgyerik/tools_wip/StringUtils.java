@@ -5,6 +5,12 @@ import java.util.stream.Stream;
 
 public class StringUtils {
 
+    public static final String ERR_NULL_PARAM = "none of the parameters should be null";
+    public static final String ERR_PATTERNS_REPLACEMENTS_LENGTH_MISMATCH = "there must be the same number of patterns and replacements";
+    public static final String ERR_NULL_OR_EMPTY_PATTERN = "there must be no null element or empty element in patterns";
+    public static final String ERR_NULL_REPLACEMENT = "there must be no null element in replacements";
+    public static final String ERR_DUPLICATE_PATTERNS = "patterns must be distinct";
+
     /**
      * Replace multiple patterns simultaneously
      *
@@ -95,22 +101,22 @@ public class StringUtils {
 
     private static void validateParams(String text, String[] patterns, String[] replacements) {
         if (text == null || patterns == null || replacements == null) {
-            throw new IllegalArgumentException("none of the parameters should be null");
+            throw new IllegalArgumentException(ERR_NULL_PARAM);
         }
         if (patterns.length != replacements.length) {
-            throw new IllegalArgumentException("there must be the same number of patterns and replacements");
+            throw new IllegalArgumentException(ERR_PATTERNS_REPLACEMENTS_LENGTH_MISMATCH);
         }
         if (patterns.length == 0) {
             return;
         }
         if (anyNullOrEmpty(patterns)) {
-            throw new IllegalArgumentException("there must be no null element or empty element in patterns");
+            throw new IllegalArgumentException(ERR_NULL_OR_EMPTY_PATTERN);
         }
         if (anyNull(replacements)) {
-            throw new IllegalArgumentException("there must be no null element in replacements");
+            throw new IllegalArgumentException(ERR_NULL_REPLACEMENT);
         }
         if (Stream.of(patterns).distinct().count() != patterns.length) {
-            throw new IllegalArgumentException("patterns must be distinct");
+            throw new IllegalArgumentException(ERR_DUPLICATE_PATTERNS);
         }
     }
 
