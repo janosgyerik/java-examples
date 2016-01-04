@@ -27,7 +27,7 @@ public class StringUtils {
             return text;
         }
 
-        StringBuilder buf = new StringBuilder(text.length() * 2);
+        StringBuilder builder = new StringBuilder(text.length() * 2);
         int start = 0;
 
         do {
@@ -36,13 +36,13 @@ public class StringUtils {
             String pattern = matchInfo.pattern;
             String replacement = matchInfo.replacement;
 
-            buf.append(text.substring(start, textIndex));
-            buf.append(replacement);
+            builder.append(text.substring(start, textIndex));
+            builder.append(replacement);
 
             start = textIndex + pattern.length();
         } while (tracker.hasNextMatch(start));
 
-        return buf.append(text.substring(start)).toString();
+        return builder.append(text.substring(start)).toString();
     }
 
     private static class SearchTracker {
