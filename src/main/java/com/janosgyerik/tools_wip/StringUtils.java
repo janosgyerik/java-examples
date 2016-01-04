@@ -22,80 +22,60 @@ public class StringUtils {
     public static String replace(String text, String[] patterns, String[] replacements) {
         validateParams(text, patterns, replacements);
 
-        SearchTracker tracker = new SearchTracker(text, patterns, replacements);
-        if (!tracker.hasNextMatch(0)) {
-            return text;
+        StringBuilder builder = new StringBuilder();
+        SegmentIterator iterator = new SegmentIterator(text, patterns, replacements);
+        while (iterator.hasNext()) {
+            builder.append(iterator.next());
         }
-
-        StringBuilder builder = new StringBuilder(text.length() * 2);
-        int start = 0;
-
-        do {
-            SearchTracker.MatchInfo matchInfo = tracker.matchInfo;
-            int textIndex = matchInfo.textIndex;
-            String pattern = matchInfo.pattern;
-            String replacement = matchInfo.replacement;
-
-            builder.append(text.substring(start, textIndex));
-            builder.append(replacement);
-
-            start = textIndex + pattern.length();
-        } while (tracker.hasNextMatch(start));
-
-        return builder.append(text.substring(start)).toString();
+        return builder.toString();
     }
 
-    private static class SearchTracker {
+    private static class SegmentIterator implements Iterator<String> {
 
         private final String text;
+        private final String[] patterns;
+        private final String[] replacements;
 
-        private final Map<String, String> patternToReplacement = new HashMap<>();
-        private final Set<String> pendingPatterns = new HashSet<>();
+        private int pos = 0;
 
-        private MatchInfo matchInfo = null;
-
-        private static class MatchInfo {
-            private final String pattern;
-            private final String replacement;
-            private final int textIndex;
-
-            private MatchInfo(String pattern, String replacement, int textIndex) {
-                this.pattern = pattern;
-                this.replacement = replacement;
-                this.textIndex = textIndex;
-            }
-        }
-
-        private SearchTracker(String text, String[] searchList, String[] replacementList) {
+        public SegmentIterator(String text, String[] patterns, String[] replacements) {
+            assert patterns.length == replacements.length;
             this.text = text;
-            for (int i = 0; i < searchList.length; ++i) {
-                String pattern = searchList[i];
-                patternToReplacement.put(pattern, replacementList[i]);
-                pendingPatterns.add(pattern);
-            }
+            this.patterns = patterns;
+            this.replacements = replacements;
         }
 
-        boolean hasNextMatch(int start) {
-            int textIndex = -1;
-            String nextPattern = null;
+        @Override
+        public boolean hasNext() {
+            return pos < text.length();
+        }
 
-            for (String pattern : new ArrayList<>(pendingPatterns)) {
-                int matchIndex = text.indexOf(pattern, start);
-                if (matchIndex == -1) {
-                    pendingPatterns.remove(pattern);
-                } else {
-                    if (textIndex == -1 || matchIndex < textIndex) {
-                        textIndex = matchIndex;
-                        nextPattern = pattern;
+        @Override
+        public String next() {
+            int start = pos;
+            while (pos < text.length()) {
+                for (int index = 0; index < patterns.length; ++index) {
+                    if (matches(patterns[index])) {
+                        String segment = text.substring(start, pos) + replacements[index];
+                        pos += patterns[index].length();
+                        return segment;
                     }
                 }
+                ++pos;
             }
+            return text.substring(start);
+        }
 
-            if (nextPattern != null) {
-                matchInfo = new MatchInfo(nextPattern, patternToReplacement.get(nextPattern), textIndex);
-                return true;
+        private boolean matches(String pattern) {
+            if (text.length() < pos + pattern.length()) {
+                return false;
             }
-            return false;
+            for (int i = 0; i < pattern.length(); ++i) {
+                if (text.charAt(pos + i) != pattern.charAt(i)) {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 
