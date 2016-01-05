@@ -96,7 +96,7 @@ public class StringUtils {
         if (anyNull(replacements)) {
             throw new IllegalArgumentException(ERR_NULL_REPLACEMENT);
         }
-        if (Stream.of(patterns).distinct().count() != patterns.length) {
+        if (containsDuplicates(patterns)) {
             throw new IllegalArgumentException(ERR_DUPLICATE_PATTERNS);
         }
     }
@@ -107,5 +107,9 @@ public class StringUtils {
 
     private static boolean anyNull(String[] strings) {
         return Stream.of(strings).allMatch(x -> x == null);
+    }
+
+    private static boolean containsDuplicates(String[] patterns) {
+        return Stream.of(patterns).distinct().count() != patterns.length;
     }
 }
