@@ -1,7 +1,10 @@
 package com.janosgyerik.tools_wip;
 
-import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.joining;
 
 public class StringUtils {
 
@@ -23,66 +26,20 @@ public class StringUtils {
     public static String replace(String text, String[] searchStrings, String[] replacements) {
         validateParams(text, searchStrings, replacements);
 
-        StringBuilder builder = new StringBuilder();
-        ReplacementSegmentIterator replacementSegments = new ReplacementSegmentIterator(text, searchStrings, replacements);
-        while (replacementSegments.hasNext()) {
-            builder.append(replacementSegments.next());
-        }
-        return builder.toString();
-    }
-
-    private static class ReplacementSegmentIterator implements Iterator<String> {
-
-        private final String text;
-        private final String[] searchStrings;
-        private final String[] replacements;
-
-        private int pos = 0;
-
-        public ReplacementSegmentIterator(String text, String[] searchStrings, String[] replacements) {
-            assert searchStrings.length == replacements.length;
-
-            this.text = text;
-            this.searchStrings = searchStrings;
-            this.replacements = replacements;
-        }
-
-        @Override
-        public boolean hasNext() {
-            return hasRemainingText();
-        }
-
-        @Override
-        public String next() {
-            int start = pos;
-            do {
-                for (int index = 0; index < searchStrings.length; ++index) {
-                    if (matchesAtCurrentPos(searchStrings[index])) {
-                        String segment = text.substring(start, pos) + replacements[index];
-                        pos += searchStrings[index].length();
-                        return segment;
-                    }
-                }
-                ++pos;
-            } while (hasRemainingText());
-            return text.substring(start);
-        }
-
-        private boolean hasRemainingText() {
-            return pos < text.length();
-        }
-
-        private boolean matchesAtCurrentPos(String searchString) {
-            if (text.length() < pos + searchString.length()) {
-                return false;
-            }
-            for (int i = 0; i < searchString.length(); ++i) {
-                if (text.charAt(pos + i) != searchString.charAt(i)) {
-                    return false;
+        StringBuffer buffer = new StringBuffer();
+        Pattern pattern = Pattern.compile(Stream.of(searchStrings).collect(joining("|")));
+        Matcher matcher = pattern.matcher(text);
+        while (matcher.find()) {
+            String match = matcher.group();
+            for (int i = 0; i < searchStrings.length; ++i) {
+                if (match.equals(searchStrings[i])) {
+                    matcher.appendReplacement(buffer, replacements[i]);
+                    break;
                 }
             }
-            return true;
         }
+        matcher.appendTail(buffer);
+        return buffer.toString();
     }
 
     private static void validateParams(String text, String[] searchStrings, String[] replacements) {
