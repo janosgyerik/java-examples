@@ -17,26 +17,26 @@ public class StringUtilsTest {
     }
 
     @Test
-    public void test_empty_patterns_and_replacements() {
+    public void test_empty_searchstrings_and_replacements() {
         assertEquals("", replace("", new String[0], new String[0]));
     }
 
     @Test
-    public void test_replace_one_pattern_once() {
+    public void test_replace_one_searchstring_once() {
         String before = "foo";
         String after = "bar";
         assertEquals(after, replace(before, new String[]{before}, new String[]{after}));
     }
 
     @Test
-    public void test_replace_one_pattern_twice() {
+    public void test_replace_one_searchstring_twice() {
         String before = "foo";
         String after = "bar";
         assertEquals(after + after, replace(before + before, new String[]{before}, new String[]{after}));
     }
 
     @Test
-    public void test_replace_two_patterns_simultaneously() {
+    public void test_replace_two_searchstrings_simultaneously() {
         String before1 = "foo";
         String after1 = "bar";
         String after2 = "baz";
@@ -64,7 +64,7 @@ public class StringUtilsTest {
     }
 
     @Test
-    public void test_replace_multiple_simultaneous_patterns() {
+    public void test_replace_multiple_simultaneous_searchstrings() {
         assertEquals("Once upon a foo, there was a bar and a baz, and another bar and a cat.",
                 replace("Once upon a baz, there was a foo and a bar, and another foo and a cat.",
                         new String[]{"foo", "bar", "baz"},
@@ -81,7 +81,7 @@ public class StringUtilsTest {
     }
 
     @Test
-    public void test_null_patterns_throws() {
+    public void test_null_searchstrings_throws() {
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage(ERR_NULL_PARAM);
 
@@ -97,33 +97,33 @@ public class StringUtilsTest {
     }
 
     @Test
-    public void test_more_replacements_than_patterns_should_throw() {
+    public void test_more_replacements_than_searchstrings_should_throw() {
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage(ERR_PATTERNS_REPLACEMENTS_LENGTH_MISMATCH);
+        thrown.expectMessage(ERR_SEARCHSTRINGS_REPLACEMENTS_LENGTH_MISMATCH);
 
         replace("", new String[0], new String[]{"bar"});
     }
 
     @Test
-    public void test_more_patterns_than_replacements_should_throw() {
+    public void test_more_searchstrings_than_replacements_should_throw() {
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage(ERR_PATTERNS_REPLACEMENTS_LENGTH_MISMATCH);
+        thrown.expectMessage(ERR_SEARCHSTRINGS_REPLACEMENTS_LENGTH_MISMATCH);
 
         replace("", new String[]{"foo"}, new String[0]);
     }
 
     @Test
-    public void test_null_element_in_patterns_should_throw() {
+    public void test_null_element_in_searchstrings_should_throw() {
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage(ERR_NULL_OR_EMPTY_PATTERN);
+        thrown.expectMessage(ERR_NULL_OR_EMPTY_SEARCHSTRING);
 
         replace("", new String[]{null}, new String[]{"bar"});
     }
 
     @Test
-    public void test_empty_element_in_patterns_should_throw() {
+    public void test_empty_element_in_searchstrings_should_throw() {
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage(ERR_NULL_OR_EMPTY_PATTERN);
+        thrown.expectMessage(ERR_NULL_OR_EMPTY_SEARCHSTRING);
 
         replace("", new String[]{""}, new String[]{"bar"});
     }
@@ -137,9 +137,9 @@ public class StringUtilsTest {
     }
 
     @Test
-    public void test_non_distinct_patterns_should_throw() {
+    public void test_non_distinct_searchstrings_should_throw() {
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage(ERR_DUPLICATE_PATTERNS);
+        thrown.expectMessage(ERR_DUPLICATE_SEARCHSTRINGS);
 
         String before = "foo";
         replace("", new String[]{before, before}, new String[]{"bar", "baz"});
