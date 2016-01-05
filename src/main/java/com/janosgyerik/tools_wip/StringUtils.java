@@ -23,14 +23,14 @@ public class StringUtils {
         validateParams(text, patterns, replacements);
 
         StringBuilder builder = new StringBuilder();
-        SegmentIterator iterator = new SegmentIterator(text, patterns, replacements);
-        while (iterator.hasNext()) {
-            builder.append(iterator.next());
+        ReplacementSegmentIterator replacementSegments = new ReplacementSegmentIterator(text, patterns, replacements);
+        while (replacementSegments.hasNext()) {
+            builder.append(replacementSegments.next());
         }
         return builder.toString();
     }
 
-    private static class SegmentIterator implements Iterator<String> {
+    private static class ReplacementSegmentIterator implements Iterator<String> {
 
         private final String text;
         private final String[] patterns;
@@ -38,8 +38,9 @@ public class StringUtils {
 
         private int pos = 0;
 
-        public SegmentIterator(String text, String[] patterns, String[] replacements) {
+        public ReplacementSegmentIterator(String text, String[] patterns, String[] replacements) {
             assert patterns.length == replacements.length;
+
             this.text = text;
             this.patterns = patterns;
             this.replacements = replacements;
@@ -55,7 +56,7 @@ public class StringUtils {
             int start = pos;
             do {
                 for (int index = 0; index < patterns.length; ++index) {
-                    if (matches(patterns[index])) {
+                    if (matchesAtCurrentPos(patterns[index])) {
                         String segment = text.substring(start, pos) + replacements[index];
                         pos += patterns[index].length();
                         return segment;
@@ -66,7 +67,7 @@ public class StringUtils {
             return text.substring(start);
         }
 
-        private boolean matches(String pattern) {
+        private boolean matchesAtCurrentPos(String pattern) {
             if (text.length() < pos + pattern.length()) {
                 return false;
             }
