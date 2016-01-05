@@ -73,6 +73,11 @@ public class StringUtilsTest {
     }
 
     @Test
+    public void test_circular_replacement() {
+        assertEquals("barfoo", replace("foobar", new String[]{"foo", "bar"}, new String[]{"bar", "foo"}));
+    }
+
+    @Test
     public void test_null_text_should_throw() {
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage(ERR_NULL_PARAM);
