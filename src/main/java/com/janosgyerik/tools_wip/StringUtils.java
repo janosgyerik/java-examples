@@ -48,7 +48,7 @@ public class StringUtils {
 
         @Override
         public boolean hasNext() {
-            return pos < text.length();
+            return hasRemainingText();
         }
 
         @Override
@@ -63,8 +63,12 @@ public class StringUtils {
                     }
                 }
                 ++pos;
-            } while (pos < text.length());
+            } while (hasRemainingText());
             return text.substring(start);
+        }
+
+        private boolean hasRemainingText() {
+            return pos < text.length();
         }
 
         private boolean matchesAtCurrentPos(String pattern) {
