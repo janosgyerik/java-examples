@@ -73,7 +73,7 @@ public class StringUtilsTest {
     }
 
     @Test
-    public void test_null_text_throws() {
+    public void test_null_text_should_throw() {
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage(ERR_NULL_PARAM);
 
@@ -81,7 +81,7 @@ public class StringUtilsTest {
     }
 
     @Test
-    public void test_null_searchstrings_throws() {
+    public void test_null_searchstrings_should_throw() {
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage(ERR_NULL_PARAM);
 
@@ -89,7 +89,7 @@ public class StringUtilsTest {
     }
 
     @Test
-    public void test_null_replacements_throws() {
+    public void test_null_replacements_should_throw() {
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage(ERR_NULL_PARAM);
 
